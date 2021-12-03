@@ -1,0 +1,171 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Order
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuShop = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    string purchaseDate = Convert.ToDateTime(Model.PurchaseDate).ToString("yyyy-MM-dd");
+    List<SelectListItem> orderStatus = ViewBag.OrderStatus;
+    List<SelectListItem> paymentStatus = ViewBag.PaymentStatus;
+
+    Order ThisOrder = ViewBag.ThisOrder;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Orders
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("CreateOrders", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Product/CreateOrders", id = "clientForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "form-control" })
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Invoice Number *</label>
+            <p>
+                @Html.TextBoxFor(m => m.InvoiceNumber, new { @class = "form-control", id = "ProductId", Maxlength=16 })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Product Id *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ProductId, new { @class = "form-control",id ="ProductId" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Product Price *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control", required = "required", id ="txtProductPrice" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Discount Price *</label>
+            <p>
+                @Html.TextBoxFor(m => m.DiscountPrice, new { @class = "form-control", required = "required", id ="txtDiscountPrice" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Product Sale Price *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ProductSalePrice, new { @class = "form-control", required = "required",id ="txtProductSalePrice" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Quantity *</label>
+            <p>
+                @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", required = "required" })
+            </p>
+        </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Tax *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.TAX, new { @class = "form-control", required = "required" })
+                </p>
+            </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Purchase Date *</label>
+            <p>
+                @Html.TextBoxFor(m => m.PurchaseDate, new { @class = "form-control", type="date", required = "required", Value = @purchaseDate })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Transaction Details </label>
+            <p>
+                @Html.TextBoxFor(m => m.TransactionDetails, new { @class = "form-control", Maxlength=50})
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Order Status</label>
+            <p>
+                @Html.DropDownListFor(m => m.OrderStatus, @orderStatus, new { @class = "form-control", required= "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Payment Status</label>
+            <p>
+                @Html.DropDownListFor(m => m.PaymentStatus, @paymentStatus, new { @class = "form-control", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-10">
+            <label class="font-weight-bold">Comments </label>
+            <p>
+                @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", Maxlength=100})
+            </p>
+        </div>
+        <div class="col-md-2">
+            <label class="text-center font-weight-bold d-block">Is Active </label><br/>
+
+            <p>
+                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+            </p>
+        </div>
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Product/CreateOrders" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+        </div>
+     }
+<script type="text/javascript">
+    var id = document.getElementById('ProductId').value;
+    if (id != null && id != "") {
+        $('#ProductId').attr("readonly", true);
+    }
+
+    window.onload = function () {
+        $("#OrderStatus").val("@Model.OrderStatus");
+        $("#PaymentStatus").val("@Model.PaymentStatus");
+        
+    }
+</script>
+<script typeof="text/javascript">
+    $(document).ready(function () {
+        $("#txtProductPrice").change(function () {
+            var valuee = $("#txtProductPrice").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+           if (!emailRegex.test(valuee))
+            {
+               alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+        $("#txtDiscountPrice").change(function () {
+            var valuee = $("#txtDiscountPrice").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(valuee)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+        $("#txtProductSalePrice").change(function () {
+            var valuee = $("#txtProductSalePrice").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(valuee)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+    });
+</script>

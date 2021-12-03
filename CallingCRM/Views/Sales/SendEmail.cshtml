@@ -1,0 +1,120 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.SendEmailViewModels
+
+@{
+    ViewBag.Title = "Send E-Mail";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.StartCall = "active";
+
+    Lead lead = ViewBag.ThisLead;
+    AspNetUser agent = ViewBag.ThisAgent;
+
+    ViewBag.eMessage = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+
+    DateTime thisDate = _helper.GetCurrentDate();
+
+    var pStart = thisDate.AddDays(1).ToString("dd-MM-yyyy");
+    var pEnd = thisDate.AddDays(7).ToString("dd-MM-yyyy");
+
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-email"></i>
+        </span>
+        Send E-Mail
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SendEMail", "Sales", FormMethod.Post, new { @class = "form-horizontal", role = "form", onsubmit = "return getData(this)" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (lead == null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                Seems, lead referene does not belongs to you.
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.LeadId, new { @class = "control-label", Value = lead.Id })
+        @Html.HiddenFor(m => m.Body)
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="font-weight-bold">Select Template</label><br />
+                @Html.DropDownList("Template", (IEnumerable<SelectListItem>)ViewBag.Template, new { @class = "form-control template", onchange = "getTemplateBody();" })
+
+
+            </div>
+            <div class="form-group col-md-6">
+                <label class="font-weight-bold">Sender Email *</label><br />
+                @Html.DropDownList("SendersEmail", (IEnumerable<SelectListItem>)ViewBag.Callers, new { @class = "form-control" })
+
+              
+            </div>
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Email *</label><br />
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "text", required = "required", Value = Convert.ToString(lead.Email) })
+            </div>
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Subject *</label><br />
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", required = "required" })
+            </div>
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Body *</label><br />
+                <textarea class="editor"></textarea>
+            </div>
+
+            <div class="form-group col-md-12 text-right">
+                <input type="submit" class="btn btn-primary" value="Send Email" />
+            </div>
+        </div>
+    }
+}
+
+@{
+    <script>
+    var rEmail = "@lead.FullName <@lead.Email>";
+        @Html.Raw(ViewBag.Subject);
+        @Html.Raw(ViewBag.body);
+
+         var signature = '';
+
+        function getTemplateBody(obj)
+        {
+            debugger;
+            var template = $('.template').val();
+            $('.editor').summernote('reset');
+
+            $('#Subject').val(eval("eSubject_" + template));
+            $('.editor').summernote('pasteHTML', signature + eval("eBody_" + template));
+        }
+
+        function getData(obj)
+        {
+            var body = $('.editor').summernote('code');
+
+            $('#Body').val($('<div/>').text(body).html());
+
+            return true;
+        }
+    </script>
+}

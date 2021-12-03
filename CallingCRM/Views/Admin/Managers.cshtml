@@ -1,0 +1,143 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+
+@model ManagerList
+@{
+    ViewBag.Title = "Managers";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuUsers = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    List<ManagerList> users = ViewBag.Managers;
+    AspNetUser user = ViewBag.ThisUser;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Manager
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+@using (Html.BeginForm("Managers", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action="/Admin/Managers"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.id, new { @class = "control-label", id ="UserId" })
+   
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="font-weight-bold">Full Name *</label>
+        <p>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required", id ="txtname"})
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Email *</label>
+        <p>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", required = "required", id= "txtEmail", type = "email" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Mobile Number *</label>
+        <p>
+            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", type = "text", required = "required", id = "txtMobile", pattern = "[0-9]{10}", title = "10 digit mobile number required" })
+        </p>
+    </div>
+    <div class="col-md-12">
+        <label class="font-weight-bold">Comments</label>
+        <p>
+            @Html.TextAreaFor(m => m.comment, new { @class = "form-control", type = "text", rows="4" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Password</label>
+        <p>
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "text" })
+        </p>
+    </div>
+    <div class="col-md-8 text-right">
+        <label>&nbsp;</label>
+        <p>
+            <input type="submit" class="btn btn-sm btn-success" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+            <a href="/Admin/Managers" class="btn btn-sm btn-info">Reset</a>
+        </p>
+   </div>
+   </div>
+    
+
+}
+<hr />
+@using (Html.BeginForm("Managers", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+<div class="row">
+    <div class="col-md-12">
+       @if (users != null)
+       {
+           int sr = 0;
+    <table class="table table-hover table-bordered datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Manager Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Options</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ManagerList str in users)
+                {
+                    sr++;
+                    <tr>
+                        <td>@sr</td>
+                        <td>@str.Name</td>
+                        <td>@str.Email</td>
+                        <td>@str.Mobile</td>
+                        <td><a href="/Admin/Managers/@str.id" class="btn btn-sm btn-info">Edit</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+       }
+        </div>
+</div>
+}
+<script type="text/javascript">
+    var id = document.getElementById('UserId').value;
+    if (id != null && id != "") {
+        $('#txtEmail').attr("readonly", true);
+    }
+</script>
+<script type="text/javascript"> 
+    document.getElementById("txtname").onchange = function () {validate()};
+    function validate(){
+        let a = document.getElementById('txtname').value.length;
+        if (a > 50)
+        {
+            alert("Name is too lengthy");
+            document.getElementById('txtname').value = "";
+        }
+    }
+</script>
+
+
+

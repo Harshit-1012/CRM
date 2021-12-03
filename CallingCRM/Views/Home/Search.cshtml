@@ -1,0 +1,53 @@
+﻿@using CallingCRM.Models
+@{
+    ViewBag.Title = "Thank you!";
+    Layout = "~/Views/Shared/_LayoutWhitelabel.cshtml";
+
+    List<CallHistoryList> leads = ViewBag.SearchResult;
+
+}
+
+@if (leads != null && leads.Count > 0)
+{
+    <h4>Search Result</h4>
+    int sr = 0;
+    <table class="table table-hover table-bordered datatable" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Call Date</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Lead Status</th>
+                <th>Call Status</th>
+                <th>Last Followup</th>
+                <th>NextFollowup</th>
+                <th>Option</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CallHistoryList call in leads)
+            {
+                sr++;
+
+                <tr>
+                    <td>@sr</td>
+                    <td>@call.CallDate</td>
+                    <td>@call.Name</td>
+                    <td>@call.Number</td>
+                    <td>@call.LeadStatus</td>
+                    <td>@call.CallStatus</td>
+                    <td>@call.LastFollowupDate</td>
+                    <td>@if (call.NextFollowup.ToString() != "") { 
+                        <span>@Convert.ToDateTime(call.NextFollowup).ToString("dd-MM-yyyy")</span>
+                    }</td>
+                    <td style="white-space: nowrap"><a href="/calls/log/@call.LeadId" class="btn btn-xs btn-info" target="_parent">Call Log</a> <a href="/calls/follow/@call.LeadId" class="btn btn-xs btn-warning" target="_parent">Call/Update</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>No search found.</div>
+}

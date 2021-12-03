@@ -1,0 +1,254 @@
+﻿@using   CallingCRM.Models
+@model CallingCRM.Models.UserUpdateViewModel
+@{
+    ViewBag.Title = "Member's Profile";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkDasboard = "active";
+
+    getNetworkResource_Result NetworkSummary = ViewBag.NetworkSummary;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account"></i>
+        </span>
+        Member's Profile
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Overview
+                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h4>Referral Link </h4>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <div class="copytip" style="display: inline-block">
+                            <a href="javascript:void(0);" onclick="copyText('referralLink', 'cUserTip')" onmouseout="exitTooltip('cUserTip')">
+                                <span class="copytiptext" id="cUserTip">Click to copy referral link</span>
+                                <i class="mdi mdi-clipboard-plus" style="font-size: 30px"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1">
+                    Share through social media or whatsapp.
+                </div>
+                <div class="m-3">
+                    <div style="display: inline-block; width: 100%;">
+                        <input type="text" class="inputHidden selectText" id="referralLink" style="width: 100%" value="@ViewBag.SiteURL/Home/Register/@ViewBag.MyUsername" onclick="this.select()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="card">
+            <div class="card-body">
+                <h4>Resource Summary</h4>
+                <table class="table table-condensed table-sm">
+                    <tr>
+                        <td>Total Members</td>
+                        <td align="right">@ViewBag.TotalMembers</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td align="right" class="font-weight-bold">Token (US$)</td>
+                    </tr>
+                    <tr>
+                        <td>Current DOM Fund</td>
+                        <td align="right">@ViewBag.CurrentDOMFund</td>
+                    </tr>
+                    <tr>
+                        <td>Total Help Provided</td>
+                        <td align="right">@ViewBag.TotalHelpProvided</td>
+                    </tr>
+                    <tr>
+                        <td>E-Wallet's Balance (Main/Txn)</td>
+                        <td align="right">@ViewBag.EWalletBalanceMain / @ViewBag.EWalletBalanceTxn</td>
+                    </tr>
+                    <tr>
+                        <td>Wallet's Transfer (Outward)</td>
+                        <td align="right">@ViewBag.WalletTransferOut</td>
+                    </tr>
+                    <tr>
+                        <td>Wallet's Transfer (Inward)</td>
+                        <td align="right">@ViewBag.WalletTransferIn</td>
+                    </tr>
+                    <tr>
+                        <td>Total Withdrawal</td>
+                        <td align="right">@ViewBag.TotalWithdrawal</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr />
+        @if (NetworkSummary != null)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h4>Network Summary</h4>
+                    <table class="table table-condensed table-sm">
+                        <tr>
+                            <td></td>
+                            <td align="right" class="font-weight-bold">Left Leg</td>
+                            <td align="right" class="font-weight-bold">Right Leg</td>
+                        </tr>
+                        <tr>
+                            <td>Team Count</td>
+                            <td align="right">@NetworkSummary.TeamCountL</td>
+                            <td align="right">@NetworkSummary.TeamCountR</td>
+                        </tr>
+                        <tr>
+                            <td>Team Help Count (Completed)</td>
+                            <td align="right">@NetworkSummary.TeamHelpCountCompletedL</td>
+                            <td align="right">@NetworkSummary.TeamHelpCountCompletedR</td>
+                        </tr>
+                        <tr>
+                            <td>Team Help Count (Paid)</td>
+                            <td align="right">@NetworkSummary.TeamHelpCountPaidL</td>
+                            <td align="right">@NetworkSummary.TeamHelpCountPaidR</td>
+                        </tr>
+                        <tr>
+                            <td>Team Help Count (Unpaid)</td>
+                            <td align="right">@NetworkSummary.TeamHelpCountUnPaidL</td>
+                            <td align="right">@NetworkSummary.TeamHelpCountUnPaidR</td>
+                        </tr>
+                        <tr>
+                            <td>Team Give Help (Completed)</td>
+                            <td align="right">@NetworkSummary.TeamGiveHelpCompletedL</td>
+                            <td align="right">@NetworkSummary.TeamGiveHelpCompletedR</td>
+                        </tr>
+                        <tr>
+                            <td>Team Give Help (Waiting)</td>
+                            <td align="right">@NetworkSummary.TeamGiveHelpWaitingL</td>
+                            <td align="right">@NetworkSummary.TeamGiveHelpWaitingR</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-md-12 card">
+                <div class="card-body">
+                    <h4>Personal Information</h4>
+                    @using (Html.BeginForm("Profile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", Action = "/Account/Profile" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h6 class="text-info">* fields are mandatory.</h6>
+                        @Html.ValidationSummary("", new { @class = "text-info" })
+                        <div class="text-success">@ViewBag.sMessage</div>
+                        <div class="text-danger">@ViewBag.eMessage</div>
+
+                        <div id="mainForm">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Sponsor's Username</label>
+                                    <input type="text" class="form-control" disabled="disabled" Value="@ViewBag.SponsorDisplay" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Parent's Username</label>
+                                    <input type="text" class="form-control" disabled="disabled" Value="@ViewBag.ParentDisplay" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Position/Leg</label>
+                                    <input type="text" class="form-control" disabled="disabled" Value="@ViewBag.PositionDisplay" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">My Username</label>
+                                    <input type="text" class="form-control" disabled="disabled" Value="@ViewBag.MyUsername" />
+                                    <div id="userstatus" style="font-size: 14px;"></div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">My Registered Email Address</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", title = "Please enter valid email.", @Value = ViewBag.MyEmailAddress, required="required"})
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", pattern = "^[a-zA-Z\\s]+$", title = "Please enter only alphabets.", @Value = ViewBag.FullName })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(m => m.Mobile, new { @class = "control-label d-block" })
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", pattern = "^\\d{10}$", title = "Please enter 10 digits mobile number.", @Value = ViewBag.Mobile })
+                                    <span id="valid-msg" class="hide" style="display: none">✓ Valid</span>
+                                    <span id="error-msg" class="hide" style="display: none"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(m => m.ZipCode, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control", @Value = ViewBag.ZipCode })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <input type="submit" class="btn btn-success" value="Update" />
+                                </div>
+                            </div>
+                        </div>
+                        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                        <script src="~/assets/js/intlTelInput.js"></script>
+                        <script>
+                            var input = document.querySelector("#Mobile"),
+                                errorMsg = document.querySelector("#error-msg"),
+                                validMsg = document.querySelector("#valid-msg");
+
+                            var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+                            $("#Mobile").intlTelInput({
+                                initialCountry: "IN"
+                            });
+
+                            var reset = function () {
+                                input.classList.remove("error");
+                                errorMsg.innerHTML = "";
+                                errorMsg.classList.add("hide");
+                                validMsg.classList.add("hide");
+                            };
+
+                            // Validate on blur event
+                            input.addEventListener('blur', function () {
+                                reset();
+                                if (input.value.trim()) {
+                                    if (intl.isValidNumber()) {
+                                        validMsg.classList.remove("hide");
+                                    } else {
+                                        input.classList.add("error");
+                                        var errorCode = intl.getValidationError();
+                                        errorMsg.innerHTML = errorMap[errorCode];
+                                        errorMsg.classList.remove("hide");
+                                    }
+                                }
+                            });
+
+                            // Reset on keyup/change event
+                            input.addEventListener('change', reset);
+                            input.addEventListener('keyup', reset);
+
+                        </script>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

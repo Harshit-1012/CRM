@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <title>@ViewBag.Title | TeleCalling CRM</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="~/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/assets/css/intlTelInput.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/common.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="~/assets/images/favicon.png" />
+
+    @*<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">*@
+
+    <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    @*<link rel="stylesheet" href="~/assets/css/buttons.css" type="text/css" media="screen">*@
+    <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css" />
+    <link rel="stylesheet" href="~/assets/css/all.css" />
+    <script src="~/assets/js/fontawesome.min.js" integrity="sha256-NP9NujdEzS5m4ZxvNqkcbxyHB0dTRy9hG13RwTVBGwo=" crossorigin="anonymous"></script>
+
+    <style>
+        /* Material design styling */
+
+        /*placeholder style*/
+
+        .note-placeholder {
+            position: absolute;
+            top: 20%;
+            left: 5%;
+            font-size: 2rem;
+            color: #e4e5e7;
+            pointer-events: none;
+        }
+
+        /*Toolbar panel*/
+
+        .note-editor .note-toolbar {
+            background: #f0f0f1;
+            border-bottom: 1px solid #c2cad8;
+            -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /*Buttons from toolbar*/
+
+        .summernote .btn-group, .popover-content .btn-group {
+            background: transparent;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .note-popover {
+            background: #f0f0f1 !important;
+        }
+
+        .summernote .btn, .note-btn {
+            color: rgba(0, 0, 0, .54) !important;
+            background-color: transparent !important;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .summernote .dropdown-toggle:after {
+            vertical-align: middle;
+        }
+
+        .note-editor.card {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 2px;
+        }
+
+        /* Border of the Summernote textarea */
+
+        .note-editor.note-frame {
+            border: 1px solid rgba(0, 0, 0, .14);
+        }
+
+            /* Padding of the text in textarea */
+
+            .note-editor.note-frame .note-editing-area .note-editable {
+                padding-top: 1rem;
+            }
+
+
+
+
+
+        input.input-daterange {
+            padding: 22px 15px !important;
+            border: 1px solid #CFD8DC !important;
+            border-radius: 4px !important;
+            box-sizing: border-box;
+            background-color: #fff !important;
+            color: #000 !important;
+            font-size: 16px !important;
+            letter-spacing: 1px;
+            position: relative
+        }
+
+            input.input-daterange:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: 1px solid #1976D2 !important;
+                outline-width: 0
+            }
+
+        .fa-calendar {
+            position: absolute;
+            top: 7px;
+            font-size: 20px;
+            color: #1976D2;
+            z-index: 1000
+        }
+
+        #fa-1 {
+            left: calc(50% - 40px)
+        }
+
+        #fa-2 {
+            left: calc(100% - 40px)
+        }
+
+        .form-control-placeholder {
+            position: absolute;
+            top: -10px !important;
+            padding: 12px 2px 0 2px;
+            opacity: 0.5
+        }
+
+        #end-p {
+            left: calc(50% + 4px)
+        }
+
+        .form-control:focus + .form-control-placeholder,
+        .form-control:valid + .form-control-placeholder {
+            font-size: 95%;
+            top: 10px;
+            transform: translate3d(0, -100%, 0);
+            opacity: 1
+        }
+
+        ::placeholder {
+            color: #BDBDBD;
+            opacity: 1
+        }
+
+        :-ms-input-placeholder {
+            color: #BDBDBD
+        }
+
+        ::-ms-input-placeholder {
+            color: #BDBDBD
+        }
+
+        .datepicker button:focus {
+            -moz-box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            outline-width: 0
+        }
+
+        .datepicker {
+            background-color: #fff;
+            border-radius: 0 !important;
+            align-content: center !important;
+            padding: 0 !important
+        }
+
+        .datepicker-dropdown {
+            top: 180px !important;
+            left: calc(50% - 173.5px) !important;
+            border-right: #1976D2;
+            border-left: #1976D2
+        }
+
+            .datepicker-dropdown.datepicker-orient-left:before {
+                left: calc(50% - 6px) !important
+            }
+
+            .datepicker-dropdown.datepicker-orient-left:after {
+                left: calc(50% - 5px) !important;
+                border-bottom-color: #1976D2
+            }
+
+            .datepicker-dropdown.datepicker-orient-right:after {
+                border-bottom-color: #1976D2
+            }
+
+        .datepicker table tr td.today, .datepicker span.focused {
+            border-radius: 50% !important;
+            background-image: linear-gradient(#FFF3E0, #FFE0B2)
+        }
+
+        .datepicker thead tr:nth-child(2) {
+            background-color: #1976D2 !important
+        }
+
+        .datepicker thead tr:nth-child(3) th {
+            font-weight: bold !important;
+            padding: 20px 10px !important;
+            color: #BDBDBD !important
+        }
+
+        .datepicker tbody tr td {
+            padding: 10px !important
+        }
+
+        .datepicker tfoot tr:nth-child(2) th {
+            padding: 10px !important;
+            border-top: 1px solid #CFD8DC !important
+        }
+
+        .cw {
+            font-size: 14px !important;
+            background-color: #E8EAF6 !important;
+            border-radius: 0px !important;
+            padding: 0px 20px !important;
+            margin-right: 10px solid #fff !important
+        }
+
+        .old,
+        .day,
+        .new {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 0px !important
+        }
+
+            .day.old,
+            .day.new {
+                color: #E0E0E0 !important
+            }
+
+                .day.old:hover,
+                .day.new:hover {
+                    border-radius: 50% !important
+                }
+
+            .old-day:hover,
+            .day:hover,
+            .new-day:hover,
+            .month:hover,
+            .year:hover,
+            .decade:hover,
+            .century:hover {
+                border-radius: 50% !important;
+                background-color: #eee
+            }
+
+        .datepicker .active {
+            border-radius: 50% !important;
+            background-image: linear-gradient(#1976D2, #1976D2) !important;
+            color: #fff !important
+        }
+
+        .range-start,
+        .range-end {
+            border-radius: 50% !important;
+            background-image: linear-gradient(#1976D2, #1976D2) !important
+        }
+
+        .range {
+            background-color: #E3F2FD !important
+        }
+
+        .prev,
+        .next,
+        .datepicker-switch {
+            border-radius: 0 !important;
+            padding: 10px 10px 10px 10px !important;
+            font-size: 18px;
+            opacity: 0.7;
+            color: #fff
+        }
+
+            .prev:hover,
+            .next:hover,
+            .datepicker-switch:hover {
+                background-color: inherit !important;
+                opacity: 1
+            }
+
+        @@media screen and (max-width: 726px) {
+            .datepicker-dropdown.datepicker-orient-right:before {
+                right: calc(50% - 6px)
+            }
+
+            .datepicker-dropdown.datepicker-orient-right:after {
+                right: calc(50% - 5px)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial: _navbar -->
+        @Html.Partial("_navbar")
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial: _sidebar -->
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                @Html.Partial("_sidebarSuperAdmin")
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                @Html.Partial("_sidebarAdmin")
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                @Html.Partial("_sidebarManager")
+            }
+            else
+            {
+                @Html.Partial("_sidebar")
+            }
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div id="toggle" style="background-color: #1976D2; min-height: 5px; cursor: pointer; text-align: center; margin-bottom: 10px" onclick="toggleProductView()" title="Click here to toggle jobs's overview"></div>
+                    <div id="productView" style="background-color: #fff; padding: 20px; display: none">
+                        QUICK FAQ's for Fresh Callers
+                    </div>
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial: _footer -->
+                @Html.Partial("_footer")
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/assets/vendors/js/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/assets/js/common.js"></script>
+    <script src="~/assets/js/off-canvas.js"></script>
+    <script src="~/assets/js/misc.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.editor').summernote({
+                minHeight: 200,
+                placeholder: 'Write here ...',
+                focus: false,
+                airMode: false,
+                fontNames: ['Roboto', 'Calibri', 'Times New Roman', 'Arial'],
+                fontNamesIgnoreCheck: ['Roboto', 'Calibri'],
+                dialogsInBody: true,
+                dialogsFade: true,
+                disableDragAndDrop: false,
+                toolbar: [
+                    // [groupName, [list of button]]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['style', 'ul', 'ol', 'paragraph']],
+                    ['fontsize', ['fontsize']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['height', ['height']],
+                    ['misc', ['undo', 'redo', 'print', 'help', 'fullscreen']]
+                ],
+                popover: {
+                    air: [
+                        ['color', ['color']],
+                        ['font', ['bold', 'underline', 'clear']]
+                    ]
+                },
+                print: {
+                    //'stylesheetUrl': 'url_of_stylesheet_for_printing'
+                }
+            });
+
+            $('.editorAir').summernote({ airMode: true, placeholder: 'Write Here' });
+
+            $('.input-daterange').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                calendarWeeks: true,
+                clearBtn: true,
+                disableTouchKeyboard: true
+            });
+
+            $('.datatable').DataTable({
+                "pagingType": "full_numbers",
+                "iDisplayLength": 25
+            });
+        });
+
+        var hide = true;
+        function toggleProductView()
+        {
+            if (hide) {
+                $('#productView').slideDown();
+                hide = false;
+            }
+            else {
+                $('#productView').slideUp();
+                hide = true;
+            }
+        }
+    </script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <!-- End custom js for this page-->
+</body>
+
+</html>

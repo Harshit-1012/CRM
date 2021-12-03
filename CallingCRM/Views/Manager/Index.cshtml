@@ -1,0 +1,76 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkDasboard = "active";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-home"></i>
+        </span>
+        Dashboard
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Overview
+                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <h3>Available Leads</h3>
+        <h1>@ViewBag.TotalLeads</h1>
+    </div>
+    <div class="col-md-3">
+        <h3>Total Calls</h3>
+        <h1>@ViewBag.TotalCalls</h1>
+    </div>
+    <div class="col-md-3">
+        <h3>Total Sales</h3>
+        <h1>₹ @ViewBag.TotalSales</h1>
+    </div>
+    <div class="col-md-3">
+        <h3>Today's Calls</h3>
+        <h1>@ViewBag.TodaysCall</h1>
+    </div>
+</div>
+<hr />
+<form action="/" method="post" onsubmit="return GetSearch(this);">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary">You may enter either name or email or mobile number to search the lead you've worked on...</div>
+        </div>
+        <div class="col-md-4 form-group">
+            <input type="text" placeholder="Enter search text" id="SearchText" name="SearchText" class="form-control" />
+        </div>
+        <div class="col-md-4 form-group">
+            <input type="submit" class="btn btn-sm btn-gradient-primary" />
+        </div>
+    </div>
+</form>
+<hr />
+<iframe id="result" name="result" style="width: 100%; border: 0px; background-color: transparent; min-height: 200px; padding: 0px; margin: 0px" frameborder="0"></iframe>
+<script>
+    function GetSearch(obj)
+    {
+        var uri = "/Home/Search/" + $('#SearchText').val();
+        uri = uri.replace("@@", "-at-");
+        uri = uri.replace(".", "-dot-");
+        document.getElementById("result").src = uri;
+
+        return false;
+    }
+</script>

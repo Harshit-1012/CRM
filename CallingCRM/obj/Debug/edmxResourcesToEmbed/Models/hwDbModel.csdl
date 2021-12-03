@@ -1,0 +1,1473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="hwLiveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="hwLiveEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="getBalancedNode" ReturnType="Collection(hwLiveModel.getBalancedNode_Result)">
+      <Parameter Name="userId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetExtreemLeg" ReturnType="Collection(hwLiveModel.GetExtreemLeg_Result)">
+      <Parameter Name="ParentNode" Mode="In" Type="String" />
+      <Parameter Name="LegSide" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="VeriFamilyMember" ReturnType="Collection(hwLiveModel.VeriFamilyMember_Result)">
+      <Parameter Name="SponsorId" Mode="In" Type="String" />
+      <Parameter Name="ParentId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteUser" ReturnType="Collection(Int32)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateTeamCount" ReturnType="Collection(hwLiveModel.UpdateTeamCount_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="PendingRequestOfDOMCharges" ReturnType="Collection(hwLiveModel.PendingRequestOfDOMCharges_Result)" />
+    <FunctionImport Name="ProcessRequestOfDOMCharges" ReturnType="Collection(String)">
+      <Parameter Name="RequestId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetDOMTransactions" ReturnType="Collection(hwLiveModel.DomTransactionWithName)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllTransactions" ReturnType="Collection(hwLiveModel.DomTransactionWithName)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetWalletTransactions" ReturnType="Collection(hwLiveModel.DomTransactionWithName)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetTotalSummary" ReturnType="Collection(hwLiveModel.GetTotalSummary_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddHelpPayStatus" ReturnType="Collection(hwLiveModel.AddHelpPayStatus_Result)">
+      <Parameter Name="RequestId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getWaitingHelp" ReturnType="Collection(hwLiveModel.getWaitingHelp_Result)" />
+    <FunctionImport Name="getCommunityMembers" ReturnType="Collection(hwLiveModel.getCommunityMembers_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getCommunityMembersAdmin" ReturnType="Collection(hwLiveModel.getCommunityMembersAdmin_Result)" />
+    <FunctionImport Name="GetPayoutByUserId" ReturnType="Collection(hwLiveModel.GetPayoutByUserId_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getTransactions" ReturnType="Collection(hwLiveModel.getTransactions_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="Purpose" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ReduceTeamCount">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getNetworkResource" ReturnType="Collection(hwLiveModel.getNetworkResource_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateTeamHelp" ReturnType="Collection(hwLiveModel.UpdateTeamHelp_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ReverseTransaction">
+      <Parameter Name="TxnId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateGrowthRate" ReturnType="Collection(hwLiveModel.UpdateGrowthRate_Result)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="RequestId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getBinaryMatch" ReturnType="Collection(hwLiveModel.getBinaryMatch_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="BinaryBringForward" ReturnType="Collection(hwLiveModel.BinaryBringForward_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="payDate" Mode="In" Type="DateTime" />
+      <Parameter Name="payMode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="walletSummary" ReturnType="Collection(hwLiveModel.WalletSummary_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CheckBinaryQualification" ReturnType="Collection(hwLiveModel.CheckBinaryQualification_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sendValueToUpline">
+      <Parameter Name="RequestId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getPayDetails" ReturnType="Collection(hwLiveModel.getPayDetails_Result)">
+      <Parameter Name="payId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetTeamHelpAmount" ReturnType="Collection(hwLiveModel.GetTeamHelpAmount_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="TreePosition" Mode="In" Type="String" />
+      <Parameter Name="payDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetReferralHelpAmount" ReturnType="Collection(hwLiveModel.GetReferralHelpAmount_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="payDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetUpcomingReferralHelpAmount" ReturnType="Collection(hwLiveModel.GetUpcomingReferralHelpAmount_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetUpcomingTeamHelpAmount" ReturnType="Collection(hwLiveModel.GetUpcomingTeamHelpAmount_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="TreePosition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getPaidReferrals" ReturnType="Collection(hwLiveModel.getPaidReferrals_Result)">
+      <Parameter Name="UserID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pullAmountFromWallet" ReturnType="Collection(hwLiveModel.pullAmountFromWallet_Result)">
+      <Parameter Name="FromUserName" Mode="In" Type="String" />
+      <Parameter Name="ToUserName" Mode="In" Type="String" />
+      <Parameter Name="TxnAmount" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ScheduleGrowth">
+      <Parameter Name="RequestId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sendAmountToWallet" ReturnType="Collection(hwLiveModel.sendAmountToWallet_Result)">
+      <Parameter Name="FromUserName" Mode="In" Type="String" />
+      <Parameter Name="ToUserName" Mode="In" Type="String" />
+      <Parameter Name="TxnAmount" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="C__EFMigrationsHistory" EntityType="hwLiveModel.C__EFMigrationsHistory" />
+    <EntitySet Name="AspNetRoleClaims" EntityType="hwLiveModel.AspNetRoleClaim" />
+    <EntitySet Name="AspNetRoles" EntityType="hwLiveModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="hwLiveModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="hwLiveModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUserTokens" EntityType="hwLiveModel.AspNetUserToken" />
+    <EntitySet Name="LeadFollowups" EntityType="hwLiveModel.LeadFollowup" />
+    <EntitySet Name="Leads" EntityType="hwLiveModel.Lead" />
+    <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="hwLiveModel.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetRoleClaim" EntitySet="AspNetRoleClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeadStatus_Lead" Association="hwLiveModel.FK_LeadStatus_Lead">
+      <End Role="Lead" EntitySet="Leads" />
+      <End Role="LeadFollowup" EntitySet="LeadFollowups" />
+    </AssociationSet>
+    <EntitySet Name="Sales" EntityType="hwLiveModel.Sale" />
+    <AssociationSet Name="FK_Sales_Lead" Association="hwLiveModel.FK_Sales_Lead">
+      <End Role="Lead" EntitySet="Leads" />
+      <End Role="Sale" EntitySet="Sales" />
+    </AssociationSet>
+    <EntitySet Name="Emails" EntityType="hwLiveModel.Email" />
+    <AssociationSet Name="FK_Emails_Leads" Association="hwLiveModel.FK_Emails_Leads">
+      <End Role="Lead" EntitySet="Leads" />
+      <End Role="Email" EntitySet="Emails" />
+    </AssociationSet>
+    <EntitySet Name="Clients" EntityType="hwLiveModel.Client" />
+    <EntitySet Name="LeadForwardeds" EntityType="hwLiveModel.LeadForwarded" />
+    <AssociationSet Name="FK_LeadForwarded_Leads" Association="hwLiveModel.FK_LeadForwarded_Leads">
+      <End Role="Lead" EntitySet="Leads" />
+      <End Role="LeadForwarded" EntitySet="LeadForwardeds" />
+    </AssociationSet>
+    <EntitySet Name="Staffs" EntityType="hwLiveModel.Staff" />
+    <EntitySet Name="Customers" EntityType="hwLiveModel.Customer" />
+    <EntitySet Name="LedgerHistories" EntityType="hwLiveModel.LedgerHistory" />
+    <EntitySet Name="InvestmentReturns" EntityType="hwLiveModel.InvestmentReturn" />
+    <EntitySet Name="Investors" EntityType="hwLiveModel.Investor" />
+    <EntitySet Name="Investments" EntityType="hwLiveModel.Investment" />
+    <AssociationSet Name="FK_InvestmentReturn_Investment" Association="hwLiveModel.FK_InvestmentReturn_Investment">
+      <End Role="Investment" EntitySet="Investments" />
+      <End Role="InvestmentReturn" EntitySet="InvestmentReturns" />
+    </AssociationSet>
+    <EntitySet Name="Leaves" EntityType="hwLiveModel.Leave" />
+    <EntitySet Name="SalaryRevisions" EntityType="hwLiveModel.SalaryRevision" />
+    <EntitySet Name="Payrolls" EntityType="hwLiveModel.Payroll" />
+    <EntitySet Name="ProductsServices" EntityType="hwLiveModel.ProductsService" />
+    <EntitySet Name="AspNetUsers" EntityType="hwLiveModel.AspNetUser" />
+    <AssociationSet Name="FK_AspNetUserClaims_User" Association="hwLiveModel.FK_AspNetUserClaims_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserLogins_User" Association="hwLiveModel.FK_AspNetUserLogins_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserTokens_User" Association="hwLiveModel.FK_AspNetUserTokens_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserToken" EntitySet="AspNetUserTokens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clients_User" Association="hwLiveModel.FK_Clients_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Client" EntitySet="Clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_User" Association="hwLiveModel.FK_Customer_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emails_User" Association="hwLiveModel.FK_Emails_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Email" EntitySet="Emails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeadForwarded_ForwardUser" Association="hwLiveModel.FK_LeadForwarded_ForwardUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="LeadForwarded" EntitySet="LeadForwardeds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leads_User" Association="hwLiveModel.FK_Leads_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Lead" EntitySet="Leads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsServices_Adminuser" Association="hwLiveModel.FK_ProductsServices_Adminuser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ProductsService" EntitySet="ProductsServices" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="hwLiveModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_AdminUser" Association="hwLiveModel.FK_Staff_AdminUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Staff" EntitySet="Staffs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_StaffUser" Association="hwLiveModel.FK_Staff_StaffUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Staff" EntitySet="Staffs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerHistory_AdminUser" Association="hwLiveModel.FK_LedgerHistory_AdminUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="LedgerHistory" EntitySet="LedgerHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerHistory_FromUser" Association="hwLiveModel.FK_LedgerHistory_FromUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="LedgerHistory" EntitySet="LedgerHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerHistory_ToUser" Association="hwLiveModel.FK_LedgerHistory_ToUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="LedgerHistory" EntitySet="LedgerHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvestmentReturn_AdminUser" Association="hwLiveModel.FK_InvestmentReturn_AdminUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="InvestmentReturn" EntitySet="InvestmentReturns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvestmentReturn_User" Association="hwLiveModel.FK_InvestmentReturn_User">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="InvestmentReturn" EntitySet="InvestmentReturns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Investments_Investor" Association="hwLiveModel.FK_Investments_Investor">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Investment" EntitySet="Investments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Investor_AspNetUsers" Association="hwLiveModel.FK_Investor_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Investor" EntitySet="Investors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leave_AspNetUsers" Association="hwLiveModel.FK_Leave_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Leave" EntitySet="Leaves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payroll_AspNetUsers" Association="hwLiveModel.FK_Payroll_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Payroll" EntitySet="Payrolls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalaryRevision_AspNetUsers" Association="hwLiveModel.FK_SalaryRevision_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="SalaryRevision" EntitySet="SalaryRevisions" />
+    </AssociationSet>
+    <EntitySet Name="EmailTemplates" EntityType="hwLiveModel.EmailTemplate" />
+    <AssociationSet Name="FK_EmailTemplate_AspNetUsers" Association="hwLiveModel.FK_EmailTemplate_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="EmailTemplate" EntitySet="EmailTemplates" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="hwLiveModel.Order" />
+    <AssociationSet Name="FK_Orders_AdminUsers" Association="hwLiveModel.FK_Orders_AdminUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_SalesUser" Association="hwLiveModel.FK_Orders_SalesUser">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Products" Association="hwLiveModel.FK_Orders_Products">
+      <End Role="ProductsService" EntitySet="ProductsServices" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_ProductsServices" Association="hwLiveModel.FK_Sales_ProductsServices">
+      <End Role="ProductsService" EntitySet="ProductsServices" />
+      <End Role="Sale" EntitySet="Sales" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="DomTransactionWithName">
+    <Property Type="Int64" Name="Id" Nullable="true" />
+    <Property Type="Int64" Name="LinkId" Nullable="true" />
+    <Property Type="Decimal" Name="TxnAmount" Nullable="true" />
+    <Property Type="String" Name="TxnReason" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnFromAddress" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnToAddress" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnFromWallet" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnToWallet" Nullable="true" MaxLength="500" />
+    <Property Name="TxnDate" Type="DateTime" Precision="3" />
+    <Property Type="String" Name="TxnStatus" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnFromUserId" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnToUserId" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TxnFund" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="UsedFundOfWallet" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="RequestId" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="getBalancedNode_Result">
+    <Property Type="String" Name="PK" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="NodeData" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="NodeLevel" Nullable="true" />
+    <Property Type="String" Name="IsBalanced" Nullable="false" MaxLength="3" />
+    <Property Type="Int32" Name="TotalNodeForBalanceTree" Nullable="true" />
+    <Property Type="Int32" Name="TotalLeftChild" Nullable="true" />
+    <Property Type="Int32" Name="TotalRightChild" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetExtreemLeg_Result">
+    <Property Type="String" Name="ExtremeNode" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="Position" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="NodeLevel" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="VeriFamilyMember_Result">
+    <Property Type="Int32" Name="CheckedLevels" Nullable="true" />
+    <Property Type="Int32" Name="FoundAtLevel" Nullable="true" />
+    <Property Type="String" Name="MatchStatus" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="UpdateTeamCount_Result">
+    <Property Type="Int32" Name="CheckedLevels" Nullable="true" />
+    <Property Type="Int32" Name="FoundAtLevel" Nullable="true" />
+    <Property Type="String" Name="MatchStatus" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="PendingRequestOfDOMCharges_Result">
+    <Property Type="Decimal" Name="DomBalance" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int64" Name="Id" Nullable="false" />
+    <Property Type="String" Name="RequestId" Nullable="true" MaxLength="450" />
+    <Property Type="Decimal" Name="RequestAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Purpose" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="RequestByUserId" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="RequestDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ApprovalDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="RequestStatus" Nullable="true" MaxLength="16" />
+    <Property Type="String" Name="SystemComment" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="paymentMethod" Nullable="true" MaxLength="16" />
+    <Property Type="String" Name="SponsorId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="ParentId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="GetTotalSummary_Result">
+    <Property Type="Int32" Name="TotalMember" Nullable="false" />
+    <Property Type="Decimal" Name="CurrentDomFund" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="CurrentDomCharges" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalHelpGiven" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalHelpTaken" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalPendingGH" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalPendingTH" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalEWalletMain" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalEWalletTxn" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalEWalletIn" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalEWalletOut" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalWithdrawal" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TodayWithdrawal" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalPayoutCreated" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalPayoutWithdrawal" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="WalletSummary_Result">
+    <Property Name="TxnDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FromWallet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ToWallet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FromUser" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ToUser" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="MainIn" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MainOut" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TxnIn" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TxnOut" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TxnReason" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Balance" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Descript" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+  </ComplexType>
+  <ComplexType Name="AddHelpPayStatus_Result">
+    <Property Type="Int64" Name="Id" Nullable="false" />
+    <Property Type="String" Name="RequestId" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="RequestDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="DateTime" Name="FirstHelpDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="FirstHelpLastDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="FirstHelpPaidDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="SecondHelpDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="SecondHelpLastDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="SecondHelpPaidDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ThirdHelpDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ThirdHelpLastDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ThirdHelpPaidDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="CycleCloseDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="GrowthRate" Nullable="true" Precision="4" Scale="2" />
+    <Property Type="Decimal" Name="Bonus5Amount" Nullable="true" Precision="4" Scale="2" />
+    <Property Type="Decimal" Name="DueAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RecievedAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="NextCommitRequestId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="THRequestId" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="THRequestDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="getWaitingHelp_Result">
+    <Property Type="Int32" Name="waitingGiveHelpMembers" Nullable="true" />
+    <Property Type="Decimal" Name="waitingGiveHelpAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="waitingTakeHelpMembers" Nullable="true" />
+    <Property Type="Decimal" Name="waitingTakeHelpAmount" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="getCommunityMembers_Result">
+    <Property Type="String" Name="UserId" Nullable="false" MaxLength="450" />
+    <Property Type="String" Name="SponsorId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="ParentId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="TreePosition" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Mobile" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="KyberAddress" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="WalletId" Nullable="true" MaxLength="450" />
+    <Property Type="Decimal" Name="DomBalance" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MainAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TopUpAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="TxnPwd" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="TeamCount" Nullable="true" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="getCommunityMembersAdmin_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="450" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="JoiningDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TotalTeam" Nullable="true" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="Parent" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="Sponsor" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="TreePosition" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="LeftUser" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="RightUser" Nullable="true" MaxLength="256" />
+    <Property Type="Int32" Name="DirectSponsor" Nullable="true" />
+    <Property Type="Int32" Name="LeftTeam" Nullable="true" />
+    <Property Type="Int32" Name="RightTeam" Nullable="true" />
+    <Property Type="Int32" Name="TotalHelpOffered" Nullable="true" />
+    <Property Type="Decimal" Name="TotalHelpAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="TotalHelpPaid" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="TotalTeamHelp" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalTeamHelpCompleted" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalHelpPaidLeft" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalHelpPaidRight" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="BinaryMatchedLeft" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="BinaryMatchedRight" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="GetPayoutByUserId_Result">
+    <Property Type="Decimal" Name="totalReferral" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="totalBinary" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="totalLeadership" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="withdrawalReferral" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="withdrawalBinary" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="withdrawalLeadership" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="balanceReferral" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="balanceBinary" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="balanceLeadership" Nullable="true" Precision="19" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="getTransactions_Result">
+    <Property Type="String" Name="RequestId" Nullable="true" MaxLength="450" />
+    <Property Type="Decimal" Name="RequestAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Purpose" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="RequestByUserId" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="RequestDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ApprovalDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="RequestStatus" Nullable="true" MaxLength="16" />
+    <Property Type="String" Name="SystemComment" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="paymentMethod" Nullable="true" MaxLength="16" />
+    <Property Type="String" Name="TxnFromUserId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="TxnFromWallet" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="TxnFromAddress" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="TxnToUserId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="TxnToWallet" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="TxnToAddress" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="TxnDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="TxnStatus" Nullable="true" MaxLength="16" />
+    <Property Type="String" Name="Username" Nullable="true" MaxLength="450" />
+  </ComplexType>
+  <ComplexType Name="getNetworkResource_Result">
+    <Property Type="String" Name="UserL" Nullable="true" MaxLength="450" />
+    <Property Type="Int32" Name="TeamCountL" Nullable="true" />
+    <Property Type="Int32" Name="TeamHelpCountCompletedL" Nullable="true" />
+    <Property Type="Int32" Name="TeamHelpCountPaidL" Nullable="true" />
+    <Property Type="Int32" Name="TeamHelpCountUnPaidL" Nullable="true" />
+    <Property Type="Decimal" Name="TeamGiveHelpCompletedL" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TeamGiveHelpWaitingL" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="UserR" Nullable="true" MaxLength="450" />
+    <Property Type="Int32" Name="TeamCountR" Nullable="true" />
+    <Property Type="Int32" Name="TeamHelpCountCompletedR" Nullable="true" />
+    <Property Type="Int32" Name="TeamHelpCountPaidR" Nullable="true" />
+    <Property Type="Int32" Name="TeamHelpCountUnPaidR" Nullable="true" />
+    <Property Type="Decimal" Name="TeamGiveHelpCompletedR" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TeamGiveHelpWaitingR" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="UpdateTeamHelp_Result">
+    <Property Type="Int32" Name="CheckedLevels" Nullable="true" />
+    <Property Type="Int32" Name="FoundAtLevel" Nullable="true" />
+    <Property Type="String" Name="MatchStatus" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="UpdateTeamHelp1_Result">
+    <Property Type="Int32" Name="CheckedLevels" Nullable="true" />
+    <Property Type="Int32" Name="FoundAtLevel" Nullable="true" />
+    <Property Type="String" Name="MatchStatus" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="UpdateGrowthRate_Result">
+    <Property Type="String" Name="UserId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="RequestId" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="THRequestId" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="AddedAmount" Nullable="true" Precision="10" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="getBinaryMatch_Result">
+    <Property Type="String" Name="UserL" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="UserR" Nullable="true" MaxLength="450" />
+    <Property Type="Decimal" Name="HelpL" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="HelpR" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="BinaryBringForward_Result">
+    <Property Type="String" Name="UserId" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="payDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="BinaryLeft" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryRight" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryMatching" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryLeftCF" Nullable="true" Precision="12" Scale="2" />
+    <Property Type="Decimal" Name="BinaryRightCF" Nullable="true" Precision="12" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="CheckBinaryQualification_Result">
+    <Property Type="Decimal" Name="TotalBinaryLeft" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalBinaryRight" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="SelfBinaryLeft" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="SelfBinaryRight" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="FirstLegBinary" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="DireftReferrals" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getPayDetails_Result">
+    <Property Type="String" Name="UserId" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="SystemComment" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" />
+    <Property Type="Decimal" Name="HelpingGrowthIncome" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="DirectReferralGH" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="DirectReferralCount" Nullable="true" />
+    <Property Type="Decimal" Name="ReferralIncome" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryLeft" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryLeftCF" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryRight" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryRightCF" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryMatching" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="BinaryIncome" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="ReferralBinaryIncome" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="LeadershipAmouunt" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="Leadership" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="TeamCount" Nullable="true" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="true" Precision="10" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="GetTeamHelpAmount_Result">
+    <Property Type="String" Name="ChildCode" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="GetReferralHelpAmount_Result">
+    <Property Type="String" Name="Username" Nullable="true" MaxLength="256" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="GetUpcomingReferralHelpAmount_Result">
+    <Property Type="String" Name="Username" Nullable="true" MaxLength="256" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="CycleCloseDate" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="GetUpcomingTeamHelpAmount_Result">
+    <Property Type="String" Name="Username" Nullable="true" MaxLength="256" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="DateTime" Name="CycleCloseDate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="getPaidReferrals_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="450" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="UserId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="ParentId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="SponsorId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="TreePosition" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="RequestId" Nullable="true" MaxLength="450" />
+    <Property Type="DateTime" Name="RequestDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="HelpAmount" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="DateTime" Name="FirstHelpPaidDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="SecondHelpPaidDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="CycleCloseDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pullAmountFromWallet_Result">
+    <Property Type="Int64" Name="Id" Nullable="false" />
+    <Property Type="String" Name="UserId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="WalletId" Nullable="true" MaxLength="450" />
+    <Property Type="Decimal" Name="MainAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TopUpAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="DomFund" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Comment" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="TxnPwd" Nullable="true" MaxLength="255" />
+    <Property Type="Boolean" Name="AllowPinChange" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sendAmountToWallet_Result">
+    <Property Type="Int64" Name="Id" Nullable="false" />
+    <Property Type="String" Name="UserId" Nullable="true" MaxLength="450" />
+    <Property Type="String" Name="WalletId" Nullable="true" MaxLength="450" />
+    <Property Type="Decimal" Name="MainAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TopUpAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="DomFund" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Comment" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="TxnPwd" Nullable="true" MaxLength="255" />
+    <Property Type="Boolean" Name="AllowPinChange" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="C__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRoleClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRole" Relationship="hwLiveModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoleClaim" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NormalizedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRoleClaims" Relationship="hwLiveModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRole" ToRole="AspNetRoleClaim" />
+    <NavigationProperty Name="AspNetUsers" Relationship="hwLiveModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_AspNetUserClaims_User" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_AspNetUserLogins_User" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserToken">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_AspNetUserTokens_User" FromRole="AspNetUserToken" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="LeadFollowup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeadId" Type="Int64" />
+    <Property Name="CallStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FollowupDate" Type="DateTime" Precision="3" />
+    <Property Name="FollowupStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Lead" Relationship="hwLiveModel.FK_LeadStatus_Lead" FromRole="LeadFollowup" ToRole="Lead" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Lead">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="LeadSource" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="LeadType" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="LeadStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LeadCreationDate" Type="DateTime" Precision="3" />
+    <Property Name="AssignedToUser" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="LeadFollowups" Relationship="hwLiveModel.FK_LeadStatus_Lead" FromRole="Lead" ToRole="LeadFollowup" />
+    <Property Name="DND" Type="Boolean" />
+    <NavigationProperty Name="Sales" Relationship="hwLiveModel.FK_Sales_Lead" FromRole="Lead" ToRole="Sale" />
+    <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Emails" Relationship="hwLiveModel.FK_Emails_Leads" FromRole="Lead" ToRole="Email" />
+    <NavigationProperty Name="LeadForwardeds" Relationship="hwLiveModel.FK_LeadForwarded_Leads" FromRole="Lead" ToRole="LeadForwarded" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Leads_User" FromRole="Lead" ToRole="AspNetUser" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+    <End Type="hwLiveModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="hwLiveModel.AspNetRoleClaim" Role="AspNetRoleClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleClaim">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeadStatus_Lead">
+    <End Type="hwLiveModel.Lead" Role="Lead" Multiplicity="0..1" />
+    <End Type="hwLiveModel.LeadFollowup" Role="LeadFollowup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LeadFollowup">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeadId" Type="Int64" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TrainingDate" Type="DateTime" Precision="3" />
+    <Property Name="Practice1Date" Type="DateTime" Precision="3" />
+    <Property Name="Practice1Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Practice2Date" Type="DateTime" Precision="3" />
+    <Property Name="Practice2Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Practice3Date" Type="DateTime" Precision="3" />
+    <Property Name="Practice3Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Practice4Date" Type="DateTime" Precision="3" />
+    <Property Name="Practice4Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectLiveDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Lead" Relationship="hwLiveModel.FK_Sales_Lead" FromRole="Sale" ToRole="Lead" />
+    <Property Name="Comment" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="CreatDate" Type="DateTime" Precision="3" />
+    <Property Name="ProductId" Type="Int64" />
+    <NavigationProperty Name="ProductsService" Relationship="hwLiveModel.FK_Sales_ProductsServices" FromRole="Sale" ToRole="ProductsService" />
+  </EntityType>
+  <Association Name="FK_Sales_Lead">
+    <End Type="hwLiveModel.Lead" Role="Lead" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Sale" Role="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Email">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeadId" Type="Int64" />
+    <Property Name="AgentId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Email1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EmailSubject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmailBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SendingDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Lead" Relationship="hwLiveModel.FK_Emails_Leads" FromRole="Email" ToRole="Lead" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Emails_User" FromRole="Email" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_Emails_Leads">
+    <End Type="hwLiveModel.Lead" Role="Lead" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Email" Role="Email" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Email">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ClientName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientBusinessName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientLogoURL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientEmailMain" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientEmailSales" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientEmailSupport" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientPhoneMain" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="ClientPhoneSales" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="ClientPhoneSupport" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="ClientAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClientPostal" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="ClientWebsite" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AdminAccountLimit" Type="Int32" />
+    <Property Name="ManagerAccountLimit" Type="Int32" />
+    <Property Name="UserAccountLimit" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+    <Property Name="ClientCRMLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ClientPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Clients_User" FromRole="Client" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="LeadForwarded">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeadId" Type="Int64" />
+    <Property Name="ForwardedTo" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ForwardDate" Type="DateTime" Precision="3" />
+    <Property Name="ForwardReason" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="WhenToCall" Type="DateTime" Precision="3" />
+    <Property Name="ActionByNewUser" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ActionDate" Type="DateTime" Precision="3" />
+    <Property Name="NextReminderDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Lead" Relationship="hwLiveModel.FK_LeadForwarded_Leads" FromRole="LeadForwarded" ToRole="Lead" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_LeadForwarded_ForwardUser" FromRole="LeadForwarded" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_LeadForwarded_Leads">
+    <End Type="hwLiveModel.Lead" Role="Lead" Multiplicity="0..1" />
+    <End Type="hwLiveModel.LeadForwarded" Role="LeadForwarded" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LeadForwarded">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="MobilePersonal" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="MobileHome" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLocal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="AddressPermanent" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Reference1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Reference2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+    <Property Name="TotalExpYears" Type="Int32" />
+    <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SalaryDate" Type="Int32" />
+    <Property Name="Skills" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Staff_AdminUser" FromRole="Staff" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="hwLiveModel.FK_Staff_StaffUser" FromRole="Staff" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Ship_Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ship_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ship_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ship_Pincode" Type="Int32" />
+    <Property Name="Bill_Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bill_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bill_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bill_Pincode" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Customer_User" FromRole="Customer" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="LedgerHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeOfTransaction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FromUser" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ToUser" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="DateofTransaction" Type="DateTime" Precision="0" />
+    <Property Name="PurposeofTransaction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="DueDate" Type="DateTime" Precision="0" />
+    <Property Name="PayDate" Type="DateTime" Precision="0" />
+    <Property Name="TransactionDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReferenceId" Type="Int64" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_LedgerHistory_AdminUser" FromRole="LedgerHistory" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="hwLiveModel.FK_LedgerHistory_FromUser" FromRole="LedgerHistory" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser2" Relationship="hwLiveModel.FK_LedgerHistory_ToUser" FromRole="LedgerHistory" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="InvestmentReturn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ReturnAmount" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+    <Property Name="ReturnStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimDate" Type="DateTime" Precision="3" />
+    <Property Name="Comment" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="InvestmentId" Type="Int64" />
+    <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Investment" Relationship="hwLiveModel.FK_InvestmentReturn_Investment" FromRole="InvestmentReturn" ToRole="Investment" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_InvestmentReturn_AdminUser" FromRole="InvestmentReturn" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="hwLiveModel.FK_InvestmentReturn_User" FromRole="InvestmentReturn" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Investor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <Property Name="CloseDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Investor_AspNetUsers" FromRole="Investor" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Investment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="InvestedAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ReturnPercentage" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="Tenure" Type="Int32" />
+    <Property Name="FirstPayDate" Type="DateTime" Precision="0" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="iStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CloseDate" Type="DateTime" Precision="0" />
+    <Property Name="iMode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="InvestmentReturns" Relationship="hwLiveModel.FK_InvestmentReturn_Investment" FromRole="Investment" ToRole="InvestmentReturn" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Investments_Investor" FromRole="Investment" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_InvestmentReturn_Investment">
+    <End Type="hwLiveModel.Investment" Role="Investment" Multiplicity="0..1" />
+    <End Type="hwLiveModel.InvestmentReturn" Role="InvestmentReturn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Investment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvestmentReturn">
+        <PropertyRef Name="InvestmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Leave">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="LeaveDate" Type="DateTime" Precision="0" />
+    <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LeaveStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Leave_AspNetUsers" FromRole="Leave" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="SalaryRevision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="RevisedSalary" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="RevisionDate" Type="DateTime" Precision="0" />
+    <Property Name="RevisionDesignation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="AdminId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_SalaryRevision_AspNetUsers" FromRole="SalaryRevision" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Payroll">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Basic" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="HRA" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Conveyance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SpecialAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TravellingAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DistanceAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="MobileInternetAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ExpensesPaid" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="AdvanceSalary" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="LoanDeduction" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ArrearCF" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ArrearBF" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Overtime" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="MealAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CabAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="OtherAllowance" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="OtherDeductions" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Payroll_AspNetUsers" FromRole="Payroll" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="ProductsService">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CostPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SellingPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmailBody" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="EmailSubject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_ProductsServices_Adminuser" FromRole="ProductsService" ToRole="AspNetUser" />
+    <NavigationProperty Name="Orders" Relationship="hwLiveModel.FK_Orders_Products" FromRole="ProductsService" ToRole="Order" />
+    <NavigationProperty Name="Sales" Relationship="hwLiveModel.FK_Sales_ProductsServices" FromRole="ProductsService" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NormalizedUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NormalizedEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTimeOffset" Precision="7" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ManagerId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="TeamLeaderId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="NumberValidity" Type="DateTime" Precision="0" />
+    <Property Name="Comment" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneValidity" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="hwLiveModel.FK_AspNetUserClaims_User" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="hwLiveModel.FK_AspNetUserLogins_User" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="AspNetUserTokens" Relationship="hwLiveModel.FK_AspNetUserTokens_User" FromRole="AspNetUser" ToRole="AspNetUserToken" />
+    <NavigationProperty Name="Clients" Relationship="hwLiveModel.FK_Clients_User" FromRole="AspNetUser" ToRole="Client" />
+    <NavigationProperty Name="Customers" Relationship="hwLiveModel.FK_Customer_User" FromRole="AspNetUser" ToRole="Customer" />
+    <NavigationProperty Name="Emails" Relationship="hwLiveModel.FK_Emails_User" FromRole="AspNetUser" ToRole="Email" />
+    <NavigationProperty Name="LeadForwardeds" Relationship="hwLiveModel.FK_LeadForwarded_ForwardUser" FromRole="AspNetUser" ToRole="LeadForwarded" />
+    <NavigationProperty Name="Leads" Relationship="hwLiveModel.FK_Leads_User" FromRole="AspNetUser" ToRole="Lead" />
+    <NavigationProperty Name="ProductsServices" Relationship="hwLiveModel.FK_ProductsServices_Adminuser" FromRole="AspNetUser" ToRole="ProductsService" />
+    <NavigationProperty Name="AspNetRoles" Relationship="hwLiveModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <NavigationProperty Name="Staffs" Relationship="hwLiveModel.FK_Staff_AdminUser" FromRole="AspNetUser" ToRole="Staff" />
+    <NavigationProperty Name="Staffs1" Relationship="hwLiveModel.FK_Staff_StaffUser" FromRole="AspNetUser" ToRole="Staff" />
+    <NavigationProperty Name="LedgerHistories" Relationship="hwLiveModel.FK_LedgerHistory_AdminUser" FromRole="AspNetUser" ToRole="LedgerHistory" />
+    <NavigationProperty Name="LedgerHistories1" Relationship="hwLiveModel.FK_LedgerHistory_FromUser" FromRole="AspNetUser" ToRole="LedgerHistory" />
+    <NavigationProperty Name="LedgerHistories2" Relationship="hwLiveModel.FK_LedgerHistory_ToUser" FromRole="AspNetUser" ToRole="LedgerHistory" />
+    <NavigationProperty Name="InvestmentReturns" Relationship="hwLiveModel.FK_InvestmentReturn_AdminUser" FromRole="AspNetUser" ToRole="InvestmentReturn" />
+    <NavigationProperty Name="InvestmentReturns1" Relationship="hwLiveModel.FK_InvestmentReturn_User" FromRole="AspNetUser" ToRole="InvestmentReturn" />
+    <NavigationProperty Name="Investments" Relationship="hwLiveModel.FK_Investments_Investor" FromRole="AspNetUser" ToRole="Investment" />
+    <NavigationProperty Name="Investors" Relationship="hwLiveModel.FK_Investor_AspNetUsers" FromRole="AspNetUser" ToRole="Investor" />
+    <NavigationProperty Name="Leaves" Relationship="hwLiveModel.FK_Leave_AspNetUsers" FromRole="AspNetUser" ToRole="Leave" />
+    <NavigationProperty Name="Payrolls" Relationship="hwLiveModel.FK_Payroll_AspNetUsers" FromRole="AspNetUser" ToRole="Payroll" />
+    <NavigationProperty Name="SalaryRevisions" Relationship="hwLiveModel.FK_SalaryRevision_AspNetUsers" FromRole="AspNetUser" ToRole="SalaryRevision" />
+    <NavigationProperty Name="EmailTemplates" Relationship="hwLiveModel.FK_EmailTemplate_AspNetUsers" FromRole="AspNetUser" ToRole="EmailTemplate" />
+    <NavigationProperty Name="Orders" Relationship="hwLiveModel.FK_Orders_AdminUsers" FromRole="AspNetUser" ToRole="Order" />
+    <NavigationProperty Name="Orders1" Relationship="hwLiveModel.FK_Orders_SalesUser" FromRole="AspNetUser" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_AspNetUserClaims_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="hwLiveModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserLogins_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="hwLiveModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserTokens_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="hwLiveModel.AspNetUserToken" Role="AspNetUserToken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserToken">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clients_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Client" Role="Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emails_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Email" Role="Email" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Email">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeadForwarded_ForwardUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.LeadForwarded" Role="LeadForwarded" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LeadForwarded">
+        <PropertyRef Name="ForwardedTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leads_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Lead" Role="Lead" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lead">
+        <PropertyRef Name="AssignedToUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsServices_Adminuser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.ProductsService" Role="ProductsService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductsService">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="hwLiveModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Staff_AdminUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Staff" Role="Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Staff_StaffUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Staff" Role="Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerHistory_AdminUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.LedgerHistory" Role="LedgerHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerHistory">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerHistory_FromUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.LedgerHistory" Role="LedgerHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerHistory">
+        <PropertyRef Name="FromUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerHistory_ToUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.LedgerHistory" Role="LedgerHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerHistory">
+        <PropertyRef Name="ToUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvestmentReturn_AdminUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.InvestmentReturn" Role="InvestmentReturn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvestmentReturn">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvestmentReturn_User">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.InvestmentReturn" Role="InvestmentReturn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvestmentReturn">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Investments_Investor">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Investment" Role="Investment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Investment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Investor_AspNetUsers">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Investor" Role="Investor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Investor">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leave_AspNetUsers">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Leave" Role="Leave" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Leave">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payroll_AspNetUsers">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Payroll" Role="Payroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payroll">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalaryRevision_AspNetUsers">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.SalaryRevision" Role="SalaryRevision" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalaryRevision">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EmailTemplate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TemplateName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmailSubject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmailBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="AllowedRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_EmailTemplate_AspNetUsers" FromRole="EmailTemplate" ToRole="AspNetUser" />
+    <Property Name="IsDeleted" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_EmailTemplate_AspNetUsers">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.EmailTemplate" Role="EmailTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmailTemplate">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ProductId" Type="Int64" />
+    <Property Name="ProductPrice" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="DiscountPrice" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="ProductSalePrice" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="Quantity" Type="Int16" />
+    <Property Name="TAX" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="PurchaseDate" Type="DateTime" Precision="0" />
+    <Property Name="TransactionDetails" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="OrderStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PaymentStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="AdminId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <Property Name="SaleByUserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="hwLiveModel.FK_Orders_AdminUsers" FromRole="Order" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="hwLiveModel.FK_Orders_SalesUser" FromRole="Order" ToRole="AspNetUser" />
+    <NavigationProperty Name="ProductsService" Relationship="hwLiveModel.FK_Orders_Products" FromRole="Order" ToRole="ProductsService" />
+  </EntityType>
+  <Association Name="FK_Orders_AdminUsers">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_SalesUser">
+    <End Type="hwLiveModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="SaleByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Products">
+    <End Type="hwLiveModel.ProductsService" Role="ProductsService" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsService">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_ProductsServices">
+    <End Type="hwLiveModel.ProductsService" Role="ProductsService" Multiplicity="0..1" />
+    <End Type="hwLiveModel.Sale" Role="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsService">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

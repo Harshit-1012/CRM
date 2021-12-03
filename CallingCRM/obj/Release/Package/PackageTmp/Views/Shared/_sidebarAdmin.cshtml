@@ -1,0 +1,105 @@
+﻿<nav class="sidebar sidebar-offcanvas" id="sidebar" style="margin-top: 20px">
+    <ul class="nav">
+        <li class="nav-item @ViewBag.LinkDasboard">
+            <a class="nav-link" href="/admin">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.MenuLeads">
+            <a class="nav-link" href="~/Admin/ManageLeads">
+                <span class="menu-title">Import/Export Leads</span>
+                <i class="mdi mdi-contacts menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.MenuUsers">
+            <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">HR Management</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-group menu-icon"></i>
+            </a>
+            <div class="collapse" id="users">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="~/Admin/Managers">Managers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Telecallers">Telecallers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/StaffList">Other Staff</a></li>
+                    @*<li class="nav-item"><a class="nav-link" href="/Admin/Payroll">Payroll</a></li>*@
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.MenuClients">
+            <a class="nav-link" data-toggle="collapse" href="#ut" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Clients/Customer</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-card-details menu-icon"></i>
+            </a>
+            <div class="collapse" id="ut">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="~/Admin/Investors">Investors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Customer">Customer</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.MenuShop">
+            <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Store</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-shopping menu-icon"></i>
+            </a>
+            <div class="collapse" id="store">
+                <ul class="nav flex-column sub-menu">
+                    @*<li class="nav-item"><a class="nav-link" href="~/Product/AddProducts">Products/Services</a></li>
+                    <ul class="nav sub-menu">*@
+                        <li class="nav-item active"><a class="nav-link" href="~/Product/AddProducts">Add Products/Services</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="~/Product/ProductList">Products/Services List</a></li>
+                    @*</ul>*@
+
+                    <li class="nav-item"><a class="nav-link" href="/Product/CreateOrders">Create Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Product/OrderList">Orders List</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.MenuLedger">
+            <a class="nav-link" data-toggle="collapse" href="#at" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Transactions</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cash-multiple menu-icon"></i>
+            </a>
+            <div class="collapse" id="at">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="~/Transaction/TransactionList">General Ledger</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Transaction/Pendingpayout">Pending Payout</a></li>
+                    @*<li class="nav-item"><a class="nav-link" href="/Transaction/PendingCollection">Pending Collection</a></li>*@
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.MenuReports">
+            <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Reports/Tools</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-file-excel menu-icon"></i>
+            </a>
+            <div class="collapse" id="reports">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="~/Reports/TeamReport">Team Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Reports/SalesReport">Sales Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Reports/EmailTemplates">Email Templates</a></li>
+                </ul>
+            </div>
+        </li>
+        <li><hr /></li>
+        <li class="nav-item @ViewBag.MenuProfile">
+            <a class="nav-link" href="~/Admin/Profile">
+                <span class="menu-title">My Profile</span>
+                <i class="mdi mdi-account-card-details menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.MenuSupport">
+            <a class="nav-link" href="~/Admin/Support">
+                <span class="menu-title">Support/Help</span>
+                <i class="mdi mdi-help menu-icon"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
+

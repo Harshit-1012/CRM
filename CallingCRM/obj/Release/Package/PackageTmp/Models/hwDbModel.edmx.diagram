@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bec0d70ee2cb48839ff50f482a610bff" Name="Diagram1">
+        <EntityTypeShape EntityType="hwLiveModel.C__EFMigrationsHistory" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.AspNetRoleClaim" Width="1.5" PointX="2.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hwLiveModel.AspNetRole" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.AspNetUserToken" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.LeadFollowup" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.Lead" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="false" />
+        <AssociationConnector Association="hwLiveModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" />
+        <AssociationConnector Association="hwLiveModel.FK_LeadStatus_Lead" />
+        <EntityTypeShape EntityType="hwLiveModel.Sale" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="false" />
+        <AssociationConnector Association="hwLiveModel.FK_Sales_Lead" />
+        <EntityTypeShape EntityType="hwLiveModel.Email" Width="1.5" PointX="10.5" PointY="6.75" IsExpanded="false" />
+        <AssociationConnector Association="hwLiveModel.FK_Emails_Leads" />
+        <EntityTypeShape EntityType="hwLiveModel.Client" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hwLiveModel.LeadForwarded" Width="1.5" PointX="7.5" PointY="1" IsExpanded="false" />
+        <AssociationConnector Association="hwLiveModel.FK_LeadForwarded_Leads" />
+        <EntityTypeShape EntityType="hwLiveModel.AspNetUser" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="hwLiveModel.FK_AspNetUserClaims_AspNetUsers_UserId" />
+        <AssociationConnector Association="hwLiveModel.FK_AspNetUserLogins_AspNetUsers_UserId" />
+        <AssociationConnector Association="hwLiveModel.FK_AspNetUserTokens_AspNetUsers_UserId" />
+        <AssociationConnector Association="hwLiveModel.FK_Clients_User" />
+        <AssociationConnector Association="hwLiveModel.FK_Emails_Agent" />
+        <AssociationConnector Association="hwLiveModel.FK_Leads_User" />
+        <AssociationConnector Association="hwLiveModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="hwLiveModel.Staff" Width="1.5" PointX="7.375" PointY="9.75" />
+        <AssociationConnector Association="hwLiveModel.FK_Staff_User" />
+        <EntityTypeShape EntityType="hwLiveModel.Customer" Width="1.5" PointX="5.25" PointY="18.25" />
+        <AssociationConnector Association="hwLiveModel.FK_Customer_AspNetUsers" />
+        <EntityTypeShape EntityType="hwLiveModel.Products_Services" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="hwLiveModel.Order" Width="1.5" PointX="11.625" PointY="9.75" />
+        <AssociationConnector Association="hwLiveModel.FK_Orders_Products_Services" />
+        <EntityTypeShape EntityType="hwLiveModel.LedgerHistory" Width="1.5" PointX="10.375" PointY="0.75" />
+        <AssociationConnector Association="hwLiveModel.FK_LedgerHistory_LedgerHistory" />
+        <AssociationConnector Association="hwLiveModel.FK_LedgerHistory_Admin" />
+        <AssociationConnector Association="hwLiveModel.FK_LedgerHistory_FromUser" />
+        <EntityTypeShape EntityType="hwLiveModel.InvestmentReturn" Width="1.5" PointX="5.25" PointY="24.75" />
+        <AssociationConnector Association="hwLiveModel.FK_InvestmentReturn_AspNetUsers" />
+        <EntityTypeShape EntityType="hwLiveModel.Investor" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="hwLiveModel.FK_Investor_AspNetUsers" />
+        <EntityTypeShape EntityType="hwLiveModel.Investment" Width="1.5" PointX="5.25" PointY="29.75" />
+        <AssociationConnector Association="hwLiveModel.FK_Investments_Investor" />
+        <AssociationConnector Association="hwLiveModel.FK_InvestmentReturn_Investment" />
+        <EntityTypeShape EntityType="hwLiveModel.Leave" Width="1.5" PointX="5.25" PointY="34.375" />
+        <AssociationConnector Association="hwLiveModel.FK_Leave_AspNetUsers" />
+        <EntityTypeShape EntityType="hwLiveModel.SalaryRevision" Width="1.5" PointX="5.25" PointY="38.5" />
+        <AssociationConnector Association="hwLiveModel.FK_SalaryRevision_AspNetUsers" />
+        <EntityTypeShape EntityType="hwLiveModel.Payroll" Width="1.5" PointX="5.25" PointY="42.125" />
+        <AssociationConnector Association="hwLiveModel.FK_Payroll_AspNetUsers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

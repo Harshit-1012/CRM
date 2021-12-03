@@ -1,0 +1,108 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Products_Services
+
+@{
+    ViewBag.Title = "Products & Services";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    Products_Services user = ViewBag.ThisUser;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Products &amp; Services
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Product/AddProduct", enctype= "Multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="font-weight-bold">Product Title *</label>
+        <p>
+            @Html.TextBoxFor(m => m.ProductTitle, new { @class = "form-control", required = "required" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Product Code </label>
+        <p>
+            @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control", id = "productCode", required="required" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Cost Price </label>
+        <p>
+            @Html.TextBoxFor(m => m.CostPrice, new { @class = "form-control" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Selling Price </label>
+        <p>
+            @Html.TextBoxFor(m => m.SellingPrice, new { @class = "form-control" })
+        </p>
+    </div>
+    <div class="col-md-4">
+    <label class="font-weight-bold">Summary </label>
+    <p>
+        @Html.TextBoxFor(m => m.Summary, new { @class = "form-control" })
+    </p>
+</div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Product Image </label>
+        <p>
+           @Html.TextBoxFor(m => m.ProductImage, new { type = "file", multiple = "multiple", accept = "image/jpeg,  image/jpg" })
+        </p>
+    </div>
+   
+    <div class="col-md-4">
+        <label class="font-weight-bold">Email Subject </label>
+        <p>
+            @Html.TextBoxFor(m => m.EmailTemplate, new { @class = "form-control" })
+        </p>
+    </div>
+    <div class="col-md-12">
+        <label class="font-weight-bold">Email Content </label>
+        <p>
+            @Html.TextAreaFor(m => m.Description, new {@class= "editor", name = "Editor", id = "Editor" })
+        </p>
+    </div>
+    <div class="col-md-12 text-right">
+        <label>&nbsp;</label>
+        <p>
+            <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+            <a href="/Product/AddProduct" class="btn btn-sm btn-info">Reset</a>
+        </p>
+    </div>
+    </div>
+}
+<script src="~/editor/ckeditor/ckeditor.js"></script>
+<script src="~/editor/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+    var id = document.getElementById('productCode').value;
+    if (id != null && id != "") {
+        $('#productCode').attr("readonly", true);
+    }
+</script>

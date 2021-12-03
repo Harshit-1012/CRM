@@ -1,0 +1,143 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model LedgerHistory
+
+@{
+    ViewBag.Title = "LedgerHistory";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+    List<LedgerHistory> History = ViewBag.history;
+    List<SelectListItem> transactiontype = ViewBag.transactiontype;
+    List<SelectListItem> UserList = ViewBag.UserList;
+}
+
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Add Transaction
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("LedgerHistory", "Transaction", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Transaction/LedgerHistory", id = "clientForm", onSubmit ="return ValidateUserAndDate()"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "form-control" })
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Type of Transaction</label>
+            <p>
+                @Html.DropDownListFor(m => m.TypeOfTransaction, @transactiontype, new { @class = "form-control", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">From </label>
+            <p>
+                @Html.DropDownListFor(m => m.FromUser, @UserList, new { @class = "form-control", required = "required",id="ddlFrom" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">To </label>
+            <p>
+                @Html.DropDownListFor(m => m.ToUser, @UserList, new { @class = "form-control", required = "required", id = "ddlTo" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Amount </label>
+            <p>
+                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", required = "required", id = "txtAmount" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Date of Transaction </label>
+            <p>
+                @Html.TextBoxFor(m => m.DateofTransaction, new { @class = "form-control", type = "date",id= "ddlDot" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Date of Transaction </label>
+            <p>
+                @Html.TextBoxFor(m => m.DueDate, new { @class = "form-control",type = "date",id="ddlDd" })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label class="font-weight-bold">Purpose of Transaction </label>
+            <p>
+                @Html.TextAreaFor(m => m.PurposeofTransaction, new { @class = "form-control ", required = "required", type = "date" })
+            </p>
+        </div>
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="~/Transaction/LedgerHistory" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+    </div>
+}
+<script typeof="text/javascript">
+    $(document).ready(function () {
+        $("#txtAmount").change(function () {
+            var valuee = $("#txtAmount").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(valuee)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+    });
+    isError = false;
+    document.getElementById("ddlFrom").onchange = function () { validateUsers()};
+    document.getElementById("ddlTo").onchange = function () { validateUsers() };
+    function validateUsers() {
+        var from = $("#ddlFrom").val();
+        var To = $("#ddlTo").val();
+        if (from == To) {
+            alert("Both User can Not be same");
+            isError = true;
+        }
+    }
+    function validateDate() {
+        var Dot = $("#ddlDot").val();
+        var Dd = $("#ddlDd").val();
+        if (Dot == Dd) {
+            alert("Please Provide Any one of Date of Transaction or Due Date");
+            isError = true;
+        }
+        else if (Dd == null && Dot != null || Dd != null && Dot == null)
+        {
+            isError = false;
+        }
+        else {
+            isError = false;
+        }
+    }
+    function ValidateUserAndDate() {
+        validateDate();
+        if (isError == true) {
+            alert("Please check Conditions for User and Date");
+            return false
+        }
+        else {
+            return true;
+        }
+    }
+    
+</script>
+

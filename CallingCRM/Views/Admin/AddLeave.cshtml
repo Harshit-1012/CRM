@@ -1,0 +1,95 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Leave
+
+@{
+    ViewBag.Title = "AddLeave";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuUsers = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    List<SelectListItem> leaveStatus = ViewBag.leadStatus;
+
+    Leave result = ViewBag.ThisLeave;
+
+
+    var LeaveDate = "";
+    if (Model.LeaveDate != null) { LeaveDate = Convert.ToDateTime(Model.LeaveDate).ToString("yyyy-MM-dd"); }
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Add Leave
+    </h3>
+    <a href="~/Admin/Leaves" class="btn btn-sm btn-info">Go To Leave List</a>
+</div>.
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("AddLeave", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/AddLeave" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "control-label", id ="Id", Value =Model.Id })
+    @Html.HiddenFor(m => m.UserId, new { @class = "control-label", id = "UserID" })
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Leave Date *</label>
+            <p>
+                @Html.TextBoxFor(m => m.LeaveDate, new { @class = "form-control", type = "Date", required = "required", id = "txtLeaveDate",Value = @LeaveDate })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Purpose </label>
+            <p>
+                @Html.TextBoxFor(m => m.Purpose, new { @class = "form-control", required = "required", id = "txtPurpose" })
+            </p>
+        </div>
+        <div class="col-md-4" >
+            <label class="font-weight-bold">Leave Status </label>
+            <p>
+                @Html.DropDownListFor(m => m.LeaveStatus, @leaveStatus, new { @class = "form-control", required ="required", id = "txtLeaveStatus" })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label class="font-weight-bold">Reason </label>
+            <p>
+                @Html.TextAreaFor(m => m.Reason, new { @class = "form-control", required = "required", id = "txtReason" })
+            </p>
+        </div>
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Admin/AddLeave/@Model.UserId/@Model.Id" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $('#leaveStatus').hide();
+
+    var id = document.getElementById('Id').value;
+    if (id != null && id != 0) {
+        $('#txtLeaveDate').attr("readonly", true);
+        $('#txtPurpose').attr("readonly", true);
+        $('#txtReason').attr("readonly", true);
+        $('#leaveStatus').show();
+    }
+</script>

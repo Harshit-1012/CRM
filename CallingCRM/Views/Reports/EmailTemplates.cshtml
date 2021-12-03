@@ -1,0 +1,129 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model EmailTemplate
+@{
+    ViewBag.Title = "Email Templates";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkReports = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    List<SelectListItem> AllowedRole = ViewBag.AllowedRole;
+    List<EmailTemplate> templates = ViewBag.Templates;
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+    var AlwdRole = "";
+    if (Model.AllowedRole != null)
+    {
+        AlwdRole = Model.AllowedRole;
+    }
+
+    Customer user = ViewBag.ThisUser;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Email Templates
+    </h3>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("EmailTemplates", "Reports", FormMethod.Post, new { @class = "form-horizontal", role = "form",action = "/Reports/EmailTemplates" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "form-control" })
+
+    <div class="row">
+        <div class="form-group col-md-5">
+            <label class="font-weight-bold">Template Name</label><br />
+            @Html.TextBoxFor(m => m.TemplateName, new { @class = "form-control", required = "required" })
+
+        </div>
+        <div class="form-group col-md-5">
+            <label class="font-weight-bold">Allowed Role</label><br />
+            @Html.DropDownListFor(m => m.AllowedRole, @AllowedRole, new { @class = "form-control", required = "required", value = @AlwdRole })
+
+        </div>
+        <div class="form-group col-md-12">
+            <label class="font-weight-bold">Email Subject</label><br />
+            @Html.TextBoxFor(m => m.EmailSubject, new { @class = "form-control", required = "required" })
+        </div>
+        <div class="form-group col-md-12">
+            <label class="font-weight-bold">Email Body</label><br />
+           <p>
+             @Html.TextAreaFor(m => m.EmailBody, new { @class = " editor"})
+           </p>
+
+        </div>
+        <div class="col-md-3">
+            <label class="font-weight-bold">IsActive</label>
+            <p>
+                @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked" })
+            </p>
+        </div>
+        <div class="col-md-9 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Reports/EmailTemplates" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+    </div>
+
+}
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        @if (templates != null)
+        {
+            int sr = 0;
+            <table class="table table-hover table-bordered datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Template Name</th>
+                        <th>Allowed Role</th>
+                        <th>Email Subject</th>
+                        <th colspan="2">Options</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (EmailTemplate result in templates)
+                    {
+                        sr++;
+                        <tr>
+                            <td>@sr</td>
+                            <td>@result.TemplateName</td>
+                            <td>@result.AllowedRole</td>
+                            <td>@result.EmailSubject</td>
+                            <td><a href="/Reports/EmailTemplates/@result.Id" class="btn btn-sm btn-info">Edit</a></td>
+                            <td><a href="/Reports/DeleteTemplates/@result.Id" class="btn btn-sm btn-info">Delete</a></td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        $("#AllowedRole").val("@Model.AllowedRole");
+           }
+</script>
+

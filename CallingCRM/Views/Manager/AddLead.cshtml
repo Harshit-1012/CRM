@@ -1,0 +1,104 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.Lead
+
+@{
+    ViewBag.Title = "Add New Lead";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkNewLead = "active";
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var aajKiDate = thisDateTime.ToString("yyy-MM-dd");
+    var kalKiDate = thisDateTime.AddDays(1).ToString("yyyy-MM-dd");
+
+    ViewBag.eMessage = Session["eMessage"];
+    ViewBag.sMessage = Session["sMessage"];
+    Session["eMessage"] = "";
+    Session["sMessage"] = "";
+
+    List<SelectListItem> BDAList = ViewBag.BDAList;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account"></i>
+        </span>
+        Add New Lead
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("AddLead", "Manager", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Manager/AddLead" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-info" })
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="font-weight-bold">Full Name *</label>
+        <p>
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", required = "required" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Email</label>
+        <p>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Contact Number *</label>
+        <p>
+            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", type = "text", required = "required" })
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label class="font-weight-bold">Location </label>
+        <p>
+            @Html.TextBoxFor(m => m.Location, new { @class = "form-control", type = "text", placeholder = "Name of city, region etc." })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Source</label>
+        <p>
+            @Html.TextBoxFor(m => m.LeadSource, new { @class = "form-control", type = "text", placeholder = "Website, JobSeeker, Student" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">When to Call *</label>
+        <p>
+            @Html.TextBoxFor(m => m.AssignedDate, new { @class = "form-control", type = "date", required = "required" })
+        </p>
+    </div>
+    <div class="col-md-8">
+        <label class="font-weight-bold">Comment</label>
+        <p>
+            @Html.TextBoxFor(m => m.LeadStatus, new { @class = "form-control", type = "text" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">Assign To *</label>
+        <p>
+            @Html.DropDownListFor(m => m.AssignedToUser, @BDAList, new { @class = "form-control", type = "text", required = "required" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <label class="font-weight-bold">&nbsp;</label>
+        <p>
+            <input type="submit" class="btn btn-sm btn-dark" value="Save & Assign Lead" />
+        </p>
+    </div>
+</div>
+}

@@ -1,0 +1,93 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+
+@{
+    ViewBag.Title = "Team";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    List<Client> clients = ViewBag.MyClients;
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Clients
+    </h3>
+</div>
+
+@using (Html.BeginForm("Clients", "SuperAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/SuperAdmin/Clients", id = "clientForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @if (clients != null && clients.Count() > 0)
+        {
+            int sr = 0;
+            <table class="table table-hover table-bordered datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>City</th>
+                        <th>CRM</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Client client in clients)
+                    {
+                        sr++;
+                        var bg = "";
+                        string pv = "";
+                        if (client.ExpiryDate != null && client.ExpiryDate.ToString() != "")
+                        {
+                            pv = Convert.ToDateTime(client.ExpiryDate).ToString("yyyy-MM-dd");
+
+                            if (Convert.ToDateTime(client.ExpiryDate) < Convert.ToDateTime(thisDateTime))
+                            {
+                                bg = "pink";
+                            }
+                        }
+
+                    <tr style="background-color: @bg">
+                        <td>@sr</td>
+                        <td>@client.ClientName</td>
+                        <td>@client.ClientBusinessName</td>
+                        <td>@client.ClientEmailMain</td>
+                        <td>@client.ClientPhoneMain</td>
+                        <td>@client.ClientCity</td>
+                        <td>@client.ClientCRMLink</td>
+                        <td><a class="btn btn-xs btn-dark" href="/SuperAdmin/Client/@client.Id">Update</a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        { 
+            <div>
+                There is no client in system yet. <a href="/SuperAdmin/AddClient">Click Here</a> to add new client.
+
+            </div>
+        }
+    </div>
+</div>
+

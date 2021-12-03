@@ -1,0 +1,168 @@
+﻿    .copytip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .copytip .copytiptext {
+        visibility: hidden;
+        width: 140px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 110%;
+        left: 50%;
+        margin-left: -70px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .copytip .copytiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .copytip:hover .copytiptext {
+        visibility: visible;
+        opacity: 1;
+        z-index: 1000
+    }
+
+
+    img {
+        max-width: 100%;
+    }
+
+.inputHidden {
+    border: 0px;
+    background-color: transparent;
+}
+
+
+.mdi-24px.mdi-set, .mdi-24px.mdi:before {
+    font-size: 72px;
+}
+
+.content-wrapper {
+    background: Transparent; /*khaki*/
+}
+
+.sidebar .nav .nav-item.active {
+    background: transparent; /*khaki*/
+}
+
+.sidebar, .navbar.default-layout-navbar, .navbar.default-layout-navbar .navbar-brand-wrapper {
+    background: transparent;
+}
+
+.footer {
+    background-color: transparent;
+}
+
+.navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
+    width: 100%;
+    height: auto;
+}
+
+.footer a {
+    color: gold;
+}
+
+.card .card-body {
+    padding: 1.5rem 1.5rem;
+}
+
+.card .mb-5, .my-5 {
+    margin-bottom: 1rem !important;
+}
+
+.container-scroller {
+    /*min-width: 1225px*/;
+}
+
+@@media (max-width: 991px) {
+    .navbar.default-layout-navbar .navbar-brand-wrapper {
+        width: 180px;
+    }
+}
+
+.btn, .card, .table-responsive {
+    box-shadow: 0px 8px 16px 1px rgba(0, 0, 0, 0.25);
+}
+
+.form-control {
+    border: 1px solid #ababab;
+}
+
+.narrow .table th, .narrow .table td {
+    vertical-align: middle;
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+.btn-give-help {
+    font-size: 26px;
+    padding: 20px;
+    line-height: 1.2em;
+    background-color: #22e038;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #29f244), color-stop(50%, #2ab553), color-stop(50%, #1e9642), color-stop(100%, #017837));
+    background-image: -webkit-linear-gradient(top, #29f244 0%, #29c44d 50%, #00b52d 50%, #018a1d 100%);
+    background-image: -moz-linear-gradient(top, #29f244 0%, #29c44d 50%, #00b52d 50%, #018a1d 100%);
+    background-image: -ms-linear-gradient(top, #29f244 0%, #29c44d 50%, #00b52d 50%, #018a1d 100%);
+    background-image: -o-linear-gradient(top, #29f244 0%, #29c44d 50%, #00b52d 50%, #018a1d 100%);
+    background-image: linear-gradient(top, #29f244 0%, #29c44d 50%, #00b52d 50%, #018a1d 100%);
+    border: 1px solid #008f30;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+    box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+}
+.btn-take-help {
+    font-size: 26px;
+    padding: 20px;
+    line-height: 1.2em;
+    background-color: #fcdf03;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2b927), color-stop(50%, #cfcf30), color-stop(50%, #b5ba25), color-stop(100%, #a6a002));
+    background-image: -webkit-linear-gradient(top, #ebe428 0%, #c4bf27 50%, #b8b800 50%, #969c00 100%);
+    background-image: -moz-linear-gradient(top, #ebe428 0%, #c4bf27 50%, #b8b800 50%, #969c00 100%);
+    background-image: -ms-linear-gradient(top, #ebe428 0%, #c4bf27 50%, #b8b800 50%, #969c00 100%);
+    background-image: -o-linear-gradient(top, #ebe428 0%, #c4bf27 50%, #b8b800 50%, #969c00 100%);
+    background-image: linear-gradient(top, #ebe428 0%, #c4bf27 50%, #b8b800 50%, #969c00 100%);
+    border: 1px solid #969c00;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+    box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-profile .nav-link .nav-profile-text {
+    display: block !important;
+}
+.navbar.default-layout-navbar .navbar-brand-wrapper {
+    min-width: 100px !important;
+    padding: 10px;
+}
+.auth .brand-logo {
+    margin-bottom: 10px;
+}
+
+.dropdown-toggle {
+    padding-top: 30px;
+}
+select.form-control {
+    outline: 1px solid #ababab;
+    color: #666;
+}
+
+.content-wrapper {
+    padding-top: 0.75rem;
+}

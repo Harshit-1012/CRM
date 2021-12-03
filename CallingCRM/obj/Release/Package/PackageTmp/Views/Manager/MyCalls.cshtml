@@ -1,0 +1,120 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.ForwardCallViewModel
+
+@{
+    ViewBag.Title = "Forward Call";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MyCalls = "active";
+
+    DateTime? startDate = ViewBag.StartDate;
+    DateTime? endDate = ViewBag.EndDate;
+    string Status = "" + ViewBag.Status.ToLower();
+
+    List<LeadForwarded> history = ViewBag.LeadForwarded;
+
+    ViewBag.MessageTStatus = Session["eMessage"];
+    Session["eMessage"] = "";
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-phone-missed menu-icon"></i>
+        </span>
+        Calls To Be Followed By Me - @Status.ToUpperInvariant()
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("Forwarded", "Calls", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (history != null && history.Count > 0)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Forwarded By</th>
+                            <th>Forwarded Date</th>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Reason</th>
+                            @if (Status == "all")
+                            {
+                                <th>Action Date</th>
+                                <th>Action</th>
+                            }
+                            <th>When To Call?</th>
+                            @if (Status != "all")
+                            {
+                                <th></th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (LeadForwarded call in history)
+                        {
+                            sr++;
+                            var NextReminderDate = "";
+                            if (call.NextReminderDate != null)
+                            {
+                                NextReminderDate = Convert.ToDateTime(call.NextReminderDate).ToString("dd-MM-yyyy");
+                            }
+
+
+                            <tr>
+                                <td>@sr</td>
+                                <td>@call.Lead.AspNetUser.FullName</td>
+                                <td>@call.ForwardDate</td>
+                                <td>@call.Lead.FullName</td>
+                                <td>@call.Lead.Mobile</td>
+                                <td>@call.ForwardReason</td>
+                                @if (Status == "all")
+                                {
+                                    <td>@call.ActionDate</td>
+                                    <td>@call.ActionByNewUser</td>
+                                }
+                                <td>@NextReminderDate</td>
+                                @if (Status != "all")
+                                {
+                                    <td style="white-space: nowrap">
+                                        <a href="/calls/log/@call.LeadId" class="btn btn-xs btn-outline-dark">Call Log</a>
+                                        <a href="/manager/callaction/@call.Id" class="btn btn-xs btn-dark">Action</a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <script>
+                    function ViewLog(LeadId) {
+                        window.location.href = "/calls/log/" + LeadId;
+                    }
+                </script>
+
+            }
+            else
+            {
+                <div>No call log found for specified criteria.</div>
+            }
+        </div>
+    </div>
+}
+
+

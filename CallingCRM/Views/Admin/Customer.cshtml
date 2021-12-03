@@ -1,0 +1,210 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CustomerList
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    List<CustomerList> users = ViewBag.Customers;
+
+    Customer user = ViewBag.ThisUser;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Customers
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("Customer", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Customer" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "control-label" })
+    @Html.HiddenFor(m => m.UserId, new { @class = "control-label", id="UserId" })
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Full Name *</label>
+            <p>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Mobile Number *</label>
+            <p>
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", required = "required", pattern = "[0-9]{10}", title = "10 digit mobile number required" })
+            </p>
+        </div>
+        <div class="col-md-8">
+            <label class="font-weight-bold">Email *</label>
+            <p>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", required = "required", id= "txtEmail" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label></label>
+            <p>
+                @Html.HiddenFor(m => m.Password, new { @class = "form-control" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Billing Country</label>
+            <p>
+                @Html.TextBoxFor(m => m.Bill_Country, new { @class = "form-control", id = "txtBCountry", maxlength = 11 })
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <label class="font-weight-bold">Billing State</label>
+            <p>
+                @Html.TextBoxFor(m => m.Bill_State, new { @class = "form-control", id = "txtBState", maxlength = 52 })
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <label class="font-weight-bold">Billing City</label>
+            <p>
+                @Html.TextBoxFor(m => m.Bill_City, new { @class = "form-control", id = "txtBCity", maxlength = 85 })
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <label class="font-weight-bold">Billing Pincode</label>
+            <p>
+                @Html.TextBoxFor(m => m.Bill_Pincode, new { @class = "form-control", id = "txtBPincode", maxlength = 10 })
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label></label>
+            <p>
+                @Html.CheckBox("Same as Shipping Address", new { id = "chkAddress" }) Tick this box to fill Shipping address as Billing address
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Shipping Country</label>
+            <p>
+                @Html.TextBoxFor(m => m.Ship_Country, new { @class = "form-control", id = "txtSCountry", maxlength = 11 })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Shipping State</label>
+            <p>
+                @Html.TextBoxFor(m => m.Ship_State, new { @class = "form-control", id = "txtSState", maxlength = 52 })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Shipping City</label>
+            <p>
+                @Html.TextBoxFor(m => m.Ship_City, new { @class = "form-control", id = "txtSCity", maxlength = 85 })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Shipping Pincode</label>
+            <p>
+                @Html.TextBoxFor(m => m.Ship_Pincode, new { @class = "form-control", id = "txtSPincode", maxlength = 6 })
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="font-weight-bold">IsActive</label>
+            <p>
+                @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked" })
+            </p>
+        </div>
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Admin/Customer" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+    </div>
+  
+}
+<hr />
+@using (Html.BeginForm("Customer", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Customer" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (users != null)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (CustomerList str in users)
+                        {
+                            sr++;
+                            <tr>
+                                <td>@sr</td>
+                                <td>@str.FullName</td>
+                                <td>@str.Email</td>
+                                <td>@str.PhoneNumber</td>
+                                <td><a href="/Admin/Customer/@str.UserId" class="btn btn-sm btn-info">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $("#chkAddress").click(function () {
+            var Country = $("#txtBCountry").val();
+            var State = $("#txtBState").val();
+            var City = $("#txtBCity").val();
+            var Pincode = $("#txtBPincode").val();
+            $("#txtSCountry").val(Country);
+            $("#txtSState").val(State);
+            $("#txtSCity").val(City);
+            $("#txtSPincode").val(Pincode);
+    });
+</script>
+<script type="text/javascript">
+    var id = document.getElementById('UserId').value;
+    if (id != null && id != "") {
+        $('#txtEmail').attr("readonly", true);
+    }
+</script>
+<script type="text/javascript">
+    document.getElementById("txtName").onchange = function () { validateName() };
+    function validateName() {
+        let a = document.getElementById('txtName').value.length;
+        if (a > 50) {
+            alert("Name is too lengthy");
+            document.getElementById('txtName').value = "";
+        }
+    }
+    </script>

@@ -1,0 +1,207 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Investment
+
+@{
+    ViewBag.Title = "Investments";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.MenuClients = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var mindate = Convert.ToDateTime(thisDateTime).ToString("yyyy-MM-dd");
+
+    List<SelectListItem> Durations = ViewBag.Durations;
+
+    List<SelectListItem> status = ViewBag.Status;
+
+    List<SelectListItem> mode = ViewBag.Modes;
+
+
+    List<Investment> investments = ViewBag.Investments;
+
+    var fPayDate = "";
+    if (Model.FirstPayDate != null) { fPayDate = Convert.ToDateTime(Model.FirstPayDate).ToString("yyyy-MM-dd"); }
+    var duration = "";
+    if(Model.Duration != null) { duration = Model.Duration.ToString(); }
+}
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Investment(s)
+    </h3>
+</div>
+
+@using (Html.BeginForm("Investments", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Investments", id = "clientForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "control-label", id = "id", Value = Model.Id })
+    @Html.HiddenFor(m => m.UserId, new { @class = "control-label" })
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Invested Amount</label>
+            <p>
+                @Html.TextBoxFor(m => m.InvestedAmount, new { @class = "form-control", type = "text", id = "txtInvestedAmt" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Return %age </label>
+            <p>
+                @Html.TextBoxFor(m => m.ReturnPercentage, new { @class = "form-control", type = "text", id = "txtReturnPercentage" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Duration</label>
+            <p>
+                @Html.DropDownListFor(m => m.Duration, @Durations, new { @class = "form-control", type = "text", id = "ddlDuration" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Cycle</label>
+            <p>
+                @Html.TextBoxFor(m => m.Tenure, new { @class = "form-control", type = "text", id = "txtTenure" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">First pay Date</label>
+            <p>
+                @Html.TextBoxFor(m => m.FirstPayDate, new { @class = "form-control", type = "date", min = mindate, id = "txtFPdate", Value=@fPayDate })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Mode</label>
+            <p>
+                @Html.DropDownListFor(m => m.iMode, @mode, new { @class = "form-control", type = "text", id = "ddlMode" })
+            </p>
+        </div>
+    </div>
+        <div class="row" id="Updation">
+            <div class="col-md-4">
+                <label class="font-weight-bold">Status</label>
+                <p>
+                    @Html.DropDownListFor(m => m.iStatus, @status, new { @class = "form-control", type = "text", id ="ddlStatus" })
+                </p>
+            </div>
+            <div class="col-md-4" id="closeDate">
+                <label class="font-weight-bold">Close Date</label>
+                <p>
+                    @Html.TextBoxFor(m => m.CloseDate, new { @class = "form-control", type = "date", min = mindate, id = "txtClosedate" })
+                </p>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Admin/Investments" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+}
+
+
+<hr />
+
+
+@using (Html.BeginForm("Investors", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Investors" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (investments != null)
+                {
+                    int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Full Name</th>
+                            <th>Invested Amount</th>
+                            <th>Return%</th>
+                            <th>Duration</th>
+                            <th>Tenure</th>
+                            <th>Status</th>
+                            <th>Mode</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Investment record in investments)
+                        {
+                            sr++;
+                            <tr>
+                                <td>@sr</td>
+                                <td>@record.AspNetUser.FullName</td>
+                                <td>@record.InvestedAmount</td>
+                                <td>@record.ReturnPercentage</td>                              
+                                <td>@_helper.GetDurationNameByDays(Convert.ToInt16(record.Duration))</td>
+                                <td>@record.Tenure</td>
+                                <td>@record.iStatus</td>
+                                <td>@record.iMode</td>
+                                <td><a href="/Admin/Investments/@record.UserId/@record.Id" class="btn btn-sm btn-info">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+
+<script typeof="text/javascript">
+    $(document).ready(function () {
+        $("#txtInvestedAmt").change(function () {
+            var amt = $("#txtInvestedAmt").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(amt)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+        $("#txtReturn").change(function () {
+            var amt = $("#txtReturn").val();
+            var emailRegex = /^(?!$)\d{0,2}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(amt)) {
+                alert('Only 2 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+    });
+
+</script>
+<script type="text/javascript">
+    var id = document.getElementById('id').value;
+    if (id != null && id != "" && id != 0) {
+        $('#txtInvestedAmt').attr("readonly", true);
+        $('#txtReturnPercentage').attr("readonly", true);
+        $('#ddlDuration').attr("readonly", true);
+        $('#txtTenure').attr("readonly", true);
+        $('#ddlMode').attr("readonly", true);
+        $('#txtFPdate').attr("readonly", true);
+        $('#ddlStatus').attr("visible", true);
+    } else {
+        $('#Updation').hide();
+    }
+</script>
+<script type="text/javascript">
+    $("#closeDate").hide();
+    $("#ddlStatus").change(function () {
+        
+        var status = $("#ddlStatus").val();
+        if (status == 'Close') {
+            $("#closeDate").show();
+        }
+        else {
+            $("#closeDate").hide();
+        }
+    });
+</script>
+<script>
+    
+</script>
+

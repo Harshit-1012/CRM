@@ -1,0 +1,23 @@
+﻿<nav class="sidebar sidebar-offcanvas" id="sidebar" style="margin-top: 20px" style="margin-top: 20px">
+    <ul class="nav">
+        <li class="nav-item @ViewBag.LinkDasboard">
+            <a class="nav-link" href="/SuperAdmin">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.MenuClients">
+            <a class="nav-link" data-toggle="collapse" href="#client" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Clients</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+            <div class="collapse" id="client">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/SuperAdmin/Clients">Clients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/SuperAdmin/AddClient">Add Client</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>
+

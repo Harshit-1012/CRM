@@ -1,0 +1,91 @@
+﻿
+@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model LedgerHistory
+
+@{
+    ViewBag.Title = "HistoryList";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.MenuLedger = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    List<LedgerHistory> HistoryList = ViewBag.History;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        General Ledger List
+    </h3>
+    <a href="~/Transaction/AddTransaction" class="btn btn-sm btn-info">Add Transactions List</a>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+<div style="margin-bottom:20px"><center>
+    <a href="/Transaction/TransactionList" class="btn btn-sm btn-primary">All</a>&nbsp; |&nbsp;
+    <a href="/Transaction/TransactionList/Pending" class="btn btn-sm btn-primary">Pending</a>&nbsp; |&nbsp;
+    <a href="/Transaction/TransactionList/Processing" class="btn btn-sm btn-primary">Processing</a>&nbsp; |&nbsp;
+    <a href="/Transaction/TransactionList/Paid" class="btn btn-sm btn-primary">Paid</a> &nbsp;|&nbsp;
+    <a href="/Transaction/TransactionList/Cancel" class="btn btn-sm btn-primary">Cancel</a> &nbsp;|&nbsp;
+    <a href="/Transaction/TransactionList/Overdue" class="btn btn-sm btn-primary">Overdue</a>
+</center>
+</div>
+
+@using (Html.BeginForm("TransactionList", "Transaction", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Transaction/TransactionList" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (HistoryList != null)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Purpose of Transaction</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Amount</th>
+                            <th>Date of Transaction/Due Date</th>
+                            <th>Options</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (LedgerHistory history in HistoryList)
+                        {
+                            sr++;
+                            var date = "";
+                            if(history.DateofTransaction == null)
+                            {
+                                date = Convert.ToDateTime(history.DueDate).ToString("yyyy-MM-dd");
+                            }else
+                            {
+                                date = Convert.ToDateTime(history.DateofTransaction).ToString("yyyy-MM-dd");
+                            }
+                            <tr>
+                                <td>@sr</td>
+                                <td>@history.PurposeofTransaction</td>
+                                <td>@history.AspNetUser11.FullName</td>
+                                <td>@history.AspNetUser.FullName</td>
+                                <td>@history.Amount</td>
+                                <td>@Html.Raw(date)</td>
+                                <td><a href="/Transaction/AddTransaction/@history.Id" class="btn btn-sm btn-info">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+

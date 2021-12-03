@@ -1,0 +1,94 @@
+﻿@using CallingCRM.Models
+
+@{
+    ViewBag.Title = "Sales - All";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.AfterSale = "active";
+
+    List<SalesHistoryList> history = ViewBag.Candidates;
+
+    bool IsManager = User.IsInRole("Manager");
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-call-made"></i>
+        </span>
+        Sales - All 
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Candidates", "Sales", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (history != null && history.Count > 0)
+    {
+        int sr = 0;
+        <table class="table table-hover table-bordered datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    @if (IsManager)
+                    {
+                        <th>BDA</th>
+                    }
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Lead Date</th>
+                    <th>Sales Date</th>
+                    <th>Amount</th>
+                    @if (IsManager)
+                    {
+                        <th>Option</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (SalesHistoryList sale in history)
+                {
+                    sr++;
+
+                <tr style="cursor: pointer;" onclick="ViewLog('@sale.sale.LeadId')">
+                    <td>@sr</td>
+                    @if (IsManager)
+                    {
+                        <td>@sale.sale.Lead.AspNetUser.FullName</td>
+                    }
+                    <td>@sale.Name</td>
+                    <td>@sale.Number</td>
+                    <td>@sale.LeadDate</td>
+                    <td>@sale.sale.PaymentDate</td>
+                    <td>@sale.sale.Amount</td>
+                    @if (IsManager)
+                    {
+                        <td><a href="/sales/sendemail/@sale.sale.LeadId">Send Email</a></td>
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+        <script>
+            function ViewLog(LeadId) {
+                window.location.href = "/calls/log/" + LeadId;
+            }
+        </script>
+
+    }
+    else
+    {
+        <div>No sales found.</div>
+    }
+
+}
+
+

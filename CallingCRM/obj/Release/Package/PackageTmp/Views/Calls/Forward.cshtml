@@ -1,0 +1,87 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.ForwardCallViewModel
+@{
+    ViewBag.Title = "Forward Call";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.StartCall = "active";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var aajKiDate = thisDateTime.ToString("yyy-MM-dd");
+    var kalKiDate = thisDateTime.AddDays(1).ToString("yyyy-MM-dd");
+
+    ViewBag.sMessage = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    ForwardCallViewModel lead = ViewBag.ThisLead;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-phone-forward"></i>
+        </span>
+        Forward Followup Call To Manager
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Overview
+                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Forward", "Calls", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-info" })
+
+    @Html.HiddenFor(m => m.lead.Id)
+
+<div class="row">
+    <div class="col-md-3">
+        <label class="font-weight-bold">Full Name</label>
+        <p>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "readonly" })
+        </p>
+    </div>
+    <div class="col-md-3">
+        <label class="font-weight-bold">Number</label>
+        <p>
+            @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @readonly = "readonly" })
+        </p>
+    </div>
+    <div class="col-md-3">
+        <label class="font-weight-bold">When to followup? *</label>
+        <p>
+            @Html.TextBoxFor(m => m.WhenToFollowup, new { @class = "form-control", type = "date", required = "required" })
+        </p>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-12">
+            <label class="font-weight-bold">Reason to Forward Followup Call *</label>
+            <p>
+                @Html.TextAreaFor(m => m.ForwardReason, new { @class = "form-control", required = "required", rows = 5 })
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="submit" value="Forward Followup Call" class="btn btn-sm btn-dark" />
+        </div>
+    </div>
+}
+

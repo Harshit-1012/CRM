@@ -1,0 +1,81 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.Client
+
+@{
+    ViewBag.Title = "Profile & Limits";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Profile & Limits
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Client", "SuperAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/SuperAdmin/Client" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-info" })
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ClientID)
+
+    var exDate = "";
+    if (Model != null && Model.ExpiryDate != null)
+    {
+        exDate = Convert.ToDateTime(Model.ExpiryDate).ToString("yyyy-MM-dd");
+    }
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-bordered" style="width:100%">
+            <tbody>
+                <tr class="bg-gradient-primary"><td></td><td><strong>PROFILE INFORMATION</strong></td></tr>
+                <tr><td>Client's ID</td><td>@Model.ClientID</td></tr>
+                <tr><td>Business Name</td><td>@Model.ClientBusinessName</td></tr>
+                <tr><td>Business EMails</td><td>Sales: @{ if (Model.ClientEmailSales != null && Model.ClientEmailSales != "") { <span>@Model.ClientEmailSales</span> } else { <span>NA</span> } }, Support: @{ if (Model.ClientEmailSupport != null && Model.ClientEmailSupport != "")
+                    { <span>@Model.ClientEmailSupport</span> } else { <span>NA</span> } }</td></tr>
+                <tr><td>Business Phones</td><td>Sales: @{ if (Model.ClientPhoneSales != null && Model.ClientPhoneSales != "") { <span>@Model.ClientPhoneSales</span> } else { <span>NA</span> } }, Support: @{ if (Model.ClientPhoneSupport != null && Model.ClientPhoneSupport != "")
+                    { <span>@Model.ClientPhoneSupport</span> } else { <span>NA</span> } }</td></tr>
+                <tr><td>Contact Name</td><td>@Model.ClientName</td></tr>
+                <tr><td>Contact Email</td><td>@Model.ClientEmailMain</td></tr>
+                <tr><td>Contact Phone</td><td>@Model.ClientPhoneMain</td></tr>
+                <tr><td>Address</td><td>@Model.ClientAddress, @Model.ClientCity, @Model.ClientPostal</td></tr>
+                <tr><td>Website</td><td>@Model.ClientWebsite</td></tr>
+                <tr><td>CRM URL</td><td>@Model.ClientCRMLink</td></tr>
+                <tr class="bg-gradient-primary"><td></td><td><strong>LIMITS</strong></td></tr>
+                <tr><td>Managers Count</td><td>@Model.ManagerAccountLimit</td></tr>
+                <tr><td>Telecaller Count</td><td>@Model.UserAccountLimit</td></tr>
+                <tr><td>Customer Count</td><td>Unlimited</td></tr>
+                <tr><td>Investor Count</td><td>Unlimited</td></tr>
+                <tr><td>Staff Count</td><td>Unlimited</td></tr>
+                <tr><td>Expiry Date</td><td>@Model.ExpiryDate</td></tr>
+                <tr><td>Account Status</td><td>@{if (Model.ExpiryDate <= _helper.GetCurrentDate()) { <span class="btn btn-danger">EXPIRED</span> } else if (Model.IsActive) { <span class="btn btn-success fw-bold">ACTIVE</span> } else if(!Model.IsActive) { <span class="btn btn-danger fw-bold">Suspended</span> }
+                }</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+}
+

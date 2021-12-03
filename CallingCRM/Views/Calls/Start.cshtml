@@ -1,0 +1,250 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.StartCallsViewModels
+
+@{
+    ViewBag.Title = "Start Call";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.StartCall = "active";
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var aajKiDate = thisDateTime.ToString("yyy-MM-dd");
+    var kalKiDate = thisDateTime.AddDays(1).ToString("yyyy-MM-dd");
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    Lead lead = ViewBag.ThisLead;
+
+    List<SelectListItem> LeadType = ViewBag.LeadType;
+    List<SelectListItem> LeadStatus = ViewBag.LeadStatus;
+    List<SelectListItem> CallStatus = ViewBag.CallStatus;
+
+    if (lead.Mobile.Length <= 10) { lead.Mobile = "+91" + lead.Mobile; }
+
+    //Model.Email = Convert.ToString(lead.Email);
+    //Model.Location = Convert.ToString(lead.Location);
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-phone"></i>
+        </span>
+        Start Call
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Overview
+                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Start", "Calls", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Calls/Start" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-info" })
+
+    if (lead == null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                No lead available
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.LeadId, new { @class = "control-label", @Value = lead.Id })
+
+        <div class="row">
+            <div class="col-md-3">
+                <label class="font-weight-bold">Full Name</label>
+                <p>
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", Value = Convert.ToString(lead.FullName) })
+                </p>
+            </div>
+            <div class="col-md-3">
+                <label class="font-weight-bold">Email</label>
+                <p>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", Value = Convert.ToString(lead.Email) })
+                </p>
+            </div>
+            <div class="col-md-3">
+                <label class="font-weight-bold">Location</label>
+                <p>
+                    @Html.TextBoxFor(m => m.Location, new { @class = "form-control", type = "text", Value = Convert.ToString(lead.Location) })
+                </p>
+            </div>
+            <div class="col-md-3">
+                <label class="font-weight-bold">Source</label>
+                <p>@lead.LeadSource</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label class="font-weight-bold">Number</label>
+                <p>@lead.Mobile</p>
+            </div>
+            <div class="col-md-3">
+                <strong>&nbsp;</strong><br />
+                <a href="tel:@lead.Mobile" class="btn btn-sm btn-info">Call Now</a>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="font-weight-bold">Lead Type</label><br />
+                @Html.DropDownListFor(m => m.LeadType, @LeadType, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="font-weight-bold">Lead Status</label><br />
+                @Html.DropDownListFor(m => m.LeadStatus, @LeadStatus, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="font-weight-bold">Call Status *</label><br />
+                @Html.DropDownListFor(m => m.CallStatus, @CallStatus, new { @class = "form-control", required = "required", onchange = "setLeadStatus()" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="font-weight-bold">Next Followup Date</label><br />
+                @Html.TextBoxFor(m => m.FollowupDate, new { @class = "form-control", type = "date" })
+            </div>
+        </div>
+        <div class="row" id="payDetail" style="display: none">
+            <div class="form-group col-md-3">
+                <label class="font-weight-bold">Payment Date *</label><br />
+                @Html.TextBoxFor(m => m.PaymentDate, new { @class = "form-control", type = "date" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="font-weight-bold">Amount *</label><br />
+                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", type = "number", placeholder="999" })
+            </div>
+            <div class="form-group col-md-6">
+                <label class="font-weight-bold">Payment Mode *</label><br />
+                @Html.TextBoxFor(m => m.PaymentInfo, new { @class = "form-control", placeholder="Bank Transfer" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Comment</label><br />
+                @Html.TextAreaFor(m => m.Comment, new { @class = "form-control" })
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Followup Status</label><br />
+                @Html.TextAreaFor(m => m.FollowupStatus, new { @class = "form-control" })
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="font-weight-bold">
+                    Send Email?<br /><br />
+                    @Html.CheckBoxFor(m => m.SendEmail, new { @class = "", @checked = "checked" }) YES
+                </label>
+            </div>
+            <div class="form-group col-md-8 text-right">
+                <input type="submit" class="btn btn-primary" value="Save Call Log" onclick="return validateCallStatus()" />
+            </div>
+        </div>
+    }
+}
+
+<script>
+    function setLeadStatus() {
+        var value = $('#CallStatus').val();
+        $('#payDetail').slideUp();
+        $('#FollowupDate').val('');
+
+        if (value == "Invalid Number") {
+            $('#LeadStatus').val("Unqualified");
+            $('#LeadType').val("Raw Lead");
+        }
+        else if (value == "Busy") {
+            $('#LeadStatus').val("Open");
+            $('#LeadType').val("Cold Lead");
+            $('#FollowupDate').val('@aajKiDate');
+        }
+        else if (value == "Not Picked") {
+            $('#LeadStatus').val("Open");
+            $('#LeadType').val("Cold Lead");
+            $('#FollowupDate').val('@kalKiDate');
+        }
+        else if (value == "Not Interested") {
+            $('#LeadStatus').val("Contacted");
+            $('#LeadType').val("Raw Lead");
+        }
+        else if (value == "DND Requested") {
+            $('#LeadStatus').val("Unqualified");
+            $('#LeadType').val("Raw Lead");
+        }
+        else if (value == "Interested - Call Back Later") {
+            $('#LeadStatus').val("Working");
+            $('#LeadType').val("Warm Lead");
+        }
+        else if (value == "Interested - Details Asked") {
+            $('#LeadStatus').val("Working");
+            $('#LeadType').val("Hot Lead");
+        }
+        else if (value == "Interested - Paid") {
+            $('#LeadStatus').val("Closed");
+            $('#LeadType').val("Sales Qualified Lead");
+            $('#payDetail').slideDown();
+        }
+        else if (value == "Skipped") {
+            $('#LeadStatus').val("Unqualified");
+            $('#LeadType').val("Raw Lead");
+            $('#FollowupDate').val('@kalKiDate');
+        }
+
+    }
+
+    function validateCallStatus()
+    {
+        var result = true;
+        var followUpDate = $("#FollowupDate").val();
+        var CallStatus = $("#CallStatus").val();
+
+        if (followUpDate != "") {
+            if (CallStatus == "Invalid Number" || CallStatus == "International Number" || CallStatus == "Not Interested" || CallStatus == "Not Interested (Payment Issue)" || CallStatus == "Not Interested (Computer not available)" || CallStatus == "DND Requested") {
+                alert("It seems call status you've selected does not needed another followup. Kindly re-check the call status and try again.");
+                $("#FollowupDate").val('');
+                result = false;
+            }
+        }
+        else
+        {
+            if (CallStatus == "Busy" || CallStatus == "Not Picked") {
+                result = confirm("You've selected a call status which may needed another followup. Are you sure you do not want another followup for this lead?");
+            }
+            else if (CallStatus == "Interested - Call Back Later" || CallStatus == "Interested - Details Asked") {
+                alert("It seems call status you've selected needed another followup. Kindly re-check the call status and try again.");
+                result = false;
+            }
+        }
+
+        if (CallStatus == "Interested - Paid")
+        {
+            if ($("#PaymentDate").val() == "" || $("#Amount").val() == "" || $("#PaymentInfo").val() == "")
+            {
+                alert("Please enter payment information to save lead as PAID.");
+                result = false;
+            }
+        }
+        return result;
+    }
+</script>
+<hr />

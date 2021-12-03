@@ -1,0 +1,202 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.Client
+
+@{
+    ViewBag.Title = "Update Client";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuClients = "active";
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var aajKiDate = thisDateTime.ToString("yyy-MM-dd");
+    var kalKiDate = thisDateTime.AddDays(1).ToString("yyyy-MM-dd");
+
+    ViewBag.eMessage = Session["eMessage"];
+    ViewBag.sMessage = Session["sMessage"];
+    Session["eMessage"] = "";
+    Session["sMessage"] = "";
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account"></i>
+        </span>
+        Update Client's Information
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Client", "SuperAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/SuperAdmin/Client" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-info" })
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ClientID)
+
+    var exDate = "";
+    if (Model != null && Model.ExpiryDate != null)
+    {
+        exDate = Convert.ToDateTime(Model.ExpiryDate).ToString("yyyy-MM-dd");
+    }
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>Client's Full Name *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientName, new { @class = "form-control", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Client's Business Name *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientBusinessName, new { @class = "form-control", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Client's Logo URL</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientLogoURL, new { @class = "form-control" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Email Main *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientEmailMain, new { @class = "form-control", type = "email", required = "required", @readonly= "readonly" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Email Sale</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientEmailSales, new { @class = "form-control", type = "email" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Email Support</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientEmailSupport, new { @class = "form-control", type = "email" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Contact Number Main *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientPhoneMain, new { @class = "form-control", type = "text", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Contact Number Sales</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientPhoneSales, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Contact Number Support</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientPhoneSupport, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Address </label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientAddress, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>City *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientCity, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Postal</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientPostal, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <label>Client's Website URL</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientWebsite, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label>Client CRM URL</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientCRMLink, new { @class = "form-control", type = "text" })
+            </p>
+        </div>
+
+        <div class="col-md-12">
+            <label>Comment</label>
+            <p>
+                @Html.TextBoxFor(m => m.Comment, new { @class = "form-control", type = "text", rows = "4" })
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            <label>Manager's Account Limit</label>
+            <p>
+                @Html.TextBoxFor(m => m.ManagerAccountLimit, new { @class = "form-control", type = "number" })
+            </p>
+        </div>
+        <div class="col-md-3">
+            <label>Telecaller's Account Limit</label>
+            <p>
+                @Html.TextBoxFor(m => m.UserAccountLimit, new { @class = "form-control", type = "number" })
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            <label>Expiration Date</label>
+            <p>
+                @Html.TextBoxFor(m => m.ExpiryDate, new { @class = "form-control", type = "date" })
+            </p>
+        </div>
+        <div class="col-md-3">
+            <label class="text-center d-block">Is Active?</label>
+            <p>
+                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <label>Admin's Default Password</label>
+            <p>
+                @Html.TextBoxFor(m => m.ClientPassword, new { @class = "form-control", type = "text", required = "required", @readonly= "readonly" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-dark" value="Add Client" />
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label>Client's ID</label>
+            <p>
+                @Model.ClientID
+            </p>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function(){
+
+        $("#ExpiryDate").val("@exDate");
+
+    });
+    </script>
+
+}

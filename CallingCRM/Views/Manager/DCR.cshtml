@@ -1,0 +1,104 @@
+﻿
+
+
+
+@using CallingCRM.Models
+@model DatePickerModel
+@{
+    ViewBag.Title = "Daily Call Report - DCR";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkDCR = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    var StartDate = Convert.ToDateTime(ViewBag.StartDate).ToString("dd-MM-yyyy");
+    var EndDate = Convert.ToDateTime(ViewBag.EndDate).ToString("dd-MM-yyyy");
+
+    List<UserDCRViewModel> dcr = ViewBag.DCR;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-phone-log"></i>
+        </span>
+        Daily Call Report - DCR
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("DCR", "Manager", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group input-daterange">
+                <input type="text" id="start" name="start" class="form-control text-left mr-2" value="@StartDate">
+                <label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date</label>
+                <span class="fa fa-calendar" id="fa-1"></span>
+                <input type="text" id="end" name="end" class="form-control text-left ml-2" value="@EndDate">
+                <label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date</label>
+                <span class="fa fa-calendar" id="fa-2"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <input type="submit" class="btn btn-sm btn-info" value="Get DCR" />
+        </div>
+    </div>
+
+    <hr />
+}
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (dcr != null && dcr.Count() > 0)
+            {
+                int sr = 0;
+
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Agent Name</th>
+                            <th>Total Calls</th>
+                            <th>Fresh Calls</th>
+                            <th>Followup Calls</th>
+                            <th>Unresponsive</th>
+                            <th>Not Interested</th>
+                            <th>Interested</th>
+                            <th>Total Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (UserDCRViewModel result in dcr)
+                        {
+                            sr++;
+                            <tr>
+                                <td>@sr</td>
+                                <td>@result.FullName</td>
+                                <td>@result.TotalCalls</td>
+                                <td>@result.FreshCalls</td>
+                                <td>@result.FollowupCalls</td>
+                                <td>@result.UnresponsoveCalls</td>
+                                <td>@result.NotInterestedCalls</td>
+                                <td>@result.InterestedCalls</td>
+                                <td>@result.TotalSales</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+

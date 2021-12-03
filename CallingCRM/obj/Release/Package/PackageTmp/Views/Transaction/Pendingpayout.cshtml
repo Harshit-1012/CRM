@@ -1,0 +1,162 @@
+﻿
+@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model InvestmentReturn
+
+@{
+    ViewBag.Title = "Pendingpayout";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuLedger = "active";
+
+    CommonHelper _helper = new CommonHelper();
+    var PresentDate = _helper.GetCurrentDate();
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    List<SelectListItem> ReturnStatus = ViewBag.returnStatus;
+    List<InvestmentReturn> IReturns = ViewBag.Return;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Pending Payouts
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("Pendingpayout", "Transaction", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Transaction/Pendingpayout", id = "clientForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "control-label", id = "id", Value = Model.Id })
+
+    var rtnDate = "";
+    if (Model.ReturnDate != null) { rtnDate = Convert.ToDateTime(Model.ReturnDate).ToString("yyyy-MM-dd"); }
+    var investerName = "";
+    if(Model.AspNetUser != null) { investerName = Model.AspNetUser.FullName.ToString(); }
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Return Amount</label>
+            <p>
+                @Html.TextBoxFor(m => m.UserId, new { @class = "form-control", type = "text", id = "txtInvestorName", Value = @investerName })
+
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Return Date</label>
+            <p>
+                @Html.TextBoxFor(m => m.ReturnDate, new { @class = "form-control", type = "date", id = "txtRtnDate", Value = @rtnDate })
+
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Return Amount</label>
+            <p>
+                @Html.TextBoxFor(m => m.ReturnAmount, new { @class = "form-control", type = "text", id = "txtRtnAmount", Value = @Model.ReturnAmount })
+
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Return Status</label>
+            <p>
+                @Html.DropDownListFor(m => m.ReturnStatus, @ReturnStatus, new { @class = "form-control", type = "text", id = "ddlRtnStatus", Value = @Model.ReturnStatus })
+                
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Claim Date </label>
+            <p>
+                @Html.TextBoxFor(m => m.ClaimDate, new { @class = "form-control", type = "date", id = "txtClaimDate" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Transaction Mode </label>
+            <p>
+                @Html.TextBoxFor(m => m.TransactionType, new { @class = "form-control", type = "text", id = "txtTransactionType" })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label class="font-weight-bold">Comments</label>
+            <p>
+                @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", type = "text", id = "txtComments" })
+            </p>
+        </div>
+
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Admin/Investments" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+    </div>
+
+
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        @if (IReturns != null)
+
+        {
+            int sr = 0;
+            <table class="table table-hover table-bordered datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Name</th>
+                        <th>ReturnAmount</th>
+                        <th>ReturnDate</th>
+                        <th>ReturnStatus</th>
+                        <th>Claim Date</th>
+                        <th>Actions</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (InvestmentReturn returns in IReturns)
+                    {
+                        sr++;
+                        var date = Convert.ToDateTime(returns.ReturnDate).ToString("yyyy-MM-dd");
+                        if(returns.ReturnStatus == "Pending" && returns.ReturnDate <= PresentDate)
+                        {
+                        <tr>
+                            <td>@sr</td>
+                            <td>@returns.AspNetUser.FullName</td>
+                            <td>@returns.ReturnAmount</td>
+                            <td>@Html.Raw(date)</td>
+                            <td>@returns.ReturnStatus</td>
+                            <td>@returns.ClaimDate</td>
+                            <td><a href="/Transaction/Pendingpayout/@returns.Id" class="btn btn-sm btn-info">Edit</a></td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script>
+    $("#clientForm").hide();
+    var id = document.getElementById('id').value;
+    if (id != null && id != "" && id != 0) {
+        $("#clientForm").show();
+        $('#txtRtnAmount').attr("readonly", true);
+        $('#txtRtnDate').attr("readonly", true); 
+        $('#txtInvestorName').attr("readonly", true);
+
+    }
+</script>

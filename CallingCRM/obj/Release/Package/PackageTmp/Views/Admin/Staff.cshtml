@@ -1,0 +1,230 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model StaffList
+
+@{
+    ViewBag.Title = "Staff";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuUsers = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    
+
+    Staff user = ViewBag.ThisUser;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Other Staff
+    </h3>
+    <a href="~/Admin/StaffList" class="btn btn-sm btn-info">Go To Staff List</a>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+@using (Html.BeginForm("Staff", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Staff" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.id, new { @class = "control-label" })
+    @Html.HiddenFor(m => m.UserId, new { @class = "control-label", id = "UserID" })
+
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Full Name *</label>
+            <p>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", required = "required", id = "txtName" })
+            </p>
+        </div>
+        <div class="col-md-8">
+            <label class="font-weight-bold">Email *</label>
+            <p>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", required = "required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Mobile Personal *</label>
+            <p>
+                @Html.TextBoxFor(m => m.MobilePersonal, new { @class = "form-control", type = "text", required = "required", pattern = "[0-9]{10}", title = "10 digit mobile number required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Mobile Home</label>
+            <p>
+                @Html.TextBoxFor(m => m.MobileHome, new { @class = "form-control", type = "text", pattern = "[0-9]{10}", title = "10 digit mobile number required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label></label>
+            <p>
+                @Html.HiddenFor(m => m.Password, new { @class = "form-control" })
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Reference 1 *</label>
+            <p>
+                @Html.TextBoxFor(m => m.Reference1, new { @class = "form-control", required = "required", id = "txtRef1" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Reference 2</label>
+            <p>
+                @Html.TextBoxFor(m => m.Reference2, new { @class = "form-control", id = "txtRef2" })
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="font-weight-bold">Address Local</label>
+            <p>
+                @Html.TextAreaFor(m => m.AddressLocal, new { @class = "form-control",id="txtLAddress" })
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="font-weight-bold">Address Permanent *</label>
+            <p>
+                @Html.TextAreaFor(m => m.AddressPermanent, new { @class = "form-control", required = "required", id = "txtPAddress" })
+            </p>
+        </div>
+    </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="font-weight-bold">Designation *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", required = "required", id = "txtDesignation"})
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Joining Date *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control", type = "date", required = "required" })
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Total Experience *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.TotalExpYears, new { @class = "form-control", required = "required"})
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Salary(₹0.00) *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", required = "required",id="txtSalary" })
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Salary Date *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.SalaryDate, new { @class = "form-control" })
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Skills *</label>
+                <p>
+                    @Html.TextBoxFor(m => m.Skills, new { @class = "form-control", required = "required" })
+                </p>
+            </div>
+
+            <div class="col-md-12">
+                <label class="font-weight-bold">Comments</label>
+                <p>
+                    @Html.TextAreaFor(m => m.comment, new { @class = "form-control", type = "text",Value =Model.comment })
+                </p>
+            </div>
+            <div class="col-md-12 text-right">
+                <label>&nbsp;</label>
+                <p>
+                    <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                    <a href="/Admin/Staff" class="btn btn-sm btn-info">Reset</a>
+                </p>
+            </div>
+        </div>
+
+
+}
+
+
+
+<script type="text/javascript">
+    var id = document.getElementById('UserID').value;
+    if (id != null && id != "") {
+        $('#txtEmail').attr("readonly", true);
+    }
+</script>
+<script type="text/javascript">
+    document.getElementById("txtName").onchange = function () { validateName() };
+    document.getElementById("txtRef1").onchange = function () { validateReference1() };
+    document.getElementById("txtRef2").onchange = function () { validateReference2() };
+    document.getElementById("txtLAddress").onchange = function () { validateLAddress() };
+    document.getElementById("txtPAddress").onchange = function () { validatePAddress() };
+    function validatePAddress() {
+        let a = document.getElementById('txtPAddress').value.length;
+        if (a > 200) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+    function validateLAddress() {
+        let a = document.getElementById('txtLAddress').value.length;
+        if (a > 200) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+    function validateName() {
+        let a = document.getElementById('txtName').value.length;
+        if (a > 50) {
+            alert("Name is too lengthy");
+            document.getElementById('txtName').value = "";
+        }
+    }
+    function validateReference1() {
+        let a = document.getElementById('txtRef1').value.length;
+        if (a > 50) {
+            alert("Name is too lengthy");
+            document.getElementById('txtRef1').value = "";
+        }
+    }
+    function validateReference2() {
+        let a = document.getElementById('txtRef2').value.length;
+        if (a > 50) {
+            alert("Name is too lengthy");
+            document.getElementById('txtRef2').value = "";
+        }
+    }
+</script>
+<script typeof="text/javascript">
+    $(document).ready(function () {
+        $("#txtSalary").change(function () {
+            var valuee = $("#txtSalary").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+           if (!emailRegex.test(valuee))
+            {
+               alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+    });
+</script>
+
+
+

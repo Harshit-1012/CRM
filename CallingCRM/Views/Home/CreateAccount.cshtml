@@ -1,0 +1,153 @@
+﻿@model CallingCRM.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Create Account";
+    Layout = "~/Views/Shared/_LayoutWhitelabel.cshtml";
+}
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create Account</h4>
+    <h6 class="text-info">* fields are mandatory.</h6>
+    @Html.ValidationSummary("", new { @class = "text-info" })
+    <div class="text-danger">@ViewBag.rMessage</div>
+    <input type="hidden" name="step" id="step" value="@ViewBag.Step" />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.SponsorId, new { @class = "control-label" })
+                    @Html.HiddenFor(m => m.SponsorId, new { @Value = ViewBag.Sponsor })
+                    @Html.TextBoxFor(m => m.SponsorDisplay, new { @class = "form-control", required = "required", @Value = ViewBag.SponsorDisplay })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.ParentId, new { @class = "control-label" })
+                    @Html.HiddenFor(m => m.ParentId, new { @Value = ViewBag.Parent })
+                    @Html.TextBoxFor(m => m.ParentDisplay, new { @class = "form-control", required = "required", @Value = ViewBag.ParentDisplay })
+                </div>
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.Position, new { @class = "control-label" })
+                    @Html.HiddenFor(m => m.Position, new { @Value = ViewBag.Position })
+                    <div>
+                        <strong>Auto (@ViewBag.PositionDisplay)</strong> - <em>Default position is "Left Leg", if left not available then position will be "Right Leg". If both will not be available then you'll need to change parrent. First Referral will be extreem left.</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 form-group">
+            <label class="control-label">&nbsp;</label>
+            <input type="submit" id="cButton" class="btn btn-success" value="Continue" />
+        </div>
+    </div>
+    <hr />
+    if (ViewBag.Step > 1)
+    {
+        <div class="row" id="userform">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", pattern = "^[a-zA-Z\\s]+$", title = "Please enter only alphabets." })
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", required = "required" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.Mobile, new { @class = "control-label d-block" })
+                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", pattern = "^\\d{10}$", title = "Please enter 10 digits mobile number." })
+                        <span id="valid-msg" class="hide">✓ Valid</span>
+                        <span id="error-msg" class="hide"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.ZipCode, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "required", pattern = "^[a-zA-Z0-9_]{3,20}$", title = "Three or more characters required without space." })
+                        <div id="userstatus" style="font-size: 14px;"></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", required = "required", pattern = ".{6,}", title = "Six or more characters required." })
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", required = "required", pattern = ".{6,}", title = "Six or more characters required." })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <input type="submit" class="btn btn-primary" value="Add Member" />
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/assets/js/intlTelInput.js"></script>
+    <script>
+        var input = document.querySelector("#Mobile"),
+        errorMsg = document.querySelector("#error-msg"),
+        validMsg = document.querySelector("#valid-msg");
+
+        var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+        $("#Mobile").intlTelInput({
+            initialCountry: "IN"
+        });
+
+        var reset = function () {
+            input.classList.remove("error");
+            errorMsg.innerHTML = "";
+            errorMsg.classList.add("hide");
+            validMsg.classList.add("hide");
+        };
+
+        // Validate on blur event
+        input.addEventListener('blur', function () {
+            reset();
+            if (input.value.trim()) {
+                if (intl.isValidNumber()) {
+                    validMsg.classList.remove("hide");
+                } else {
+                    input.classList.add("error");
+                    var errorCode = intl.getValidationError();
+                    errorMsg.innerHTML = errorMap[errorCode];
+                    errorMsg.classList.remove("hide");
+                }
+            }
+        });
+
+        // Reset on keyup/change event
+        input.addEventListener('change', reset);
+        input.addEventListener('keyup', reset);
+
+        $("#Username").focusout(function(){
+          $.ajax({url: "/Home/CheckUserName/"+$("#Username").val(), success: function(result){
+            $("#userstatus").html(result);
+          }});
+        });
+
+        // check step
+        var step = @ViewBag.Step;
+        if (step > 1) {
+            $("#SponsorDisplay").attr("readonly", "readonly");
+            $("#ParentDisplay").attr("readonly", "readonly");
+            $("#cButton").attr("style", "display: none");
+        }
+    </script>
+}
+
+

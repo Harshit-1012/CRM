@@ -1,0 +1,128 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+
+@{
+    ViewBag.Title = "Leads";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    DateTime? startDate = ViewBag.StartDate;
+    DateTime? endDate = ViewBag.EndDate;
+
+    ViewBag.eMessage = Session["eMessage"];
+    ViewBag.sMessage = Session["sMessage"];
+    Session["eMessage"] = "";
+    Session["sMessage"] = "";
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-contacts"></i>
+        </span>
+        Manage Leads
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("ImportLeads", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/ImportLeads", id = "ImportForm", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="bg-white" style="padding: 20px; border-radius: 20px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Import Leads</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Select CSV File *</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="file" id="file" required="required" accept=".csv"
+                                       aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="leads">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <label>&nbsp;</label>
+                        <div>
+                            <input type="submit" class="btn btn-sm btn-dark" value="Import Leads" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;<br />
+                        <a href="/assets/media/Leads_Import.csv">Download sample csv</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        @using (Html.BeginForm("ExportLeads", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/ExportLeads", id = "ExportForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="bg-white" style="padding: 20px; border-radius: 20px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Export Leads</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="input-group input-daterange">
+                            <input type="text" id="start" name="start" class="form-control text-left mr-2" value="@ViewBag.StartDate" required="required">
+                            <label class="ml-3 form-control-placeholder" id="start-p" for="start">Select Date Range (Start)</label>
+                            <span class="fa fa-calendar" id="fa-1"></span>
+                            <input type="text" id="end" name="end" class="form-control text-left ml-2" value="@ViewBag.EndDate" required="required">
+                            <label class="ml-3 form-control-placeholder" id="end-p" for="end">(End)</label>
+                            <span class="fa fa-calendar" id="fa-2"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="m-3">Select Export Type</label>
+                        <p>
+                            <select class="form-control" name="leadtype" id="leadtype">
+                                <option value="All">All Leads</option>
+                                <option value="Unprocessed">All Unprocessed Leads</option>
+                                <option value="Processed">All Processed Leads</option>
+                                <option value="Unresponsive">All Unresponsive Leads</option>
+                                <option value="Interested">All Interested Leads</option>
+                                <option value="Converted">All Converted Leads</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <p>
+                            <input type="submit" class="btn btn-sm btn-dark" value="Export Leads" />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,3 @@
+FullName,Email,Mobile,City,ZIPCode,SourceOfLead,AssignedToUserEmail,NextFollowUpDate,Comment
+Russell1,russell1@gmail.com,9876598765,"LKO, UP",226012,"A, B",caller01@gmail.com,21-10-2021,Nothing
+Crawler1,crawler1@gmail.com,9876598766,"LKO, UP",226012,B,caller01@gmail.com,21-10-2021,Nothing

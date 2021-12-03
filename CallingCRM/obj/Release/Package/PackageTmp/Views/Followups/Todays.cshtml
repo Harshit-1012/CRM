@@ -1,0 +1,97 @@
+﻿@using CallingCRM.Models
+@model DatePickerModel
+@{
+    ViewBag.Title = "Followups - Today's";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.CallHistory = "active";
+
+    DateTime? startDate = ViewBag.StartDate;
+    DateTime? endDate = ViewBag.EndDate;
+
+    List<CallHistoryList> history = ViewBag.CallHistoryList;
+
+    bool IsAgent = User.IsInRole("Agent");
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-call-made"></i>
+        </span>
+        Followups - Today's
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("History", "Calls", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (history != null && history.Count > 0)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            @if (!IsAgent)
+                            {
+                                <th>BDA</th>
+                            }
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Call Status</th>
+                            <th>Lead Assigned Date</th>
+                            <th>Last Call Date</th>
+                            <th>Next Followup</th>
+                            @if (IsAgent)
+                            {
+                                <th>Option</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (CallHistoryList call in history)
+                        {
+                            sr++;
+                        <tr>
+                            <td>@sr</td>
+                            @if (!IsAgent)
+                            {
+                                <td>@call.UserName</td>
+                            }
+                            <td>@call.Name</td>
+                            <td>@call.Number</td>
+                            <td>@call.CallStatus</td>
+                            <td>@call.CallDate</td>
+                            <td>@call.LastFollowupDate</td>
+                            <td>@call.NextFollowup</td>
+                            @if (IsAgent)
+                            {
+                                <td><a href="/calls/follow/@call.LeadId" class="btn btn-xs btn-dark">Add Followup</a></td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div>No followup pending to followed.</div>
+            }
+        </div>
+    </div>
+
+}
+
+

@@ -1,0 +1,128 @@
+﻿@using CallingCRM.Models
+
+@{
+    ViewBag.Title = "Sales Report";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    var StartDate = Convert.ToDateTime(ViewBag.StartDate).ToString("dd-MM-yyyy");
+    var EndDate = Convert.ToDateTime(ViewBag.EndDate).ToString("dd-MM-yyyy");
+    List<SalesHistoryList> history = ViewBag.Sales;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Sales Report Analysis
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SalesReport", "Reports", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Reports/SalesReport" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-6 pt-4">
+            <div class="input-group input-daterange">
+                <input type="text" id="start" name="start" class="form-control text-left mr-2" value="@StartDate">
+                <label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date</label>
+                <span class="fa fa-calendar" id="fa-1"></span>
+                <input type="text" id="end" name="end" class="form-control text-left ml-2" value="@EndDate">
+                <label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date</label>
+                <span class="fa fa-calendar" id="fa-2"></span>
+            </div>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+        <div class="col-md-4">
+            <label class="font-weight-bold">Select Manager</label>
+
+            @Html.DropDownList("Manager", (IEnumerable<SelectListItem>)ViewBag.Manager, new { @class = "form-control" })
+
+        </div>
+        }
+        <div class="col-md-2 pt-4">
+            <input type="submit" class="btn btn-sm btn-info" value="Get Report" />
+        </div>
+    </div>
+
+}
+
+
+<hr />
+
+<div class="row pt-5">
+    <div class="col-md-12">
+        @if (history != null && history.Count > 0)
+        {
+            int sr = 0;
+            <table id="datatable" class="table table-hover table-bordered " style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>BDA</th>
+                        <th>Name</th>
+                        <th>Lead Date</th>
+                        <th>Sales Date</th>
+                        <th>Amount</th>
+                        <th>Transaction Type</th>
+                        <th>Product</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (SalesHistoryList sale in history)
+                    {
+                        sr++;
+
+                        <tr>
+                            <td>@sr</td>
+                            <td>@sale.sale.Lead.AspNetUser.FullName</td>
+                            <td>@sale.Name</td>
+                            <td>@sale.LeadDate</td>
+                            <td>@sale.sale.PaymentDate</td>
+                            <td>@sale.sale.Amount</td>
+                            <td>@sale.sale.Comment</td>
+                            <td>@sale.sale.ProductsService.ProductTitle</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#datatable').dataTable();
+            var tableTools = new $.fn.dataTable.TableTools(table, {
+                'aButtons': [
+                    {
+                        'sExtends': 'xls',
+                        'sButtonText': 'Save to Excel',
+                        'sFileName': 'Data.xls'
+                    },
+                    {
+                        'sExtends': 'print',
+                        'bShowAll': true,
+                    },
+                    {
+                        'sExtends': 'pdf',
+                        'bFooter': false
+                    },
+                    'copy',
+                    'csv'
+                ],
+                'sSwfPath': '//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf'
+            });
+            $(tableTools.fnContainer()).insertBefore('#datatable_wrapper');
+        });
+</script>

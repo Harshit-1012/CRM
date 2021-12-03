@@ -1,0 +1,187 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Products_Services
+
+@{
+    ViewBag.Title = "Products & Services";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuShop = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Products &amp; Services
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("AddProducts", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Product/AddProducts", enctype = "Multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "form-control" })
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Product Title *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ProductTitle, new { @class = "form-control", required = "required", id = "txtProductTitle" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Product Code *</label>
+            <p>
+                @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control", id = "txtProductCode", required = "required" })
+            </p>
+        </div><div class="col-md-4">
+            <label class="font-weight-bold">Product Image </label>
+            <p>
+                @if (String.IsNullOrEmpty(Model.ProductImage))
+                {
+                    @Html.TextBoxFor(m => m.ProductImage, new { type = "file", multiple = "multiple", accept = "image/jpeg,  image/jpg", pattern = "([^\\s]+(\\.(?i)(jpe?g|png))$)" });
+                }
+                else
+                {
+                    @Html.HiddenFor(m => m.ProductImage);
+                    <img src="@Model.ProductImage" width="120" />
+                    <br />
+                    <a href="/Product/RemoveProductImage/@Model.Id">Remove</a>
+                }
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <label class="font-weight-bold">Cost Price </label>
+            <p>
+                @Html.TextBoxFor(m => m.CostPrice, new { @class = "form-control", id = "txtCostPrice" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Selling Price </label>
+            <p>
+                @Html.TextBoxFor(m => m.SellingPrice, new { @class = "form-control", id = "txtSellingPrice" })
+            </p>
+        </div>
+
+
+        <div class="col-md-4">
+            <label class="font-weight-bold">Summary </label>
+            <p>
+                @Html.TextBoxFor(m => m.Summary, new { @class = "form-control", id = "txtSummary" })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label class="font-weight-bold">Description</label>
+            <p>
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "txtDescription" })
+            </p>
+        </div>
+
+        <div class="col-md-12">
+            <label class="font-weight-bold">Email Subject </label>
+            <p>
+                @Html.TextBoxFor(m => m.EmailSubject, new { @class = "form-control", id = "txtEmailSubject" })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label class="font-weight-bold">Email Body </label>
+            <p>
+                @Html.TextAreaFor(m=> m.EmailBody,new {@class = "editor" })
+            </p>
+        </div>
+        <div class="col-md-2 text-right">
+            <label class="text-center d-block">Is Active?</label>
+            <p>
+                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control " })
+            </p>
+        </div>
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="/Product/AddProducts" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+
+    </div>
+}
+
+<script type="text/javascript">
+    var id = document.getElementById('txtProductCode').value;
+    if (id != null && id != "") {
+        $('#txtProductCode').attr("readonly", true);
+    }
+</script>
+<script typeof="text/javascript">
+    $(document).ready(function () {
+        $("#txtCostPrice").change(function () {
+            var valuee = $("#txtCostPrice").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(valuee)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+        $("#txtSellingPrice").change(function () {
+            var valuee = $("#txtSellingPrice").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(valuee)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    document.getElementById("txtProductTitle").onchange = function () { validateName() };
+    document.getElementById("txtProductCode").onchange = function () { validateCode() };
+    document.getElementById("txtSummary").onchange = function () { validateSummary() };
+    document.getElementById("txtDescription").onchange = function () { validateDescription() };
+    document.getElementById("txtEmailSubject").onchange = function () { validateESubject() };
+    
+
+    function validateName() {
+        let a = document.getElementById("txtProductTitle").value.length;
+        if (a > 50) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+    function validateCode() {
+        let a = document.getElementById("txtProductCode").value.length;
+        if (a > 50) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+    function validateSummary() {
+        let a = document.getElementById('txtSummary').value.length;
+        if (a > 150) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+    function validateDescription() {
+        let a = document.getElementById('txtDescription').value.length;
+        if (a > 250) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+    function validateESubject() {
+        let a = document.getElementById('txtEmailSubject').value.length;
+        if (a > 100) {
+            alert("You are exceeding the Character Length");
+        }
+    }
+</script>

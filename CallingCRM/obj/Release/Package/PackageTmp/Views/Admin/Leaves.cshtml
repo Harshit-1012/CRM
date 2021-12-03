@@ -1,0 +1,113 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Leave
+
+@{
+    ViewBag.Title = "Leaves";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuUsers = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    DateTime? startDate = ViewBag.StartDate;
+    DateTime? endDate = ViewBag.EndDate;
+
+    List<Leave> result = ViewBag.leave;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Other Staff
+    </h3>
+    <a href="~/Admin/AddLeave/@ViewBag.user" class="btn btn-sm btn-info">Add Leave</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+<br />
+<br />
+
+@*@using (Html.BeginForm("AddLeave", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/AddLeave" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12 text-right">
+        <label>&nbsp;</label>
+        <p>
+            <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+            @*<a href="/Admin/AddLeave/@Model.UserId/@Model.Id" class="btn btn-sm btn-info">Reset</a>
+        </p>
+    </div>
+}*@
+
+
+@using (Html.BeginForm("Leaves", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Leaves" }))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group input-daterange">
+                    <input type="text" id="start" name="start" class="form-control text-left mr-2" value="@ViewBag.StartDate">
+                    <label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date</label>
+                    <span class="fa fa-calendar" id="fa-1"></span>
+                    <input type="text" id="end" name="end" class="form-control text-left ml-2" value="@ViewBag.EndDate">
+                    <label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date</label>
+                    <span class="fa fa-calendar" id="fa-2"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-sm btn-info" value="Get List of Leaves" />
+            </div>
+        </div><br/>
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                @if (result != null )
+                {
+                    int sr = 0;
+                    <table class="table table-hover table-bordered datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Sr No</th>
+                                <th>Name</th>
+                                <th>Leave Date</th>
+                                <th>Purpose</th>
+                                <th>Reason</th>
+                                <th>Leave Status</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Leave leave in result)
+                            {
+                                sr++;
+                                <tr>
+                                    <td>@sr</td>
+                                    <td>@leave.AspNetUser.FullName</td>
+                                    <td>@leave.LeaveDate</td>
+                                    <td>@leave.Purpose</td>
+                                    <td>@leave.Reason</td>
+                                    <td>@leave.LeaveStatus</td>
+                                    <td><a href="/Admin/AddLeave/@leave.UserId/@leave.Id" class="btn btn-sm btn-info">Edit</a>&nbsp;&nbsp;<a href="/Admin/RemoveLeave/@leave.Id" class="btn btn-sm btn-danger">Remove</a></td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    }

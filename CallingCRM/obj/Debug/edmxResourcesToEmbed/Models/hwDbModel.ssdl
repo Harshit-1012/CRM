@@ -1,0 +1,936 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="hwLiveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoleClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" />
+    <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedUserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedEmail" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetimeoffset" Precision="7" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+    <Property Name="ManagerId" Type="nvarchar" MaxLength="450" />
+    <Property Name="TeamLeaderId" Type="nvarchar" MaxLength="450" />
+    <Property Name="NumberValidity" Type="date" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="450" />
+    <Property Name="PhoneValidity" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetUserTokens">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientID" Type="nvarchar" MaxLength="450" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientBusinessName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientLogoURL" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientEmailMain" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientEmailSales" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientEmailSupport" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientPhoneMain" Type="varchar" MaxLength="16" />
+    <Property Name="ClientPhoneSales" Type="varchar" MaxLength="16" />
+    <Property Name="ClientPhoneSupport" Type="varchar" MaxLength="16" />
+    <Property Name="ClientAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientCity" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientPostal" Type="varchar" MaxLength="16" />
+    <Property Name="ClientWebsite" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClientCRMLink" Type="nvarchar" MaxLength="255" />
+    <Property Name="AdminAccountLimit" Type="int" />
+    <Property Name="ManagerAccountLimit" Type="int" />
+    <Property Name="UserAccountLimit" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+    <Property Name="ClientPassword" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="16" />
+    <Property Name="Ship_Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ship_State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ship_City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ship_Pincode" Type="int" />
+    <Property Name="Bill_Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bill_State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bill_City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bill_Pincode" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedAt" Type="date" />
+  </EntityType>
+  <EntityType Name="Emails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LeadId" Type="bigint" />
+    <Property Name="AgentId" Type="nvarchar" MaxLength="450" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+    <Property Name="EmailSubject" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmailBody" Type="nvarchar(max)" />
+    <Property Name="SendingDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmailTemplate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TemplateName" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmailSubject" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmailBody" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="AllowedRole" Type="varchar" MaxLength="50" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="InvestmentReturn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="InvestmentId" Type="bigint" />
+    <Property Name="ReturnAmount" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ReturnDate" Type="datetime" />
+    <Property Name="ReturnStatus" Type="nvarchar" MaxLength="200" />
+    <Property Name="ClaimDate" Type="datetime" />
+    <Property Name="TransactionType" Type="varchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="450" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Investments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="InvestedAmount" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="ReturnPercentage" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="Tenure" Type="int" />
+    <Property Name="FirstPayDate" Type="date" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="iStatus" Type="varchar" MaxLength="20" />
+    <Property Name="CloseDate" Type="date" />
+    <Property Name="iMode" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Investor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="250" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="16" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedAt" Type="date" />
+    <Property Name="CloseDate" Type="date" />
+  </EntityType>
+  <EntityType Name="LeadFollowups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LeadId" Type="bigint" />
+    <Property Name="CallStatus" Type="varchar" MaxLength="255" />
+    <Property Name="Comment" Type="varchar" MaxLength="255" />
+    <Property Name="FollowupDate" Type="datetime" />
+    <Property Name="FollowupStatus" Type="varchar" MaxLength="255" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="LeadForwarded">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LeadId" Type="bigint" />
+    <Property Name="ForwardedTo" Type="nvarchar" MaxLength="450" />
+    <Property Name="ForwardDate" Type="datetime" />
+    <Property Name="ForwardReason" Type="nvarchar" MaxLength="450" />
+    <Property Name="WhenToCall" Type="datetime" />
+    <Property Name="ActionByNewUser" Type="nvarchar" MaxLength="450" />
+    <Property Name="ActionDate" Type="datetime" />
+    <Property Name="NextReminderDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Leads">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Mobile" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="255" />
+    <Property Name="PinCode" Type="varchar" MaxLength="10" />
+    <Property Name="LeadSource" Type="varchar" MaxLength="40" />
+    <Property Name="LeadType" Type="varchar" MaxLength="40" />
+    <Property Name="LeadStatus" Type="varchar" MaxLength="20" />
+    <Property Name="LeadCreationDate" Type="datetime" />
+    <Property Name="AssignedToUser" Type="nvarchar" MaxLength="450" />
+    <Property Name="AssignedDate" Type="datetime" />
+    <Property Name="DND" Type="bit" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+  </EntityType>
+  <EntityType Name="Leave">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="LeaveDate" Type="date" />
+    <Property Name="Purpose" Type="nvarchar" MaxLength="50" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="200" />
+    <Property Name="LeaveStatus" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="LedgerHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeOfTransaction" Type="nvarchar" MaxLength="50" />
+    <Property Name="FromUser" Type="nvarchar" MaxLength="450" />
+    <Property Name="ToUser" Type="nvarchar" MaxLength="450" />
+    <Property Name="Amount" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DateofTransaction" Type="date" />
+    <Property Name="DueDate" Type="date" />
+    <Property Name="PurposeofTransaction" Type="nvarchar(max)" />
+    <Property Name="PayDate" Type="date" />
+    <Property Name="TransactionDetails" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ReferenceId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ProductId" Type="bigint" />
+    <Property Name="ProductPrice" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DiscountPrice" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProductSalePrice" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Quantity" Type="smallint" />
+    <Property Name="TAX" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="PurchaseDate" Type="date" />
+    <Property Name="TransactionDetails" Type="nvarchar" MaxLength="250" />
+    <Property Name="OrderStatus" Type="varchar" MaxLength="20" />
+    <Property Name="PaymentStatus" Type="varchar" MaxLength="20" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="250" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedAt" Type="date" />
+    <Property Name="SaleByUserId" Type="nvarchar" MaxLength="450" />
+  </EntityType>
+  <EntityType Name="Payroll">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="Basic" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="HRA" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Conveyance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="SpecialAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TravellingAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="DistanceAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="MobileInternetAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ExpensesPaid" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="AdvanceSalary" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="LoanDeduction" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ArrearCF" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ArrearBF" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Overtime" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="MealAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="CabAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="OtherAllowance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="OtherDeductions" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Year" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ProductsServices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProductCode" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="ProductImage" Type="nvarchar(max)" />
+    <Property Name="CostPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SellingPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Summary" Type="nvarchar(max)" />
+    <Property Name="EmailBody" Type="nvarchar" MaxLength="450" />
+    <Property Name="EmailSubject" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+    <Property Name="CreatedAt" Type="date" />
+  </EntityType>
+  <EntityType Name="SalaryRevision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="RevisedSalary" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RevisionDate" Type="date" />
+    <Property Name="RevisionDesignation" Type="varchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LeadId" Type="bigint" />
+    <Property Name="PaymentDate" Type="datetime" />
+    <Property Name="Amount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TrainingDate" Type="datetime" />
+    <Property Name="Practice1Date" Type="datetime" />
+    <Property Name="Practice1Status" Type="varchar" MaxLength="20" />
+    <Property Name="Practice2Date" Type="datetime" />
+    <Property Name="Practice2Status" Type="varchar" MaxLength="20" />
+    <Property Name="Practice3Date" Type="datetime" />
+    <Property Name="Practice3Status" Type="varchar" MaxLength="20" />
+    <Property Name="Practice4Date" Type="datetime" />
+    <Property Name="Practice4Status" Type="varchar" MaxLength="20" />
+    <Property Name="ProjectLiveDate" Type="datetime" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="450" />
+    <Property Name="CreatDate" Type="datetime" />
+    <Property Name="ProductId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+    <Property Name="EmployeeCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+    <Property Name="MobilePersonal" Type="varchar" MaxLength="16" />
+    <Property Name="MobileHome" Type="varchar" MaxLength="16" />
+    <Property Name="AddressLocal" Type="nvarchar" MaxLength="250" />
+    <Property Name="AddressPermanent" Type="nvarchar" MaxLength="250" />
+    <Property Name="Reference1" Type="nvarchar" MaxLength="250" />
+    <Property Name="Reference2" Type="nvarchar" MaxLength="250" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+    <Property Name="JoiningDate" Type="date" />
+    <Property Name="TotalExpYears" Type="int" />
+    <Property Name="Salary" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SalaryDate" Type="int" />
+    <Property Name="Department" Type="nvarchar" MaxLength="50" />
+    <Property Name="Skills" Type="nvarchar" MaxLength="500" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="450" />
+  </EntityType>
+  <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleClaims">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserTokens" Type="Self.AspNetUserTokens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserTokens">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clients_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emails_Agent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Emails" Type="Self.Emails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emails">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emails_Leads">
+    <End Role="Leads" Type="Self.Leads" Multiplicity="0..1" />
+    <End Role="Emails" Type="Self.Emails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leads">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emails">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmailTemplate_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="EmailTemplate" Type="Self.EmailTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmailTemplate">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvestmentReturn_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="InvestmentReturn" Type="Self.InvestmentReturn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvestmentReturn">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvestmentReturn_Investment">
+    <End Role="Investments" Type="Self.Investments" Multiplicity="0..1" />
+    <End Role="InvestmentReturn" Type="Self.InvestmentReturn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Investments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvestmentReturn">
+        <PropertyRef Name="InvestmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Investments_Investor">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Investments" Type="Self.Investments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Investments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Investor_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Investor" Type="Self.Investor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Investor">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeadForwarded_Leads">
+    <End Role="Leads" Type="Self.Leads" Multiplicity="0..1" />
+    <End Role="LeadForwarded" Type="Self.LeadForwarded" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leads">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LeadForwarded">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leads_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Leads" Type="Self.Leads" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Leads">
+        <PropertyRef Name="AssignedToUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeadStatus_Lead">
+    <End Role="Leads" Type="Self.Leads" Multiplicity="0..1" />
+    <End Role="LeadFollowups" Type="Self.LeadFollowups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leads">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LeadFollowups">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leave_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Leave" Type="Self.Leave" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Leave">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerHistory_Admin">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="LedgerHistory" Type="Self.LedgerHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerHistory">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerHistory_FromUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="LedgerHistory" Type="Self.LedgerHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerHistory">
+        <PropertyRef Name="FromUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerHistory_ToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="LedgerHistory" Type="Self.LedgerHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerHistory">
+        <PropertyRef Name="ToUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_AdminUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Products">
+    <End Role="ProductsServices" Type="Self.ProductsServices" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_SalesUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="SaleByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payroll_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payroll">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalaryRevision_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="SalaryRevision" Type="Self.SalaryRevision" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalaryRevision">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_Lead">
+    <End Role="Leads" Type="Self.Leads" Multiplicity="0..1" />
+    <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leads">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="LeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_ProductsServices">
+    <End Role="ProductsServices" Type="Self.ProductsServices" Multiplicity="0..1" />
+    <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Staff_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="hwLiveModelStoreContainer">
+    <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailTemplate" EntityType="Self.EmailTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InvestmentReturn" EntityType="Self.InvestmentReturn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Investments" EntityType="Self.Investments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Investor" EntityType="Self.Investor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LeadFollowups" EntityType="Self.LeadFollowups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LeadForwarded" EntityType="Self.LeadForwarded" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Leads" EntityType="Self.Leads" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LedgerHistory" EntityType="Self.LedgerHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductsServices" EntityType="Self.ProductsServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalaryRevision" EntityType="Self.SalaryRevision" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clients_User" Association="Self.FK_Clients_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Clients" EntitySet="Clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_AspNetUsers" Association="Self.FK_Customer_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emails_Agent" Association="Self.FK_Emails_Agent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Emails" EntitySet="Emails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emails_Leads" Association="Self.FK_Emails_Leads">
+      <End Role="Leads" EntitySet="Leads" />
+      <End Role="Emails" EntitySet="Emails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmailTemplate_AspNetUsers" Association="Self.FK_EmailTemplate_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="EmailTemplate" EntitySet="EmailTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvestmentReturn_AspNetUsers" Association="Self.FK_InvestmentReturn_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="InvestmentReturn" EntitySet="InvestmentReturn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvestmentReturn_Investment" Association="Self.FK_InvestmentReturn_Investment">
+      <End Role="Investments" EntitySet="Investments" />
+      <End Role="InvestmentReturn" EntitySet="InvestmentReturn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Investments_Investor" Association="Self.FK_Investments_Investor">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Investments" EntitySet="Investments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Investor_AspNetUsers" Association="Self.FK_Investor_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Investor" EntitySet="Investor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeadForwarded_Leads" Association="Self.FK_LeadForwarded_Leads">
+      <End Role="Leads" EntitySet="Leads" />
+      <End Role="LeadForwarded" EntitySet="LeadForwarded" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leads_User" Association="Self.FK_Leads_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Leads" EntitySet="Leads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeadStatus_Lead" Association="Self.FK_LeadStatus_Lead">
+      <End Role="Leads" EntitySet="Leads" />
+      <End Role="LeadFollowups" EntitySet="LeadFollowups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leave_AspNetUsers" Association="Self.FK_Leave_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Leave" EntitySet="Leave" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerHistory_Admin" Association="Self.FK_LedgerHistory_Admin">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="LedgerHistory" EntitySet="LedgerHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerHistory_FromUser" Association="Self.FK_LedgerHistory_FromUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="LedgerHistory" EntitySet="LedgerHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerHistory_ToUser" Association="Self.FK_LedgerHistory_ToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="LedgerHistory" EntitySet="LedgerHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_AdminUsers" Association="Self.FK_Orders_AdminUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Products" Association="Self.FK_Orders_Products">
+      <End Role="ProductsServices" EntitySet="ProductsServices" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_SalesUser" Association="Self.FK_Orders_SalesUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payroll_AspNetUsers" Association="Self.FK_Payroll_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Payroll" EntitySet="Payroll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalaryRevision_AspNetUsers" Association="Self.FK_SalaryRevision_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="SalaryRevision" EntitySet="SalaryRevision" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_Lead" Association="Self.FK_Sales_Lead">
+      <End Role="Leads" EntitySet="Leads" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_ProductsServices" Association="Self.FK_Sales_ProductsServices">
+      <End Role="ProductsServices" EntitySet="ProductsServices" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_User" Association="Self.FK_Staff_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

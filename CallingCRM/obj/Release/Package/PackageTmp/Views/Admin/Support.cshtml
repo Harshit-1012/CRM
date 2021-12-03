@@ -1,0 +1,39 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+
+@{
+    ViewBag.Title = "Support Tickets";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.LinkTeam = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Support Tickets (View/Create)
+    </h3>
+</div>
+
+@using (Html.BeginForm("Clients", "SuperAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/SuperAdmin/Clients", id = "clientForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>
+

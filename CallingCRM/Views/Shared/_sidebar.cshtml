@@ -1,0 +1,90 @@
+﻿@using CallingCRM.Helpers
+@{
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+}
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="margin-top: 40px">
+    <ul class="nav">
+        <li class="nav-item @ViewBag.LinkDasboard">
+            <a class="nav-link" href="/">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.StartCall">
+            <a class="nav-link" href="~/Calls/Start">
+                <span class="menu-title">Start Fresh Call</span>
+                <i class="mdi mdi-phone menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.CallHistory">
+            <a class="nav-link" data-toggle="collapse" href="#CallHistoryList" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Call History</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-call-made menu-icon"></i>
+            </a>
+            <div class="collapse" id="CallHistoryList">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/Calls/History">All Calls</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Calls/Unresponsive">Unresponsive</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Calls/NotInterested">Not Interested</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Calls/Interested">Interested</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.Followups">
+            <a class="nav-link" data-toggle="collapse" href="#FollowupsList" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Followups</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-call-merge menu-icon"></i>
+            </a>
+            <div class="collapse" id="FollowupsList">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/Followups/PendingOld">Pending Followups</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Followups/Todays">Today's Followup</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Followups/Upcoming">Upcoming Followup</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.ForwardedCalls">
+            <a class="nav-link" data-toggle="collapse" href="#ForwardedCalls" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Forwarded Calls</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-bank menu-icon"></i>
+            </a>
+            <div class="collapse" id="ForwardedCalls">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/calls/Forwarded/Pending">Pending Calls</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calls/Forwarded/Todays">Todays's Calls</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calls/Forwarded/Upcoming">Upcoming Calls</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calls/Forwarded/All">Completed Calls</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item @ViewBag.AfterSale">
+            <a class="nav-link" data-toggle="collapse" href="#AfterSaleList" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Sales</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-bank menu-icon"></i>
+            </a>
+            <div class="collapse" id="AfterSaleList">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/Sales/Candidates">Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Sales/PendingTraining">Pending Training</a></li>
+                    <!--
+                    <li class="nav-item"><a class="nav-link" href="/Sales/PendingPractice">Pending Practice</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Sales/Live">Live Contracts</a></li>
+                    -->
+                </ul>
+            </div>
+        </li>
+        <li>
+            <div style="padding-top: 20px; text-align: center">
+                System Date/Time<br />
+                @thisDateTime
+            </div>
+        </li>
+    </ul>
+</nav>
+

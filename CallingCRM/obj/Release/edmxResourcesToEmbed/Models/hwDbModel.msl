@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hwLiveModelStoreContainer" CdmEntityContainer="hwLiveEntities">
+    <EntitySetMapping Name="C__EFMigrationsHistory">
+      <EntityTypeMapping TypeName="hwLiveModel.C__EFMigrationsHistory">
+        <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoleClaims">
+      <EntityTypeMapping TypeName="hwLiveModel.AspNetRoleClaim">
+        <MappingFragment StoreEntitySet="AspNetRoleClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="hwLiveModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+          <ScalarProperty Name="NormalizedName" ColumnName="NormalizedName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="hwLiveModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="hwLiveModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderDisplayName" ColumnName="ProviderDisplayName" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserTokens">
+      <EntityTypeMapping TypeName="hwLiveModel.AspNetUserToken">
+        <MappingFragment StoreEntitySet="AspNetUserTokens">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeadFollowups">
+      <EntityTypeMapping TypeName="hwLiveModel.LeadFollowup">
+        <MappingFragment StoreEntitySet="LeadFollowups">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="FollowupStatus" ColumnName="FollowupStatus" />
+          <ScalarProperty Name="FollowupDate" ColumnName="FollowupDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CallStatus" ColumnName="CallStatus" />
+          <ScalarProperty Name="LeadId" ColumnName="LeadId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leads">
+      <EntityTypeMapping TypeName="hwLiveModel.Lead">
+        <MappingFragment StoreEntitySet="Leads">
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="DND" ColumnName="DND" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+          <ScalarProperty Name="AssignedToUser" ColumnName="AssignedToUser" />
+          <ScalarProperty Name="LeadCreationDate" ColumnName="LeadCreationDate" />
+          <ScalarProperty Name="LeadStatus" ColumnName="LeadStatus" />
+          <ScalarProperty Name="LeadType" ColumnName="LeadType" />
+          <ScalarProperty Name="LeadSource" ColumnName="LeadSource" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sales">
+      <EntityTypeMapping TypeName="hwLiveModel.Sale">
+        <MappingFragment StoreEntitySet="Sales">
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ProjectLiveDate" ColumnName="ProjectLiveDate" />
+          <ScalarProperty Name="Practice4Status" ColumnName="Practice4Status" />
+          <ScalarProperty Name="Practice4Date" ColumnName="Practice4Date" />
+          <ScalarProperty Name="Practice3Status" ColumnName="Practice3Status" />
+          <ScalarProperty Name="Practice3Date" ColumnName="Practice3Date" />
+          <ScalarProperty Name="Practice2Status" ColumnName="Practice2Status" />
+          <ScalarProperty Name="Practice2Date" ColumnName="Practice2Date" />
+          <ScalarProperty Name="Practice1Status" ColumnName="Practice1Status" />
+          <ScalarProperty Name="Practice1Date" ColumnName="Practice1Date" />
+          <ScalarProperty Name="TrainingDate" ColumnName="TrainingDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="LeadId" ColumnName="LeadId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emails">
+      <EntityTypeMapping TypeName="hwLiveModel.Email">
+        <MappingFragment StoreEntitySet="Emails">
+          <ScalarProperty Name="SendingDate" ColumnName="SendingDate" />
+          <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+          <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+          <ScalarProperty Name="Email1" ColumnName="Email" />
+          <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+          <ScalarProperty Name="LeadId" ColumnName="LeadId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="hwLiveModel.Client">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="ClientPassword" ColumnName="ClientPassword" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ClientCRMLink" ColumnName="ClientCRMLink" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UserAccountLimit" ColumnName="UserAccountLimit" />
+          <ScalarProperty Name="ManagerAccountLimit" ColumnName="ManagerAccountLimit" />
+          <ScalarProperty Name="AdminAccountLimit" ColumnName="AdminAccountLimit" />
+          <ScalarProperty Name="ClientWebsite" ColumnName="ClientWebsite" />
+          <ScalarProperty Name="ClientPostal" ColumnName="ClientPostal" />
+          <ScalarProperty Name="ClientCity" ColumnName="ClientCity" />
+          <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+          <ScalarProperty Name="ClientPhoneSupport" ColumnName="ClientPhoneSupport" />
+          <ScalarProperty Name="ClientPhoneSales" ColumnName="ClientPhoneSales" />
+          <ScalarProperty Name="ClientPhoneMain" ColumnName="ClientPhoneMain" />
+          <ScalarProperty Name="ClientEmailSupport" ColumnName="ClientEmailSupport" />
+          <ScalarProperty Name="ClientEmailSales" ColumnName="ClientEmailSales" />
+          <ScalarProperty Name="ClientEmailMain" ColumnName="ClientEmailMain" />
+          <ScalarProperty Name="ClientLogoURL" ColumnName="ClientLogoURL" />
+          <ScalarProperty Name="ClientBusinessName" ColumnName="ClientBusinessName" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeadForwardeds">
+      <EntityTypeMapping TypeName="hwLiveModel.LeadForwarded">
+        <MappingFragment StoreEntitySet="LeadForwarded">
+          <ScalarProperty Name="NextReminderDate" ColumnName="NextReminderDate" />
+          <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+          <ScalarProperty Name="ActionByNewUser" ColumnName="ActionByNewUser" />
+          <ScalarProperty Name="WhenToCall" ColumnName="WhenToCall" />
+          <ScalarProperty Name="ForwardReason" ColumnName="ForwardReason" />
+          <ScalarProperty Name="ForwardDate" ColumnName="ForwardDate" />
+          <ScalarProperty Name="ForwardedTo" ColumnName="ForwardedTo" />
+          <ScalarProperty Name="LeadId" ColumnName="LeadId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="hwLiveModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="PhoneValidity" ColumnName="PhoneValidity" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="NumberValidity" ColumnName="NumberValidity" />
+          <ScalarProperty Name="TeamLeaderId" ColumnName="TeamLeaderId" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="NormalizedUserName" ColumnName="NormalizedUserName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="hwLiveModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Staffs">
+      <EntityTypeMapping TypeName="hwLiveModel.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Skills" ColumnName="Skills" />
+          <ScalarProperty Name="SalaryDate" ColumnName="SalaryDate" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="TotalExpYears" ColumnName="TotalExpYears" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Reference2" ColumnName="Reference2" />
+          <ScalarProperty Name="Reference1" ColumnName="Reference1" />
+          <ScalarProperty Name="AddressPermanent" ColumnName="AddressPermanent" />
+          <ScalarProperty Name="AddressLocal" ColumnName="AddressLocal" />
+          <ScalarProperty Name="MobileHome" ColumnName="MobileHome" />
+          <ScalarProperty Name="MobilePersonal" ColumnName="MobilePersonal" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="hwLiveModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Bill_Pincode" ColumnName="Bill_Pincode" />
+          <ScalarProperty Name="Bill_City" ColumnName="Bill_City" />
+          <ScalarProperty Name="Bill_State" ColumnName="Bill_State" />
+          <ScalarProperty Name="Bill_Country" ColumnName="Bill_Country" />
+          <ScalarProperty Name="Ship_Pincode" ColumnName="Ship_Pincode" />
+          <ScalarProperty Name="Ship_City" ColumnName="Ship_City" />
+          <ScalarProperty Name="Ship_State" ColumnName="Ship_State" />
+          <ScalarProperty Name="Ship_Country" ColumnName="Ship_Country" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products_Services">
+      <EntityTypeMapping TypeName="hwLiveModel.Products_Services">
+        <MappingFragment StoreEntitySet="Products&amp;Services">
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+          <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+          <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="hwLiveModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+          <ScalarProperty Name="TransactionDetails" ColumnName="TransactionDetails" />
+          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+          <ScalarProperty Name="TAX" ColumnName="TAX" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductSalePrice" ColumnName="ProductSalePrice" />
+          <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LedgerHistories">
+      <EntityTypeMapping TypeName="hwLiveModel.LedgerHistory">
+        <MappingFragment StoreEntitySet="LedgerHistory">
+          <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TransactionDetails" ColumnName="TransactionDetails" />
+          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="PurposeofTransaction" ColumnName="PurposeofTransaction" />
+          <ScalarProperty Name="DateofTransaction" ColumnName="DateofTransaction" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ToUser" ColumnName="ToUser" />
+          <ScalarProperty Name="FromUser" ColumnName="FromUser" />
+          <ScalarProperty Name="TypeOfTransaction" ColumnName="TypeOfTransaction" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvestmentReturns">
+      <EntityTypeMapping TypeName="hwLiveModel.InvestmentReturn">
+        <MappingFragment StoreEntitySet="InvestmentReturn">
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="InvestmentId" ColumnName="InvestmentId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+          <ScalarProperty Name="ReturnStatus" ColumnName="ReturnStatus" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="ReturnAmount" ColumnName="ReturnAmount" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Investors">
+      <EntityTypeMapping TypeName="hwLiveModel.Investor">
+        <MappingFragment StoreEntitySet="Investor">
+          <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Investments">
+      <EntityTypeMapping TypeName="hwLiveModel.Investment">
+        <MappingFragment StoreEntitySet="Investments">
+          <ScalarProperty Name="iMode" ColumnName="iMode" />
+          <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+          <ScalarProperty Name="iStatus" ColumnName="iStatus" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="FirstPayDate" ColumnName="FirstPayDate" />
+          <ScalarProperty Name="Tenure" ColumnName="Tenure" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="ReturnPercentage" ColumnName="ReturnPercentage" />
+          <ScalarProperty Name="InvestedAmount" ColumnName="InvestedAmount" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leaves">
+      <EntityTypeMapping TypeName="hwLiveModel.Leave">
+        <MappingFragment StoreEntitySet="Leave">
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="LeaveStatus" ColumnName="LeaveStatus" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalaryRevisions">
+      <EntityTypeMapping TypeName="hwLiveModel.SalaryRevision">
+        <MappingFragment StoreEntitySet="SalaryRevision">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="RevisionDesignation" ColumnName="RevisionDesignation" />
+          <ScalarProperty Name="RevisionDate" ColumnName="RevisionDate" />
+          <ScalarProperty Name="RevisedSalary" ColumnName="RevisedSalary" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payrolls">
+      <EntityTypeMapping TypeName="hwLiveModel.Payroll">
+        <MappingFragment StoreEntitySet="Payroll">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="OtherDeductions" ColumnName="OtherDeductions" />
+          <ScalarProperty Name="OtherAllowance" ColumnName="OtherAllowance" />
+          <ScalarProperty Name="CabAllowance" ColumnName="CabAllowance" />
+          <ScalarProperty Name="MealAllowance" ColumnName="MealAllowance" />
+          <ScalarProperty Name="Overtime" ColumnName="Overtime" />
+          <ScalarProperty Name="ArrearBF" ColumnName="ArrearBF" />
+          <ScalarProperty Name="ArrearCF" ColumnName="ArrearCF" />
+          <ScalarProperty Name="LoanDeduction" ColumnName="LoanDeduction" />
+          <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
+          <ScalarProperty Name="ExpensesPaid" ColumnName="ExpensesPaid" />
+          <ScalarProperty Name="MobileInternetAllowance" ColumnName="MobileInternetAllowance" />
+          <ScalarProperty Name="DistanceAllowance" ColumnName="DistanceAllowance" />
+          <ScalarProperty Name="TravellingAllowance" ColumnName="TravellingAllowance" />
+          <ScalarProperty Name="SpecialAllowance" ColumnName="SpecialAllowance" />
+          <ScalarProperty Name="Conveyance" ColumnName="Conveyance" />
+          <ScalarProperty Name="HRA" ColumnName="HRA" />
+          <ScalarProperty Name="Basic" ColumnName="Basic" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

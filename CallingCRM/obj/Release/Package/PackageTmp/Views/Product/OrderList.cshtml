@@ -1,0 +1,60 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model Order
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.MenuShop = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    List<Order> OrderList = ViewBag.order;
+}
+
+<h2>OrderList</h2>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("OrderList", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Product/OrderList" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (OrderList != null)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Invoice Number</th>
+                            <th>Product Sale Price</th>
+                            <th>Order Status</th>
+                            <th>Payment Status</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Order order in OrderList)
+                        {
+                            sr++;
+                            <tr>
+                                <td>@sr</td>
+                                <td>@order.InvoiceNumber</td>
+                                <td>@order.ProductSalePrice</td>
+                                <td>@order.OrderStatus</td>
+                                <td>@order.PaymentStatus</td>
+                                <td><a href="/Product/CreateOrders/@order.Id" class="btn btn-sm btn-info" >Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}

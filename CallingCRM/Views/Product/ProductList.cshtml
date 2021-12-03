@@ -1,0 +1,69 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model ProductsService
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuShop = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+
+    List<ProductsService> products = ViewBag.Products;
+
+
+}
+
+<h2>ProductList</h2>
+
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("ProductList", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Product/ProductList" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (products != null)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Product Title</th>
+                            <th>Product Code</th>
+                            <th>Product Image</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ProductsService product in products)
+                        {
+                            sr++;
+                            var ImageTag = "";
+                            if (product.ProductImage != null && product.ProductImage.ToString() != "")
+                            {
+                                ImageTag = "<img src='"+ product.ProductImage +"' />";
+                            }
+
+                            <tr>
+                                <td>@sr</td>
+                                <td>@product.ProductTitle</td>
+                                <td>@product.ProductCode</td>
+                                <td>@Html.Raw(ImageTag)</td>
+                                <td><a href="/Product/AddProducts/@product.Id" class="btn btn-sm btn-info">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}

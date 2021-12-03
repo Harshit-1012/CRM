@@ -1,0 +1,129 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model CallingCRM.Models.SendEmailViewModels
+
+@{
+    ViewBag.Title = "Send E-Mail";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.StartCall = "active";
+
+    Lead lead = ViewBag.ThisLead;
+    AspNetUser agent = ViewBag.ThisAgent;
+
+    ViewBag.eMessage = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+
+    DateTime thisDate = _helper.GetCurrentDate();
+
+    var pStart = thisDate.AddDays(1).ToString("dd-MM-yyyy");
+    var pEnd = thisDate.AddDays(7).ToString("dd-MM-yyyy");
+
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-email"></i>
+        </span>
+        Send E-Mail
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SendEMail", "Sales", FormMethod.Post, new { @class = "form-horizontal", role = "form", onsubmit = "return getData(this)" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (lead == null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                Seems, lead referene does not belongs to you.
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.LeadId, new { @class = "control-label", Value = lead.Id })
+        @Html.HiddenFor(m => m.Body)
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="font-weight-bold">Select Template</label><br />
+                <select class="form-control template" id="template" name="template" onchange="getTemplateBody(this)">
+                    <option value="">Select E-Mail</option>
+                    <option value="JOI">Template #1</option>
+                    <option value="LOI">Template #2</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="font-weight-bold">Sender Email *</label><br />
+                <select class="form-control sender" id="sender" name="sender" required>
+                    <option value="">Select Sender</option>
+                    <option value="caller01@gmail.com">caller01@gmail.com</option>
+                    <option value="caller02@gmail.com">caller02@gmail.com</option>
+                </select>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Email *</label><br />
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "text", required = "required", Value = Convert.ToString(lead.Email) })
+            </div>
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Subject *</label><br />
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", required = "required" })
+            </div>
+            <div class="form-group col-md-12">
+                <label class="font-weight-bold">Body *</label><br />
+                <textarea class="editor"></textarea>
+            </div>
+
+            <div class="form-group col-md-12 text-right">
+                <input type="submit" class="btn btn-primary" value="Send Email" />
+            </div>
+        </div>
+    }
+}
+
+@{
+    <script>
+    var rEmail = "@lead.FullName <@lead.Email>";
+        var eSubject_JOI = "Broucher #1";
+        var eBody_JOI = "<div>Dear @Convert.ToString(lead.FullName),<br><br>Hope you are doing well!!<br><br>As per the telephonic conversation here we are sending further information:<br><br>Broucher #1.<br><br>Thanks and Regards,<br><br>Admin</div>";
+
+        var eSubject_LOI = "Payment Receipt";
+        var eBody_LOI = "<div>Dear @Convert.ToString(lead.FullName),<br><br>This is acknowledgement as payment receipt that we have received the payment of Rs 0000.00 against {product_name}.<br><br>Thanks and Regards,<br><br>Admin</div>";
+
+
+        //var signature = '<table style="height: 90px; width: 620px"><tbody><tr><td style="width:200px"><img src="https://www.biglifeglobal.com/home/wp-content/uploads/2021/08/logo-04.png" alt="BigLife" width="200" height="90" border="0"></td><td style="width:410px"><div style="font-size:12pt"><h3>BigLife Global Services</h3></div><div style="font-size:12pt">Website: <a href="http://www.biglifeglobal.com" target="_blank" data-saferedirecturl="http://www.biglifeglobal.com">www.biglifeglobal.com</a></div><div style="font-size:12pt">Email: <a href="mailto:info@biglifeglobal.com" target="_blank">info@biglifeglobal.com</a></div><div style="font-size:12pt">Contact Numbers: +91(911)960-9498</div></td></tr></tbody></table>';
+        var signature = '';
+
+        function getTemplateBody(obj)
+        {
+            debugger;
+            var template = $('.template').val();
+            $('.editor').summernote('reset');
+
+            $('#Subject').val(eval("eSubject_" + template));
+            $('.editor').summernote('pasteHTML', signature + eval("eBody_" + template));
+        }
+
+        function getData(obj)
+        {
+            var body = $('.editor').summernote('code');
+
+            $('#Body').val($('<div/>').text(body).html());
+
+            return true;
+        }
+    </script>
+}

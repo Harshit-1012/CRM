@@ -1,0 +1,145 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model InvestorList
+
+@{
+    ViewBag.Title = "Investor";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuClients = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var mindate = Convert.ToDateTime(thisDateTime).ToString("yyyy-MM-dd");
+    List<InvestorList> users = ViewBag.Investors;
+    Investor user = ViewBag.ThisUser;
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Investor
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("Investors", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Investors", id = "clientForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "control-label" })
+    @Html.HiddenFor(m => m.UserId, new { @class = "control-label", id = "UserId" })
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Full Name *</label>
+            <p>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", required = "required", id = "txtName" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Email *</label>
+            <p>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", required = "required", id = "txtEmail" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Mobile Number *</label>
+            <p>
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", type = "text", required = "required", pattern = "[0-9]{10}", title = "10 digit mobile number required" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Close Date *</label>
+            <p>
+                @Html.TextBoxFor(m => m.CloseDate, new { @class = "form-control", type = "date", min = mindate })
+            </p>
+        </div>
+
+            <div class="col-md-4">
+                <label></label>
+                <p>
+                    @Html.HiddenFor(m => m.Password, new { @class = "form-control" })
+                </p>
+            </div>
+
+            <div class="col-md-12 text-right">
+                <label>&nbsp;</label>
+                <p>
+                    <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                    <a href="/Admin/Investors" class="btn btn-sm btn-info">Reset</a>
+                </p>
+            </div>
+        </div>
+}
+<hr />
+@using (Html.BeginForm("Investors", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/Investors" }))
+            {
+    <div class="row">
+        <div class="col-md-12">
+            @if (users != null)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (InvestorList str in users)
+                        {
+                            sr++;
+                            <tr>
+                                <td>@sr</td>
+                                <td>@str.FullName</td>
+                                <td>@str.Email</td>
+                                <td>@str.PhoneNumber</td>
+                                <td>
+                                    <a href="/Admin/Investors/@str.UserId" class="btn btn-sm btn-info">Edit</a>&nbsp;&nbsp;
+                                    <a href="/Admin/Investments/@str.UserId" class="btn btn-sm btn-link">Investments</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    var id = document.getElementById('UserId').value;
+    if (id != null && id != "") {
+        $('#txtEmail').attr("readonly", true);
+    }
+</script>
+<script type="text/javascript">
+    document.getElementById("txtName").onchange = function () { validateName() };
+    function validateName() {
+        let a = document.getElementById('txtName').value.length;
+        if (a > 50) {
+            alert("Name is too lengthy");
+            document.getElementById('txtName').value = "";
+        }
+    }
+</script>
+
+

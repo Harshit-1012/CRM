@@ -1,0 +1,202 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model LedgerHistory
+
+@{
+    ViewBag.Title = "LedgerHistory";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuLedger = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+    string mindate = Convert.ToDateTime(_helper.GetCurrentDate()).ToString("yyyy-MM-dd");
+    List<LedgerHistory> History = ViewBag.history;
+    List<SelectListItem> transactiontype = ViewBag.transactiontype;
+    List<SelectListItem> UserList = ViewBag.UserList;
+    List<SelectListItem> Status = ViewBag.status;
+
+    string dueDate = "";
+    if (Model.DueDate != null)
+    {
+        dueDate = Convert.ToDateTime(Model.DueDate).ToString("yyyy-MM-dd");
+    }
+    string txnDate = "";
+    if (Model.DateofTransaction != null)
+    {
+        txnDate = Convert.ToDateTime(Model.DateofTransaction).ToString("yyyy-MM-dd");
+    }
+}
+
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Add Transaction
+    </h3>
+    <a href="~/Transaction/TransactionList" class="btn btn-sm btn-info">Go To Transactions List</a>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("AddTransaction", "Transaction", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Transaction/AddTransaction", id = "clientForm", onSubmit = "return ValidateUserAndDate()" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @class = "form-control",id ="id" })
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="font-weight-bold">Type of Transaction</label>
+            <p>
+                @Html.DropDownListFor(m => m.TypeOfTransaction, @transactiontype, new { @class = "form-control", required = "required",id="ddlTot"})
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">From </label>
+            <p>
+                @Html.DropDownListFor(m => m.FromUser, @UserList, new { @class = "form-control", required = "required", id = "ddlFrom" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">To </label>
+            <p>
+                @Html.DropDownListFor(m => m.ToUser, @UserList, new { @class = "form-control", required = "required", id = "ddlTo" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Amount </label>
+            <p>
+                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", required = "required", id = "txtAmount" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Date of Transaction </label>
+            <p>
+                @Html.TextBoxFor(m => m.DateofTransaction, new { @class = "form-control", type = "date", id = "ddlDot", Value=@txnDate, min = mindate })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label class="font-weight-bold">Due Date</label>
+            <p>
+                @Html.TextBoxFor(m => m.DueDate, new { @class = "form-control", type = "date", id = "ddlDd", Value=@dueDate, min = mindate })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label class="font-weight-bold">Purpose of Transaction </label>
+            <p>
+                @Html.TextAreaFor(m => m.PurposeofTransaction, new { @class = "form-control ", required = "required", type = "date",id="txtPurpose" })
+            </p>
+        </div>
+        @if (Model.Id != 0)
+        {
+            <div class="col-md-4">
+                <label class="font-weight-bold">Paydate</label>
+                <p>
+                    @Html.TextBoxFor(m => m.PayDate, new { @class = "form-control", type = "date", id = "txtpaydate", min = mindate })
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="font-weight-bold">Status </label>
+                <p>
+                    @Html.DropDownListFor(m => m.Status, @Status, new { @class = "form-control", required = "required", id = "ddlStatus" })
+                </p>
+            </div>
+            <div class="col-md-12">
+                <label class="font-weight-bold">Transaction Details </label>
+                <p>
+                    @Html.TextAreaFor(m => m.TransactionDetails, new { @class = "form-control ", required = "required", type = "date" })
+                </p>
+            </div>
+            
+        }
+        <div class="col-md-12 text-right">
+            <label>&nbsp;</label>
+            <p>
+                <input type="submit" class="btn btn-sm btn-info" value="Save" /><span class="font-monospace" aria-hidden="true"></span>
+                <a href="~/Transaction/AddTransaction" class="btn btn-sm btn-info">Reset</a>
+            </p>
+        </div>
+    </div>
+
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtAmount").change(function () {
+            var valuee = $("#txtAmount").val();
+            var emailRegex = /^(?!$)\d{0,10}(?:\.\d{1,2})?$/i;
+            if (!emailRegex.test(valuee)) {
+                alert('Only 10 Digit before and 2 after decimal digit allowed ');
+            }
+        });
+    });
+    isError = false;
+    document.getElementById("ddlFrom").onchange = function () { validateUsers()};
+    document.getElementById("ddlTo").onchange = function () { validateUsers() };
+    function validateUsers() {
+        var from = $("#ddlFrom").val();
+        var To = $("#ddlTo").val();
+        if (from == To) {
+            alert("Both User can Not be same");
+            isError = true;
+        }
+    }
+    function validateDate() {
+        var Dot = $("#ddlDot").val();
+        var Dd = $("#ddlDd").val();
+        if (Dot == Dd)
+        {
+            alert("Please Provide Any one of Date of Transaction or Due Date");
+            isError = true;
+        }
+        else if (Dd == null || Dot != null && Dd != null || Dot == null) {
+            isError = false;
+        }
+    }
+    function ValidateUserAndDate() {
+        validateDate();
+        if (isError == true) {
+            alert("Please check Conditions for Users and Date");
+            return false
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+<script type="text/javascript">
+    var amt = document.getElementById('txtAmount').value;
+    if (amt != null && amt != "") {
+        $('#ddlTot').attr("readonly", true);
+        $('#ddlFrom').attr("readonly", true);
+        $('#ddlTo').attr("readonly", true);
+        $('#txtAmount').attr("readonly", true);
+        $('#ddlDot').attr("readonly", true);
+        $('#ddlDd').attr("readonly", true);
+        $('#txtPurpose').attr("readonly", true);
+    }
+    
+</script>
+@*<script type="text/javascript">
+    document.getElementById("txtpaydate").onchange = function () {changevalue()};
+    var paydt = document.getElementById("txtpaydate").value;
+    function changevalue() {
+        validateDate();
+        if (paydt >= (@mindate)) {
+            document.getElementById("ddlStatus").value == "paid"
+        }
+    }
+    
+    
+      
+</script>*@

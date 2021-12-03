@@ -1,0 +1,88 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+@model StaffList
+
+
+@{
+    ViewBag.Title = "StaffList";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuUsers = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+
+    CommonHelper _helper = new CommonHelper();
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    List<StaffList> users = ViewBag.Staff;
+
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Other Staff
+    </h3>
+    <a href="~/Admin/Staff" class="btn btn-sm btn-info">Add Staff</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+
+@using (Html.BeginForm("StaffList", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", action = "/Admin/StaffList" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (users != null)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Department</th>
+                            <th>Designation</th>
+                            <th>Skill</th>
+                            <th>Leaves</th>
+                            @*<th>Payroll</th>*@
+                            <th>Action</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (StaffList str in users)
+                        {
+                            sr++;
+                            <tr>
+                                <td>@sr</td>
+                                <td>@str.FullName</td>
+                                <td>@str.Email</td>
+                                <td>@str.MobilePersonal</td>
+                                <td>@str.Department</td>
+                                <td>@str.Designation</td>
+                                <td>@str.Skills</td>
+                                <td><a href="/Admin/Leaves/@str.UserId" class="btn btn-sm btn-link">Leaves</a></td>
+                                @*<td>@*<a href="/Admin/Payroll/@ str.UserId" class="btn btn-sm btn-link">Payroll</a></td>*@
+                                
+                                <td><a href="/Admin/Staff/@str.UserId" class="btn btn-sm btn-info">Edit</a></td>
+                                
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}

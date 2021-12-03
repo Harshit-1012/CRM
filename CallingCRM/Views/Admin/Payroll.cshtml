@@ -1,0 +1,557 @@
+﻿@using CallingCRM.Models
+@using CallingCRM.Helpers
+
+@model Payroll
+
+
+@{
+    ViewBag.Title = "Payroll";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.MenuUsers = "active";
+
+    ViewBag.MessageTStatus = Session["MessageTStatus"];
+    Session["MessageTStatus"] = "";
+
+    CommonHelper _helper = new CommonHelper();
+    Staff ThisUser = ViewBag.Thisuser;
+    var month= DateTime.Now.ToString("MMM");
+    var TCDays = DateTime.DaysInMonth(_helper.GetCurrentDate().Year, _helper.GetCurrentDate().Month);
+    int Month = Convert.ToInt16(Model.Month);
+    int Year = Convert.ToInt16(Model.Year);
+    if (Model.Month != 0 && Model.Month != null)
+    {
+        month = new DateTime(Year, Month, 1).ToString("MMM");
+        TCDays = DateTime.DaysInMonth(Year, Month);
+    }
+
+    var joiningdate = Convert.ToDateTime(ThisUser.JoiningDate).ToString("dd-MM-yyyy");
+
+    List<Payroll> payrolls = ViewBag.payrolls;
+
+    DateTime thisDateTime = _helper.GetCurrentDate();
+
+    var SelectedSearchDate = "";
+
+    if (Session["PayrollMonth"] != null && Session["PayrollMonth"].ToString() != "")
+    {
+        SelectedSearchDate = Session["PayrollMonth"].ToString() + "/" + Session["PayrollYear"].ToString();
+    }
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-group"></i>
+        </span>
+        Manage Payrolls
+    </h3>
+   
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_commonMesages")
+    </div>
+</div>
+<style>
+    table, tr, td {
+        border: 1px solid black;
+    }
+</style>
+
+@using (Html.BeginForm("Payroll", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="SearchForm",name = "SearchForm", action = "/Admin/Payroll/" + ThisUser.UserId }))
+{
+    @Html.AntiForgeryToken()
+   
+    
+
+    @Html.HiddenFor(m => m.UserId, new { @class = "Control-label" })
+
+    <div class="row">
+        <div>
+            <label class="font-weight-bold">Select Month and Year</label>
+            <p>
+                @Html.TextBox("SelectedDate", SelectedSearchDate, new { @readonly = "readonly", id= "picker"})
+
+                 <input type="submit" id="Submit" class="btn btn-sm btn-info" value="Search" />
+            </p>
+           
+        </div>
+
+    </div>
+}
+
+
+@using (Html.BeginForm("Payroll", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "SaveForm", name = "SaveForm", action = "/Admin/Payroll" }))
+{
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+         @Html.HiddenFor(m => m.Id, new { @class = "Control-label", Value = Model.Id})
+        @Html.HiddenFor(m => m.UserId, new { @class = "Control-label"})
+    @Html.HiddenFor(m => m.Year, new { @class = "Control-label", Value = Model.Year, id= "txtYear" })
+
+
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <td colspan="12" align="center" style="border-top:solid; border-top-width:initial"><h5>TechnoBullz IT Solution Pvt. Ltd.</h5> </td>
+                </tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Name * </label>
+                    </td>
+                    <td colspan="2">
+                        <p>@ThisUser.FullName</p>
+                    </td>
+                    <td colspan="4">
+                        <label>Emp Code </label>
+                    </td>
+                    <td colspan="2">
+                        <p>@ThisUser.FullName</p>
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Department </label>
+                    </td>
+                    <td colspan="2">
+                        <p>@ThisUser.Department</p>
+                    </td>
+                    <td colspan="4">
+                        <label>Designation </label>
+                    </td>
+                    <td colspan="2">
+                        <p>@ThisUser.Designation</p>
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Date of Joining :</label>
+                    </td>
+                    <td colspan="2">
+
+                        <p>@joiningdate</p>
+                    </td>
+                    <td colspan="4">
+                        <label>Month :</label>
+                    </td>
+                    <td colspan="2">
+                        <p>@Html.TextBoxFor(m => m.Month, new { Value = @month, id = "txtMonth" })</p>
+                    </td>
+                </tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Basic </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.Basic, new {type = "text", id="txtBasic" })
+                    </td>
+
+                    <td colspan="4">
+                        <label>Total Calendar Days :</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBox("TotalCalendarDays", @TCDays, new {id="txtTotalCalendarDays", @readonly="readonly"})
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>HRA </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.HRA, new {id= "txtHRA"  })
+                    </td>
+
+                    <td colspan="4">
+                        <label>Total Working Days :</label>
+                    </td>
+                    <td colspan="2">
+                    @Html.TextBox("TotalWorkingDays", "25", new { id = "txtTotalWorkingDays" })       
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Conveyance </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.Conveyance, new {id="txtConveyance"})
+                    </td>
+
+                    <td colspan="4">
+                        <label>Total Non-Working Days</label>
+                    </td>
+                    <td colspan="2">
+                       @Html.TextBox("TotalNWorkingDays", "", new { id = "txtTotalNWorkingDays", onblur = "CalculateSalary(this);" })
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Spcl. Allowance </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.SpecialAllowance, new { id = "txtSpclAllowance" })
+                    </td>
+                    <td colspan="4">
+                        <label></label>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Travel Allowance </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.TravellingAllowance, new { id = "txtTravelAllowance"})
+                    </td>
+
+                    <td colspan="4">
+                        <label></label>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Distance Allowance </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.DistanceAllowance, new { id = "txtDistanceAllowance"})
+                    </td>
+
+                    <td colspan="4">
+                        <label></label>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Mobile/Internet Allowance </label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.MobileInternetAllowance, new { id = "txtMobileInternetAllowance" })
+                    </td>
+
+                    <td colspan="4">
+                        <label></label>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr colspan="12">
+                    <td colspan="6" align="center"><b>Earning</b></td>
+                    <td colspan="6" align="center"><b>Deduction</b></td>
+                </tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Arrear(b/f)</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.ArrearBF, new { id = "txtArrearBF"})
+                    </td>
+                    <td colspan="4">
+                        <label>Loan Deduction</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.LoanDeduction, new { id = "txtLoanDeduction" })
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Overtime</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.Overtime, new { id = "txtOvertime"})
+                    </td>
+
+                    <td colspan="4">
+                        <label>Advance Salary</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.AdvanceSalary, new { id = "txtAdvanceSalary"})
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Meal Allowance</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.MealAllowance, new { id = "txtMealAllowance" })
+                    </td>
+
+                    <td colspan="4">
+                        <label>Expenses Paid</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.ExpensesPaid, new { id = "txtExpensesPaid"})
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Cab Allowance</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.CabAllowance, new { id = "txtCabAllowance" })
+                    </td>
+
+                    <td colspan="4">
+                        <label>Arrear(c/f)* :</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.ArrearCF, new { id = "txtArrearCF" })
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Other Allowance</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.OtherAllowance, new { id = "txtOtherAllowance" })
+                    </td>
+
+                    <td colspan="4">
+                        <label>Other Deductions :</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.OtherDeductions, new { id = "txtOtherDeductions"})
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label></label>
+                    </td>
+                    <td colspan="2"></td>
+
+                    <td colspan="4">
+                        <label></label>
+                    </td>
+                    <td colspan="2"></td>
+
+                </tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Gross Earnings :</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBox("GrossEarning", "", new { id = "txtGrossEarning"})
+
+
+                    </td>
+
+                    <td colspan="4">
+                        <label>Gross Deductions :</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBox("GrossDeduction", "", new { id = "txtGrossDeduction" })
+                    </td>
+                </tr>
+                <tr colspan="12">
+                    <td colspan="4">
+                        <label>Net Amount (Round) :</label>
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBox("Price", "", new {id="pricebox", onkeyup = "price_in_words(this);" } )
+                    </td>
+
+                    <td colspan="12">
+                        <label id="idContent_Label2" style="color:#198ae3"></label>
+                    </td>
+
+
+                </tr>
+            </table>
+            
+            <div class="col-md-12 text-right">
+                <label>&nbsp;</label>
+                <p>
+                    <button id="revisePayroll" class="btn btn-sm btn-primary">Revise Payroll</button>
+                </p>
+            </div>
+            
+
+        </div>
+
+    }
+
+
+<hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (payrolls != null)
+        {
+            int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Full Name</th>
+                            <th>Revised Salary</th>
+                            <th>Revised Date</th>
+                            @*<th>Revised Designation</th>
+                            <th>Comments</th>*@
+                            <th>Action</th>
+
+                        </tr>
+                     </thead>
+                    <tbody>
+                        @foreach (Payroll result in payrolls)
+                        {
+                            sr++;
+                            string revDate = null;
+                            revDate = @result.Month + "/" + @result.Year;
+                            <tr>
+                                <td>@sr</td>
+                                    <td>@result.AspNetUser.FullName</td>
+                                    <td>@result.Basic</td>
+                                     
+                                    <td>@Html.Raw(revDate)</td>
+                                    @*<td>@result.</td>
+                                    <td>@result.Comment</td>*@
+                                    <td><a href="/Admin/Payroll/@result.UserId" class="btn btn-sm btn-info">Revise</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#inputId').attr('readonly', true);
+        $('#picker').datepicker({
+                changeYear: true,
+                format: "mm/yyyy",
+                language: "tr",
+                startView: "months",
+                minViewMode: "months",
+                autoclose:true
+            });
+    });
+</script>
+<script type="text/javascript">
+    function price_in_words(txtBox) {
+
+        var price = txtBox.value;
+        var sglDigit = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"],
+          dblDigit = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"],
+          tensPlace = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"],
+          handle_tens = function (dgt, prevDgt) {
+              return 0 == dgt ? "" : " " + (1 == dgt ? dblDigit[prevDgt] : tensPlace[dgt])
+          },
+          handle_utlc = function (dgt, nxtDgt, denom) {
+              return (0 != dgt && 1 != nxtDgt ? " " + sglDigit[dgt] : "") + (0 != nxtDgt || dgt > 0 ? " " + denom : "")
+          };
+
+        var str = "",
+          digitIdx = 0,
+          digit = 0,
+          nxtDigit = 0,
+          words = [];
+        if (price += "", isNaN(parseInt(price))) str = "";
+        else if (parseInt(price) > 0 && price.length <= 10) {
+            for (digitIdx = price.length - 1; digitIdx >= 0; digitIdx--) switch (digit = price[digitIdx] - 0, nxtDigit = digitIdx > 0 ? price[digitIdx - 1] - 0 : 0, price.length - digitIdx - 1) {
+                case 0:
+                    words.push(handle_utlc(digit, nxtDigit, ""));
+                    break;
+                case 1:
+                    words.push(handle_tens(digit, price[digitIdx + 1]));
+                    break;
+                case 2:
+                    words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] && 0 != price[digitIdx + 2] ? " and" : "") : "");
+                    break;
+                case 3:
+                    words.push(handle_utlc(digit, nxtDigit, "Thousand"));
+                    break;
+                case 4:
+                    words.push(handle_tens(digit, price[digitIdx + 1]));
+                    break;
+                case 5:
+                    words.push(handle_utlc(digit, nxtDigit, "Lakh"));
+                    break;
+                case 6:
+                    words.push(handle_tens(digit, price[digitIdx + 1]));
+                    break;
+                case 7:
+                    words.push(handle_utlc(digit, nxtDigit, "Crore"));
+                    break;
+                case 8:
+                    words.push(handle_tens(digit, price[digitIdx + 1]));
+                    break;
+                case 9:
+                    words.push(0 != digit ? " " + sglDigit[digit] + " Hundred" + (0 != price[digitIdx + 1] || 0 != price[digitIdx + 2] ? " and" : " Crore") : "")
+            }
+            str = words.reverse().join("")
+        } else str = "";
+
+
+        document.getElementById('idContent_Label2').innerHTML = str + " Rupees Only";
+
+
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtMonth").change(function () {
+            var emailRegex = /(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)/g;
+            var month = $("#txtMonth").val();
+            $("#txtTotalCalendarDays").val("daysInMonth(,month,0).getDate()");
+        });
+    });
+</script>
+<script type="text/javascript">
+        var basic = Number(document.getElementById('txtBasic').value);
+        var TotalCalendarDays = Number(document.getElementById('txtTotalCalendarDays').value);
+        var HRA = Number(document.getElementById('txtHRA').value);
+        var TotalWorkingDays = Number(document.getElementById('txtTotalWorkingDays').value);
+        var Conveyance = Number(document.getElementById('txtConveyance').value);
+        var NTotalWorkingDays = Number(document.getElementById('txtTotalNWorkingDays').value);
+        var SpclAllowance = Number(document.getElementById('txtSpclAllowance').value);
+        var TravelAllowance = Number(document.getElementById('txtTravelAllowance').value);
+        var DistanceAllowance = Number(document.getElementById('txtDistanceAllowance').value);
+        var MobileInternetAllowance = Number(document.getElementById('txtMobileInternetAllowance').value);
+        var salary;
+        var sal;
+        var total;
+        var ArrearBF = Number(document.getElementById('txtArrearBF').value);
+        var LoanDeduction = Number(document.getElementById('txtLoanDeduction').value);
+        var Overtime = Number(document.getElementById('txtOvertime').value);
+        var AdvanceSalary = Number(document.getElementById('txtAdvanceSalary').value);
+        var MealAllowance = Number(document.getElementById('txtMealAllowance').value);
+        var ExpensesPaid = Number(document.getElementById('txtExpensesPaid').value);
+        var CabAllowance = Number(document.getElementById('txtCabAllowance').value);
+        var ArrearCF = Number(document.getElementById('txtArrearCF').value);
+        var OtherAllowance = Number(document.getElementById('txtOtherAllowance').value);
+        var OtherDeductions = Number(document.getElementById('txtOtherDeductions').value);
+
+        var grossEarning; //= Number(document.getElementById('txtGrossEarning').value);
+        var grossDeduction; //= Number(document.getElementById('txtGrossDeduction').value);
+        var NetAmount;
+        function CalculateSalary(txtBox) {
+            grossEarning = Number(ArrearBF + Overtime + MealAllowance + CabAllowance + OtherAllowance);
+            grossDeduction = LoanDeduction + AdvanceSalary + ExpensesPaid + ArrearCF + OtherDeductions;
+            document.getElementById('txtGrossEarning').value = grossEarning
+            document.getElementById('txtGrossDeduction').value = grossDeduction;
+            total = Number(basic + HRA + Conveyance + SpclAllowance + TravelAllowance + DistanceAllowance + MobileInternetAllowance);
+            sal = Number(total / TotalCalendarDays);
+            salary = Math.round(sal * TotalWorkingDays);
+            NetAmount = Number(salary + grossEarning + grossDeduction);
+            document.getElementById('pricebox').value = NetAmount;
+        }
+   
+ 
+</script>
+

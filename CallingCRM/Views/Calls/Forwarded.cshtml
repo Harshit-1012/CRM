@@ -1,0 +1,93 @@
+﻿@using CallingCRM.Models
+@model DatePickerModel
+@{
+    ViewBag.Title = "My Forwarded Calls";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+    ViewBag.CallForwarded = "active";
+
+    DateTime? startDate = ViewBag.StartDate;
+    DateTime? endDate = ViewBag.EndDate;
+    string Status = "" + ViewBag.Status.ToLower();
+
+    List<LeadForwarded> history = ViewBag.LeadForwarded;
+
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-call-made"></i>
+        </span>
+        My Forwarded Calls - @Status.ToUpperInvariant()
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class='text-success'>@Html.Raw(ViewBag.sMessage)</div>
+        <div class='text-danger'>@Html.Raw(ViewBag.eMessage)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Forwarded", "Calls", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (history != null && history.Count > 0)
+            {
+                int sr = 0;
+                <table class="table table-hover table-bordered datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Forwarded Date</th>
+                            <th>Reason</th>
+                            @if(Status == "all") {
+                            <th>Action Date</th>
+                            <th>Action</th>
+                            }
+                            <th>When To Call?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (LeadForwarded call in history)
+                        {
+                            sr++;
+
+                        <tr style="cursor: pointer;" onclick="ViewLog('@call.LeadId')">
+                            <td>@sr</td>
+                            <td>@call.Lead.FullName</td>
+                            <td>@call.Lead.Mobile</td>
+                            <td>@call.ForwardDate</td>
+                            <td>@call.ForwardReason</td>
+                            @if (Status == "all")
+                            {
+                                <td>@call.ActionDate</td>
+                                <td>@call.ActionByNewUser</td>
+                            }
+                            <td>@call.NextReminderDate</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div>No call log found for specified criteria.</div>
+            }
+        </div>
+    </div>
+    <script>
+        function ViewLog(LeadId) {
+            window.location.href = "/calls/log/" + LeadId;
+        }
+    </script>
+
+}
+
+

@@ -1,0 +1,13 @@
+﻿@{ 
+    if (Session["sMessage"] != null && Session["sMessage"].ToString() != "")
+    {
+        <div class="alert alert-success">@Session["sMessage"]</div>
+    }
+    if (Session["eMessage"] != null && Session["eMessage"].ToString() != "")
+    {
+        <div class="alert alert-danger">@Session["eMessage"]</div>
+    }
+
+    Session["sMessage"] = "";
+    Session["eMessage"] = "";
+}
